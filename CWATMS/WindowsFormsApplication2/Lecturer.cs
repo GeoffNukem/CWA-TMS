@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 
 
-namespace CWATMS
+namespace WindowsFormsApplication2
 {
     public class Lecturer : Data
     {
