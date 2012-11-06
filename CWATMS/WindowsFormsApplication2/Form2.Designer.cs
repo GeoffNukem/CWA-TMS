@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication2
+﻿namespace CWATMS
 {
     partial class Form2
     {

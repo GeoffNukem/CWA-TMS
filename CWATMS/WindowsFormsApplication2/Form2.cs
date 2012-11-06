@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace WindowsFormsApplication2
+namespace CWATMS
 {
     public partial class Form2 : Form
     {

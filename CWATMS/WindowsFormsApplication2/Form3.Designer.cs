@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication2
+﻿namespace CWATMS
 {
     partial class Form3
     {
@@ -55,7 +55,7 @@
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.timetableDataSet1 = new WindowsFormsApplication2.TimetableDataSet();
+            this.timetableDataSet1 = new CWATMS.TimetableDataSet();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
