@@ -55,7 +55,6 @@
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.timetableDataSet1 = new CWATMS.TimetableDataSet();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,7 +77,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataRoomTable)).BeginInit();
             this.tabClass.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataClassTable)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timetableDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuData
@@ -316,11 +314,6 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // timetableDataSet1
-            // 
-            this.timetableDataSet1.DataSetName = "TimetableDataSet";
-            this.timetableDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.HeaderText = "Hours Per Module";
@@ -399,7 +392,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataRoomTable)).EndInit();
             this.tabClass.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataClassTable)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timetableDataSet1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -426,7 +418,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private TimetableDataSet timetableDataSet1;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
