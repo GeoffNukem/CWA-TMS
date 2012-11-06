@@ -16,12 +16,23 @@ namespace CWATMS
             : base(name, label, colour)
         {
             m_capacity = capacity;
+            m_equipmentList = new List<bool>(5);
         }
 
         public int Capacity
         {
             get { return m_capacity; }
             set { m_capacity = value; }
+        }
+
+        /// <summary>
+        /// Set whether room has equipment.
+        /// </summary>
+        /// <param name="index">index number of equipment. 0 = Projector, 1 = Smartboard, 2 = LecturerPC, 3 = TV, 4 = Network Lab</param>
+        /// <param name="flag"></param>
+        public void SetEquipment(int index, bool flag)
+        {
+            m_equipmentList[index] = false;
         }
     }
 }
