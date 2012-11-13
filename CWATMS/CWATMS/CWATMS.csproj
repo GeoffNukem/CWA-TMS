@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Data\Data.cs" />
     <Compile Include="Data\DataCollection.cs" />
+    <Compile Include="Data\DataValidation.cs" />
     <Compile Include="Data\Group.cs" />
     <Compile Include="Data\Module.cs" />
     <Compile Include="Data\Room.cs" />
