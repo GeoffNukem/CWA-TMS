@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+
 
 namespace CWATMS
 {
@@ -26,15 +28,80 @@ namespace CWATMS
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenFileDialog open = new OpenFileDialog(); //new open instance
 
+            //Open Dialogue configuration
+
+            open.DefaultExt = ".txt";
+            open.AddExtension = true;
+            open.RestoreDirectory = true;
+            open.InitialDirectory = @"C:\";
+            open.Filter = "Xml File (*.xml)|*.xml";
+            open.Title = "Save File";
+
+            // Dialogue accessed then loops thro each row and cell. Data added to file
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                //Save Dialogue corresponds to file location
+                openXML(open.FileName);
+            }
+        }
+
+        private void openXML(String file)
+        {
+            try
+            {
+                XmlTextReader xml = new XmlTextReader(file);
+
+                String nodeName = "";
+                DataGridViewRow row = new DataGridViewRow();
+
+                while (xml.Read())
+                {
+                    switch (xml.NodeType)
+                    {
+                        case XmlNodeType.Element:
+                            nodeName = xml.Name;
+                            break;
+                        case XmlNodeType.Text:
+                            switch (nodeName)
+                            {
+                                case "Lecturer":
+                                    row = new DataGridViewRow();
+                                    row.CreateCells(dataLecTable);
+                                    row.Cells[0].Value = xml.Value;
+                                    break;
+                                case "Label":
+                                    row = new DataGridViewRow();
+                                    row.CreateCells(dataSubTable);
+                                    row.Cells[1].Value = xml.Value;
+
+                                    break;
+                                case "ContractedHours":
+                                    row = new DataGridViewRow();
+                                    row.CreateCells(dataRoomTable);
+                                    row.Cells[2].Value = xml.Value;
+                                    break;
+                                case "Colour":
+                                    row = new DataGridViewRow();
+                                    row.CreateCells(dataClassTable);
+                                    row.Cells[3].Value = xml.Value;
+
+                                    break;
+                            }
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog save = new SaveFileDialog();     //new save instance
-            DataGridView dgv = dataLecTable;    
-            int tn=0;
-            string message = ("Save Error! Please try again");
+            SaveFileDialog save = new SaveFileDialog(); //new save instance
 
             //Save Dialogue configuration
 
@@ -42,60 +109,136 @@ namespace CWATMS
             save.AddExtension = true;
             save.RestoreDirectory = true;
             save.InitialDirectory = @"C:\";
-            save.Filter = "Text File (*.txt)|*.txt|Batch File (*.bat)|*.bat|VB Script (*.vbs)|*.vbs|All Files (*.*)|\"*.*\"";
+            save.Filter = "Xml File (*.xml)|*.xml";
             save.Title = "Save File";
 
             // Dialogue accessed then loops thro each row and cell. Data added to file
             if (save.ShowDialog() == DialogResult.OK)
             {
-                do
+                //Save Dialogue corresponds to file location
+                saveToXML(save.FileName);
+            }
+        }
+
+        private void saveToXML(String file)
+        {
+            DataGridView dgv = dataLecTable;
+            int tn = 0;
+
+
+            // Create XML File.
+            XmlTextWriter xml = new XmlTextWriter(file, null);
+
+            // Set XML writer in indent elements.
+            xml.Formatting = Formatting.Indented;
+
+            // Write in the XML document.
+            xml.WriteStartDocument();
+            xml.WriteStartElement("DataTables");
+            xml.WriteAttributeString("Count", dgv.RowCount.ToString());
+            do
+            {
+                switch (tn)
                 {
-                    for (int i = 0; i <= dgv.Rows.Count; i++)
-                    {
-                        for (int j = 0; j <= dgv.Rows[i].Cells.Count; j++)
+                    case 0:
+                        dgv = dataLecTable;
+
+                        // For each attribute, write each property into the XML document.
+                        for (int i = 0; i < dgv.RowCount - 1; i++)
                         {
-                            if (dgv.Rows[i].Cells[j].Value != null) //If a value is stored in a cell then
-                                File.AppendAllText(save.FileName, dgv.Rows[i].Cells[j].Value.ToString());
-                            //saves the dataGridView cells value to string format
-                            File.AppendAllText(save.FileName, dgv.Rows[i].Cells[j].Style.BackColor.ToString());
-                            //saves the RGB values for background colour
-                            tn++;
+                            xml.WriteStartElement("LecturerTable");
+                            xml.WriteAttributeString("ID", i.ToString());
+                            xml.WriteStartElement("Lecturer");
+                            xml.WriteString(dgv.Rows[i].Cells[0].Value.ToString());
+                            xml.WriteEndElement();
+                            xml.WriteStartElement("Label");
+                            xml.WriteString(dgv.Rows[i].Cells[1].Value.ToString());
+                            xml.WriteEndElement();
+                            xml.WriteStartElement("ContractedHours");
+                            xml.WriteString(dgv.Rows[i].Cells[2].Value.ToString());
+                            xml.WriteEndElement();
+                            xml.WriteStartElement("Colour");
+                            xml.WriteString(dgv.Rows[i].Cells[3].Value.ToString());
                         }
-                    }
-                    switch (tn)
-                    {
-                        case 0:
-                            {
-                                dgv = dataLecTable;
-                            }
-                            break;
+                        break;
 
-                        case 1:
-                            {
-                                dgv = dataSubTable;
-                            }
-                            break;
+                    case 1:
+                        dgv = dataSubTable;
+                        for (int i = 0; i < dgv.RowCount - 1; i++)
+                        {
+                            xml.WriteStartElement("SubjectTable");
+                            xml.WriteAttributeString("ID", i.ToString());
+                            xml.WriteStartElement("Subject");
+                            xml.WriteString(dgv.Rows[i].Cells[0].Value.ToString());
+                            xml.WriteEndElement();
+                            xml.WriteStartElement("Label");
+                            xml.WriteString(dgv.Rows[i].Cells[1].Value.ToString());
+                            xml.WriteEndElement();
+                            xml.WriteStartElement("Colour");
+                            xml.WriteString(dgv.Rows[i].Cells[3].Value.ToString());
+                        }
+                        break;
 
-                        case 2:
-                            {
-                                dgv = dataRoomTable;
-                            }
-                            break;
+                    case 2:
 
-                        case 3:
-                            {
-                                dgv = dataClassTable;
-                            }
-                            break;
+                        dgv = dataRoomTable;
+                        for (int i = 0; i < dgv.RowCount - 1; i++)
+                        {
+                            xml.WriteStartElement("RoomTable");
+                            xml.WriteAttributeString("ID", i.ToString());
+                            xml.WriteStartElement("Room No");
+                            xml.WriteString(dgv.Rows[i].Cells[0].Value.ToString());
+                            xml.WriteEndElement();
+                            xml.WriteStartElement("Smartboard");
+                            xml.WriteString(dgv.Rows[i].Cells[1].Value.ToString());
+                            xml.WriteEndElement();
+                            xml.WriteStartElement("TV");
+                            xml.WriteString(dgv.Rows[i].Cells[2].Value.ToString());
+                            xml.WriteEndElement();
+                            xml.WriteStartElement("Projector");
+                            xml.WriteString(dgv.Rows[i].Cells[3].Value.ToString());
+                            xml.WriteEndElement();
+                            xml.WriteStartElement("Network Lab");
+                            xml.WriteString(dgv.Rows[i].Cells[3].Value.ToString());
+                            xml.WriteEndElement();
+                            xml.WriteStartElement("Colour");
+                            xml.WriteString(dgv.Rows[i].Cells[3].Value.ToString());
+                        }
+                        break;
 
-                        default:
-                            {
-                                MessageBox.Show("message");
-                            }
-                            break;
-                    }
+                    case 3:
 
-                } while (tn < 4);
+                        dgv = dataClassTable;
+                        for (int i = 0; i < dgv.RowCount - 1; i++)
+                        {
+                            xml.WriteStartElement("ClassTable");
+                            xml.WriteAttributeString("ID", i.ToString());
+                            xml.WriteStartElement("Class");
+                            xml.WriteString(dgv.Rows[i].Cells[0].Value.ToString());
+                            xml.WriteEndElement();
+                            xml.WriteStartElement("Label");
+                            xml.WriteString(dgv.Rows[i].Cells[1].Value.ToString());
+                            xml.WriteEndElement();
+                            xml.WriteStartElement("Colour");
+                            xml.WriteString(dgv.Rows[i].Cells[3].Value.ToString());
+                        }
+                        break;
+
+                    default:
+
+                        MessageBox.Show("Error saving data, please try again!");
+
+                        break;
+                }
+
+                tn++;
+            } while (tn < 4);
+
+            xml.WriteEndElement();
+            xml.WriteEndDocument();
+            xml.Flush();
+            xml.Close();
+        }
 
 
                 //for (int i = 0; i <= dataSubTable.Rows.Count; i++)
@@ -126,9 +269,6 @@ namespace CWATMS
                 //            File.AppendAllText(save.FileName, dataClassTable.Rows[i].Cells[j].Value.ToString());             //saves the dataGridView cells value to string format
                 //        File.AppendAllText(save.FileName, dataClassTable.Rows[i].Cells[j].Style.BackColor.ToString());   //saves the RGB values for background colour
                 //    }
-            
-            }
-        }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
