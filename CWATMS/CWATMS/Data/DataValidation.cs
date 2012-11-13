@@ -31,16 +31,16 @@ namespace CWATMS
         }
 
         /// <summary>
-        /// Is an Integer within a range.
+        /// Checks if a number is within a range. 
         /// </summary>
-        /// <param name="num">Number to check</param>
-        /// <param name="min">Minimum number</param>
-        /// <param name="max">Maximum number</param>
-        /// <param name="lessThanOrEqualTo">Can number equal to the min and max numbers</param>
-        /// <returns>Returns if the number is between the min & max values</returns>
-        public bool IsInRange(int num, int min, int max, bool lessThanOrEqualTo = false)
+        /// <param name="num">The number to check</param>
+        /// <param name="min">The minimum number in the range</param>
+        /// <param name="max">The maximum number in the range</param>
+        /// <param name="useLessThanOrEqualTo">Include the min and max values in the range</param>
+        /// <returns>returns if the number is in the range</returns>
+        public bool IsInRange(int num, int min, int max, bool useLessThanOrEqualTo = false)
         {
-            return lessThanOrEqualTo ? (num >= min && num <= max) : (num > min && num < max);
+            return useLessThanOrEqualTo ? (num >= min && num <= max) : (num > min && num < max);
         }
 
         public static DataValidation Instance
