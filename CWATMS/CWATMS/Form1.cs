@@ -86,19 +86,9 @@ namespace CWATMS
             ActiveMdiChild.Close();
         }
 
-        private void closeAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ActiveForm.Close();
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void manageToolStripMenuItem_Click(object sender, EventArgs e)

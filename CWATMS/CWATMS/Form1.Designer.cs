@@ -32,6 +32,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,8 +97,7 @@
             this.buttonClass3 = new System.Windows.Forms.Button();
             this.buttonClass2 = new System.Windows.Forms.Button();
             this.buttonClass1 = new System.Windows.Forms.Button();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlLessons = new System.Windows.Forms.Panel();
             this.menuMain.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabLesson.SuspendLayout();
@@ -105,6 +105,7 @@
             this.tabSubject.SuspendLayout();
             this.tabRoom.SuspendLayout();
             this.tabClass.SuspendLayout();
+            this.pnlLessons.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuMain
@@ -120,7 +121,7 @@
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuMain.Size = new System.Drawing.Size(1466, 24);
+            this.menuMain.Size = new System.Drawing.Size(1039, 24);
             this.menuMain.TabIndex = 2;
             this.menuMain.Text = "menuMain";
             // 
@@ -149,6 +150,13 @@
             this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
@@ -187,7 +195,7 @@
             // manageToolStripMenuItem
             // 
             this.manageToolStripMenuItem.Name = "manageToolStripMenuItem";
-            this.manageToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.manageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.manageToolStripMenuItem.Text = "Manage";
             this.manageToolStripMenuItem.Click += new System.EventHandler(this.manageToolStripMenuItem_Click);
             // 
@@ -202,7 +210,7 @@
             this.statusStrip1.Location = new System.Drawing.Point(0, 525);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 10, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1466, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1039, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -214,11 +222,12 @@
             this.tabControl.Controls.Add(this.tabSubject);
             this.tabControl.Controls.Add(this.tabRoom);
             this.tabControl.Controls.Add(this.tabClass);
-            this.tabControl.Location = new System.Drawing.Point(11, 36);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1036, 89);
+            this.tabControl.Size = new System.Drawing.Size(1039, 84);
             this.tabControl.TabIndex = 6;
             this.tabControl.TabStop = false;
             // 
@@ -226,7 +235,6 @@
             // 
             this.tabLesson.BackColor = System.Drawing.SystemColors.Control;
             this.tabLesson.Controls.Add(this.buttonLes10);
-            this.tabLesson.Controls.Add(this.buttonLes9);
             this.tabLesson.Controls.Add(this.buttonLes8);
             this.tabLesson.Controls.Add(this.buttonLes7);
             this.tabLesson.Controls.Add(this.buttonLes6);
@@ -235,11 +243,12 @@
             this.tabLesson.Controls.Add(this.buttonLes3);
             this.tabLesson.Controls.Add(this.buttonLes2);
             this.tabLesson.Controls.Add(this.buttonLes1);
+            this.tabLesson.Controls.Add(this.buttonLes9);
             this.tabLesson.ForeColor = System.Drawing.SystemColors.ControlText;
             this.tabLesson.Location = new System.Drawing.Point(4, 25);
             this.tabLesson.Margin = new System.Windows.Forms.Padding(2);
             this.tabLesson.Name = "tabLesson";
-            this.tabLesson.Size = new System.Drawing.Size(1028, 60);
+            this.tabLesson.Size = new System.Drawing.Size(1031, 55);
             this.tabLesson.TabIndex = 4;
             this.tabLesson.Text = "Lesson";
             // 
@@ -370,7 +379,7 @@
             this.tabLecturer.Margin = new System.Windows.Forms.Padding(2);
             this.tabLecturer.Name = "tabLecturer";
             this.tabLecturer.Padding = new System.Windows.Forms.Padding(2);
-            this.tabLecturer.Size = new System.Drawing.Size(1028, 60);
+            this.tabLecturer.Size = new System.Drawing.Size(1031, 57);
             this.tabLecturer.TabIndex = 0;
             this.tabLecturer.Text = "Lecturer";
             // 
@@ -500,7 +509,7 @@
             this.tabSubject.Margin = new System.Windows.Forms.Padding(2);
             this.tabSubject.Name = "tabSubject";
             this.tabSubject.Padding = new System.Windows.Forms.Padding(2);
-            this.tabSubject.Size = new System.Drawing.Size(1028, 60);
+            this.tabSubject.Size = new System.Drawing.Size(1031, 57);
             this.tabSubject.TabIndex = 1;
             this.tabSubject.Text = "Subject";
             this.tabSubject.UseVisualStyleBackColor = true;
@@ -630,7 +639,7 @@
             this.tabRoom.Location = new System.Drawing.Point(4, 25);
             this.tabRoom.Margin = new System.Windows.Forms.Padding(2);
             this.tabRoom.Name = "tabRoom";
-            this.tabRoom.Size = new System.Drawing.Size(1028, 60);
+            this.tabRoom.Size = new System.Drawing.Size(1031, 57);
             this.tabRoom.TabIndex = 2;
             this.tabRoom.Text = "Room";
             this.tabRoom.UseVisualStyleBackColor = true;
@@ -760,7 +769,7 @@
             this.tabClass.Location = new System.Drawing.Point(4, 25);
             this.tabClass.Margin = new System.Windows.Forms.Padding(2);
             this.tabClass.Name = "tabClass";
-            this.tabClass.Size = new System.Drawing.Size(1028, 60);
+            this.tabClass.Size = new System.Drawing.Size(1031, 57);
             this.tabClass.TabIndex = 3;
             this.tabClass.Text = "Class";
             this.tabClass.UseVisualStyleBackColor = true;
@@ -875,31 +884,22 @@
             this.buttonClass1.UseVisualStyleBackColor = true;
             this.buttonClass1.Visible = false;
             // 
-            // toolStrip1
+            // pnlLessons
             // 
-            this.toolStrip1.AutoSize = false;
-            this.toolStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1466, 108);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.pnlLessons.Controls.Add(this.tabControl);
+            this.pnlLessons.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlLessons.Location = new System.Drawing.Point(0, 24);
+            this.pnlLessons.Name = "pnlLessons";
+            this.pnlLessons.Size = new System.Drawing.Size(1039, 84);
+            this.pnlLessons.TabIndex = 10;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1466, 547);
-            this.Controls.Add(this.tabControl);
+            this.ClientSize = new System.Drawing.Size(1039, 547);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.pnlLessons);
             this.Controls.Add(this.menuMain);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuMain;
@@ -915,6 +915,7 @@
             this.tabSubject.ResumeLayout(false);
             this.tabRoom.ResumeLayout(false);
             this.tabClass.ResumeLayout(false);
+            this.pnlLessons.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -991,8 +992,8 @@
         private System.Windows.Forms.Button buttonClass3;
         private System.Windows.Forms.Button buttonClass2;
         private System.Windows.Forms.Button buttonClass1;
-        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.Panel pnlLessons;
         
     }
 }
