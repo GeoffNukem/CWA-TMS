@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace CWATMS
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         //public delegate void SaveDelegate(object sender, EventArgs e);
         //public event SaveDelegate Save;
 
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
         }
@@ -86,19 +86,9 @@ namespace CWATMS
             ActiveMdiChild.Close();
         }
 
-        private void closeAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ActiveForm.Close();
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void manageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -106,6 +96,11 @@ namespace CWATMS
             Form3 childForm = new Form3(); // Declare the child form as a new one.
             childForm.MdiParent = this;// Set the main form as a parent form.
             childForm.Show();// Show the child form.
+        }
+
+        private void lstTimetables_DoubleClick(object sender, EventArgs e)
+        {
+            MessageBox.Show(sender.ToString());
         }
 
         
