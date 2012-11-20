@@ -26,6 +26,9 @@ namespace CWATMS
             m_hoursPerWeek = hoursPerWeek;
         }
 
+        /// <summary>
+        /// Number of hours required per week.
+        /// </summary>
         public int HoursPerWeek
         {
             get { return m_hoursPerWeek; }
