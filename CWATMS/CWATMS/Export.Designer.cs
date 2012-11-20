@@ -53,6 +53,7 @@
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.Print_all_Lec_Timtab = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.Timetable_Lecturers_Export = new System.Windows.Forms.Button();
             this.tabPage11 = new System.Windows.Forms.TabPage();
@@ -61,7 +62,9 @@
             this.tabPage12 = new System.Windows.Forms.TabPage();
             this.listView3 = new System.Windows.Forms.ListView();
             this.Timetable_Groups_Export = new System.Windows.Forms.Button();
-            this.Print_all_Lec_Timtab = new System.Windows.Forms.Button();
+            this.Print_PDF_Dialog_List_Lec = new System.Windows.Forms.Button();
+            this.Export_Settings = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -79,6 +82,7 @@
             this.tabPage9.SuspendLayout();
             this.tabPage11.SuspendLayout();
             this.tabPage12.SuspendLayout();
+            this.Export_Settings.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -118,6 +122,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.Print_PDF_Dialog_List_Lec);
             this.tabPage2.Controls.Add(this.Print_PDF_Lst_Lecturers);
             this.tabPage2.Controls.Add(this.Open_PDF_List_Lecturers);
             this.tabPage2.Controls.Add(this.Lecturers_Export);
@@ -132,19 +137,19 @@
             // 
             // Print_PDF_Lst_Lecturers
             // 
-            this.Print_PDF_Lst_Lecturers.Location = new System.Drawing.Point(364, 278);
+            this.Print_PDF_Lst_Lecturers.Location = new System.Drawing.Point(457, 222);
             this.Print_PDF_Lst_Lecturers.Name = "Print_PDF_Lst_Lecturers";
-            this.Print_PDF_Lst_Lecturers.Size = new System.Drawing.Size(75, 23);
+            this.Print_PDF_Lst_Lecturers.Size = new System.Drawing.Size(108, 23);
             this.Print_PDF_Lst_Lecturers.TabIndex = 6;
-            this.Print_PDF_Lst_Lecturers.Text = "Print PDF";
+            this.Print_PDF_Lst_Lecturers.Text = "Print Preview";
             this.Print_PDF_Lst_Lecturers.UseVisualStyleBackColor = true;
             this.Print_PDF_Lst_Lecturers.Click += new System.EventHandler(this.Print_PDF_Lst_Lecturers_Click);
             // 
             // Open_PDF_List_Lecturers
             // 
-            this.Open_PDF_List_Lecturers.Location = new System.Drawing.Point(509, 237);
+            this.Open_PDF_List_Lecturers.Location = new System.Drawing.Point(457, 164);
             this.Open_PDF_List_Lecturers.Name = "Open_PDF_List_Lecturers";
-            this.Open_PDF_List_Lecturers.Size = new System.Drawing.Size(75, 23);
+            this.Open_PDF_List_Lecturers.Size = new System.Drawing.Size(108, 23);
             this.Open_PDF_List_Lecturers.TabIndex = 5;
             this.Open_PDF_List_Lecturers.Text = "Open PDF";
             this.Open_PDF_List_Lecturers.UseVisualStyleBackColor = true;
@@ -152,7 +157,7 @@
             // 
             // Lecturers_Export
             // 
-            this.Lecturers_Export.Location = new System.Drawing.Point(364, 237);
+            this.Lecturers_Export.Location = new System.Drawing.Point(457, 135);
             this.Lecturers_Export.Name = "Lecturers_Export";
             this.Lecturers_Export.Size = new System.Drawing.Size(105, 23);
             this.Lecturers_Export.TabIndex = 1;
@@ -284,6 +289,7 @@
             // 
             this.tabControl2.Controls.Add(this.tabPage6);
             this.tabControl2.Controls.Add(this.tabPage7);
+            this.tabControl2.Controls.Add(this.Export_Settings);
             this.tabControl2.Location = new System.Drawing.Point(29, 13);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -347,6 +353,15 @@
             this.tabPage9.Text = "Lecturers";
             this.tabPage9.UseVisualStyleBackColor = true;
             // 
+            // Print_all_Lec_Timtab
+            // 
+            this.Print_all_Lec_Timtab.Location = new System.Drawing.Point(364, 26);
+            this.Print_all_Lec_Timtab.Name = "Print_all_Lec_Timtab";
+            this.Print_all_Lec_Timtab.Size = new System.Drawing.Size(120, 55);
+            this.Print_all_Lec_Timtab.TabIndex = 3;
+            this.Print_all_Lec_Timtab.Text = "Print all lecturer timetables";
+            this.Print_all_Lec_Timtab.UseVisualStyleBackColor = true;
+            // 
             // listView1
             // 
             this.listView1.Location = new System.Drawing.Point(25, 26);
@@ -357,11 +372,11 @@
             // 
             // Timetable_Lecturers_Export
             // 
-            this.Timetable_Lecturers_Export.Location = new System.Drawing.Point(364, 237);
+            this.Timetable_Lecturers_Export.Location = new System.Drawing.Point(364, 250);
             this.Timetable_Lecturers_Export.Name = "Timetable_Lecturers_Export";
-            this.Timetable_Lecturers_Export.Size = new System.Drawing.Size(105, 23);
+            this.Timetable_Lecturers_Export.Size = new System.Drawing.Size(194, 23);
             this.Timetable_Lecturers_Export.TabIndex = 1;
-            this.Timetable_Lecturers_Export.Text = "Export as PDF";
+            this.Timetable_Lecturers_Export.Text = "Export selected as PDF";
             this.Timetable_Lecturers_Export.UseVisualStyleBackColor = true;
             // 
             // tabPage11
@@ -422,14 +437,36 @@
             this.Timetable_Groups_Export.UseVisualStyleBackColor = true;
             this.Timetable_Groups_Export.Click += new System.EventHandler(this.Timetable_Groups_Export_Click);
             // 
-            // Print_all_Lec_Timtab
+            // Print_PDF_Dialog_List_Lec
             // 
-            this.Print_all_Lec_Timtab.Location = new System.Drawing.Point(364, 26);
-            this.Print_all_Lec_Timtab.Name = "Print_all_Lec_Timtab";
-            this.Print_all_Lec_Timtab.Size = new System.Drawing.Size(120, 55);
-            this.Print_all_Lec_Timtab.TabIndex = 3;
-            this.Print_all_Lec_Timtab.Text = "Print all lecturer timetables";
-            this.Print_all_Lec_Timtab.UseVisualStyleBackColor = true;
+            this.Print_PDF_Dialog_List_Lec.Location = new System.Drawing.Point(457, 193);
+            this.Print_PDF_Dialog_List_Lec.Name = "Print_PDF_Dialog_List_Lec";
+            this.Print_PDF_Dialog_List_Lec.Size = new System.Drawing.Size(108, 23);
+            this.Print_PDF_Dialog_List_Lec.TabIndex = 7;
+            this.Print_PDF_Dialog_List_Lec.Text = "Print Dialog";
+            this.Print_PDF_Dialog_List_Lec.UseVisualStyleBackColor = true;
+            this.Print_PDF_Dialog_List_Lec.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // Export_Settings
+            // 
+            this.Export_Settings.Controls.Add(this.checkBox1);
+            this.Export_Settings.Location = new System.Drawing.Point(4, 22);
+            this.Export_Settings.Name = "Export_Settings";
+            this.Export_Settings.Padding = new System.Windows.Forms.Padding(3);
+            this.Export_Settings.Size = new System.Drawing.Size(686, 377);
+            this.Export_Settings.TabIndex = 2;
+            this.Export_Settings.Text = "Export Settings";
+            this.Export_Settings.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(48, 24);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(80, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // Export
             // 
@@ -456,6 +493,8 @@
             this.tabPage9.ResumeLayout(false);
             this.tabPage11.ResumeLayout(false);
             this.tabPage12.ResumeLayout(false);
+            this.Export_Settings.ResumeLayout(false);
+            this.Export_Settings.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -496,5 +535,8 @@
         private System.Windows.Forms.Button Print_PDF_Lst_Lecturers;
         private System.Windows.Forms.Button View_PDF_List_All;
         private System.Windows.Forms.Button Print_all_Lec_Timtab;
+        private System.Windows.Forms.Button Print_PDF_Dialog_List_Lec;
+        private System.Windows.Forms.TabPage Export_Settings;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

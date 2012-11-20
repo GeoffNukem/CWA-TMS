@@ -27,7 +27,7 @@ namespace CWATMS
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            this.Cursor = Cursors.WaitCursor;
             Document document = new Document();
             PdfWriter.GetInstance(document, new FileStream(titleLec + ".pdf", FileMode.Create));
             document.Open();
@@ -75,11 +75,11 @@ namespace CWATMS
             document.Add(new Paragraph(document.BottomMargin, " The A Team , Timetable Mangement System. Date and time produced " + now ));
             document.Close();
 
-            MessageBox.Show(titleLec + " has successfully been exported",
-                "Export",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information,
-                MessageBoxDefaultButton.Button1);
+            this.Cursor = Cursors.Default;
+
+            export_Complete(titleLec);
+
+
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -133,11 +133,7 @@ namespace CWATMS
             document.Add(t1);
             document.Close();
 
-            MessageBox.Show(titleMod + " has been exported",
-                "Export",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information,
-                MessageBoxDefaultButton.Button1);
+            export_Complete(titleMod);
         }
 
 
@@ -217,7 +213,7 @@ namespace CWATMS
             ProcessStartInfo p = new ProcessStartInfo();
             p.FileName = "SumatraPDF.exe";
 
-            p.Arguments = source;
+            p.Arguments = "-restrict " + source;
 
             Process x = Process.Start(p);
         }
@@ -230,6 +226,32 @@ namespace CWATMS
             p.Arguments = "-print-dialog " + source;
 
             Process x = Process.Start(p);
+        }
+
+        public void print_Dialog(string source)
+        {
+            ProcessStartInfo p = new ProcessStartInfo();
+            p.FileName = "SumatraPDF.exe";
+
+            p.Arguments = "-print-dialog " + source + " -exit-on-print";
+
+            Process x = Process.Start(p);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            string sourceName = "List_of_Lecturers.pdf";
+
+            print_Dialog(sourceName);
+        }
+
+        public void export_Complete(string title)
+        {
+            MessageBox.Show(title + " has successfully been exported",
+    "Export",
+    MessageBoxButtons.OK,
+    MessageBoxIcon.Information,
+    MessageBoxDefaultButton.Button1);
         }
 
     }
