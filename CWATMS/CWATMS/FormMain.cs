@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CWATMS.Controls;
 
 namespace CWATMS
 {
@@ -22,7 +23,7 @@ namespace CWATMS
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form2 childForm = new Form2();              // Declare the child form as a new one.
+            FormTimetable childForm = new FormTimetable();              // Declare the child form as a new one.
             childForm.MdiParent = this;                 // Set the main form as a parent form.
             childForm.Show();                           // Show the child form.
         }
@@ -35,52 +36,7 @@ namespace CWATMS
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
-            //--------------------------------------------------------------------------
-             //{
-            //This line of code creates a text file for the data export.
-
-            //System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\TextFile.txt");
-           // try
-           // {                
-                //string sLine = "";
-
-                //This for loop loops through each row in the table
-               // Form activeChild = this.ActiveMdiChild;
-                
-                //if( ActiveForm=Form3)
-               // {
-                    //for (int r = 0; r <= this.ActiveMdiChild.dataGridView1.Rows.Count - 1; r++)
-                    //{
-                        //This for loop loops through each column, and the row number
-                        //is passed from the for loop above.
-                        //for (int c = 0; c <= dataGridView1.Columns.Count - 1; c++)
-                        //{
-                            //sLine = sLine + dataGridView1.Rows[r].Cells[c].Value;
-                            //if (c != dataGridView1.Columns.Count - 1)
-                        //{
-
-                            //A comma is added as a text delimiter in order
-                            //to separate each field in the text file.
-                            //You can choose another character as a delimiter.
-                            //sLine = sLine + ",";
-                        //}
-                    //}
-                    //The exported text is written to the text file, one line at a time.
-                    //file.WriteLine(sLine);                     
-                    //sLine = "";
-                //}
-
-                //file.Close();
-                //System.Windows.Forms.MessageBox.Show("Export Complete.", "Program Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //catch (System.Exception err)
-            //{
-                //System.Windows.Forms.MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //file.Close();
-            //}
-            //if (this.Save != null) this.Save(sender, e);
-        //}
-        
+            
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ActiveMdiChild.Close();
@@ -98,18 +54,73 @@ namespace CWATMS
             childForm.Show();// Show the child form.
         }
 
-        private void lstTimetables_DoubleClick(object sender, EventArgs e)
+        private void populateTab()
         {
-            MessageBox.Show(sender.ToString());
+            foreach (Lecturer lect in DataCollection.Instance.Lecturers)
+            {
+                DataButton button = new DataButton();
+                button.Dock = DockStyle.Left;
+                button.MouseDown += Button_MouseDown;
+                button.Lecturer = lect;
+                button.Text = button.Lecturer.Name;
+                button.BackColor = button.Lecturer.Colour;
+                button.CreateControl();
+                this.tabLecturer.Controls.Add(button);
+            }
+            foreach (Module mod in DataCollection.Instance.Modules)
+            {
+                DataButton button = new DataButton();
+                button.Dock = DockStyle.Left;
+                button.MouseDown += Button_MouseDown;
+                button.Module = mod;
+                button.Text = button.Module.Name;
+                button.BackColor = button.Module.Colour;
+                button.CreateControl();
+                this.tabSubject.Controls.Add(button);
+            }
+            foreach (Room room in DataCollection.Instance.Rooms)
+            {
+                DataButton button = new DataButton();
+                button.Dock = DockStyle.Left;
+                button.MouseDown += Button_MouseDown;
+                button.Room = room;
+                button.Text = button.Room.Name;
+                button.BackColor = button.Room.Colour;
+                button.CreateControl();
+                this.tabSubject.Controls.Add(button);
+            }
+            foreach (Group grp in DataCollection.Instance.Groups)
+            {
+                DataButton button = new DataButton();
+                button.Dock = DockStyle.Left;
+                button.MouseDown += Button_MouseDown;
+                button.Group = grp;
+                button.Text = button.Group.Name;
+                button.BackColor = button.Group.Colour;
+                button.CreateControl();
+                this.tabSubject.Controls.Add(button);
+            }
         }
 
-        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Button_MouseDown(object sender, MouseEventArgs e)
         {
-            Export childForm = new Export();              
-            childForm.MdiParent = this;                 
-            childForm.Show();
+            if (e.Button == MouseButtons.Left && e.Clicks == 1)
+            {
+                if (sender is DataButton)
+                {
+                    DataButton button = (DataButton)sender;
+                    if (button.Lecturer != null)
+                        button.DoDragDrop(button.Lecturer, DragDropEffects.Copy);
+                    else if (button.Module != null)
+                        button.DoDragDrop(button.Module, DragDropEffects.Copy);
+                }
+            }
         }
 
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            populateTab();
+        }
         
     }
 }
