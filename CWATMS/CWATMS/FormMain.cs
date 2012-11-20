@@ -121,6 +121,13 @@ namespace CWATMS
         {
             populateTab();
         }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Export childForm = new Export();
+            childForm.MdiParent = this;
+            childForm.Show();
+        }
         
     }
 }
