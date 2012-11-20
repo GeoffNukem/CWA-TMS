@@ -11,12 +11,22 @@ namespace CWATMS
     {
         private String m_courseLevel;
 
+        /// <summary>
+        /// Module constructor
+        /// </summary>
+        /// <param name="name">Name of Module</param>
+        /// <param name="courseLevel">Course Level of the module</param>
+        /// <param name="label">Shortened name for module</param>
+        /// <param name="colour">Colour of module</param>
         public Module(String name, String courseLevel, String label, Color colour)
             : base(name, label, colour)
         {
             m_courseLevel = courseLevel;
         }
 
+        /// <summary>
+        /// Course Level of the module
+        /// </summary>
         public String CourseLevel
         {
             get { return m_courseLevel; }
