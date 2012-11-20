@@ -38,6 +38,10 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byLecturerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.roomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.classToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,10 +103,7 @@
             this.buttonClass2 = new System.Windows.Forms.Button();
             this.buttonClass1 = new System.Windows.Forms.Button();
             this.pnlLessons = new System.Windows.Forms.Panel();
-            this.byLecturerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.roomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.moduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.classToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMain.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabLesson.SuspendLayout();
@@ -137,6 +138,7 @@
             this.openToolStripMenuItem,
             this.toolStripSeparator1,
             this.saveToolStripMenuItem,
+            this.exportToolStripMenuItem,
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -198,6 +200,30 @@
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
             // 
+            // byLecturerToolStripMenuItem
+            // 
+            this.byLecturerToolStripMenuItem.Name = "byLecturerToolStripMenuItem";
+            this.byLecturerToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.byLecturerToolStripMenuItem.Text = "Lecturer";
+            // 
+            // moduleToolStripMenuItem
+            // 
+            this.moduleToolStripMenuItem.Name = "moduleToolStripMenuItem";
+            this.moduleToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.moduleToolStripMenuItem.Text = "Subject";
+            // 
+            // roomToolStripMenuItem
+            // 
+            this.roomToolStripMenuItem.Name = "roomToolStripMenuItem";
+            this.roomToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.roomToolStripMenuItem.Text = "Room";
+            // 
+            // classToolStripMenuItem
+            // 
+            this.classToolStripMenuItem.Name = "classToolStripMenuItem";
+            this.classToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.classToolStripMenuItem.Text = "Class";
+            // 
             // dataToolStripMenuItem
             // 
             this.dataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -209,7 +235,7 @@
             // manageToolStripMenuItem
             // 
             this.manageToolStripMenuItem.Name = "manageToolStripMenuItem";
-            this.manageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.manageToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.manageToolStripMenuItem.Text = "Manage";
             this.manageToolStripMenuItem.Click += new System.EventHandler(this.manageToolStripMenuItem_Click);
             // 
@@ -908,29 +934,12 @@
             this.pnlLessons.Size = new System.Drawing.Size(1039, 104);
             this.pnlLessons.TabIndex = 10;
             // 
-            // byLecturerToolStripMenuItem
+            // exportToolStripMenuItem
             // 
-            this.byLecturerToolStripMenuItem.Name = "byLecturerToolStripMenuItem";
-            this.byLecturerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.byLecturerToolStripMenuItem.Text = "Lecturer";
-            // 
-            // roomToolStripMenuItem
-            // 
-            this.roomToolStripMenuItem.Name = "roomToolStripMenuItem";
-            this.roomToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.roomToolStripMenuItem.Text = "Room";
-            // 
-            // moduleToolStripMenuItem
-            // 
-            this.moduleToolStripMenuItem.Name = "moduleToolStripMenuItem";
-            this.moduleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.moduleToolStripMenuItem.Text = "Subject";
-            // 
-            // classToolStripMenuItem
-            // 
-            this.classToolStripMenuItem.Name = "classToolStripMenuItem";
-            this.classToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.classToolStripMenuItem.Text = "Class";
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -1040,6 +1049,7 @@
         private System.Windows.Forms.ToolStripMenuItem moduleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem roomToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem classToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
         
     }
 }

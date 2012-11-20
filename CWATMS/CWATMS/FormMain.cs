@@ -103,6 +103,13 @@ namespace CWATMS
             MessageBox.Show(sender.ToString());
         }
 
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Export childForm = new Export();              
+            childForm.MdiParent = this;                 
+            childForm.Show();
+        }
+
         
     }
 }
