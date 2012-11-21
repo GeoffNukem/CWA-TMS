@@ -14,12 +14,8 @@ namespace CWATMS
         private Module m_module;
         private Group m_group;
 
-        private DateTime m_startTime;
-        private DateTime m_endTime;
-
+        private int m_time;
         private int m_day;
-
-        private Color m_color;
 
         public Lesson()
         {
@@ -49,5 +45,16 @@ namespace CWATMS
             set { m_group = value; }
         }
 
+        public int Time
+        {
+            get { return m_time; }
+            set { m_time = value; }
+        }
+
+        public int Day
+        {
+            get { return m_day; }
+            set { m_day = value; }
+        }
     }
 }

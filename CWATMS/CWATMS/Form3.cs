@@ -8,13 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
+
 
 
 namespace CWATMS
 {
     public partial class Form3 : Form
     {
+        private static readonly Form3 instance = new Form3();
 
         public Form3()
         {
@@ -40,57 +41,12 @@ namespace CWATMS
             open.Title = "Save File";
 
             // Dialogue accessed then loops thro each row and cell. Data added to file
-            if (open.ShowDialog() == DialogResult.OK)
-            {
-                //Save Dialogue corresponds to file location
-                openXML(open.FileName);
-            }
-        }
-
-        private void openXML(String file)
-        {
             try
             {
-                XmlTextReader xml = new XmlTextReader(file);
-
-                String nodeName = "";
-                DataGridViewRow row = new DataGridViewRow();
-
-                while (xml.Read())
+                if (open.ShowDialog() == DialogResult.OK)
                 {
-                    switch (xml.NodeType)
-                    {
-                        case XmlNodeType.Element:
-                            nodeName = xml.Name;
-                            break;
-                        case XmlNodeType.Text:
-                            switch (nodeName)
-                            {
-                                case "Lecturer":
-                                    row = new DataGridViewRow();
-                                    row.CreateCells(dataLecTable);
-                                    row.Cells[0].Value = xml.Value;
-                                    break;
-                                case "Label":
-                                    row = new DataGridViewRow();
-                                    row.CreateCells(dataSubTable);
-                                    row.Cells[1].Value = xml.Value;
-
-                                    break;
-                                case "ContractedHours":
-                                    row = new DataGridViewRow();
-                                    row.CreateCells(dataRoomTable);
-                                    row.Cells[2].Value = xml.Value;
-                                    break;
-                                case "Colour":
-                                    row = new DataGridViewRow();
-                                    row.CreateCells(dataClassTable);
-                                    row.Cells[3].Value = xml.Value;
-
-                                    break;
-                            }
-                            break;
-                    }
+                    //Save Dialogue corresponds to file location
+                    //DataFile.Instance.openAllXML(open.FileName);
                 }
             }
             catch (Exception ex)
@@ -113,169 +69,26 @@ namespace CWATMS
             save.Title = "Save File";
 
             // Dialogue accessed then loops thro each row and cell. Data added to file
-            if (save.ShowDialog() == DialogResult.OK)
+            try
             {
-                //Save Dialogue corresponds to file location
-                saveToXML(save.FileName);
+                if (save.ShowDialog() == DialogResult.OK)
+                {
+                    //Save Dialogue corresponds to file location
+                    //DataFile.Instance.saveAllXML(save.FileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
-
-        private void saveToXML(String file)
-        {
-            DataGridView dgv = dataLecTable;
-            int tn = 0;
-
-
-            // Create XML File.
-            XmlTextWriter xml = new XmlTextWriter(file, null);
-
-            // Set XML writer in indent elements.
-            xml.Formatting = Formatting.Indented;
-
-            // Write in the XML document.
-            xml.WriteStartDocument();
-            xml.WriteStartElement("DataTables");
-            xml.WriteAttributeString("Count", dgv.RowCount.ToString());
-            do
-            {
-                switch (tn)
-                {
-                    case 0:
-                        dgv = dataLecTable;
-
-                        // For each attribute, write each property into the XML document.
-                        for (int i = 0; i < dgv.RowCount - 1; i++)
-                        {
-                            xml.WriteStartElement("LecturerTable");
-                            xml.WriteAttributeString("ID", i.ToString());
-                            xml.WriteStartElement("Lecturer");
-                            xml.WriteString(dgv.Rows[i].Cells[0].Value.ToString());
-                            xml.WriteEndElement();
-                            xml.WriteStartElement("Label");
-                            xml.WriteString(dgv.Rows[i].Cells[1].Value.ToString());
-                            xml.WriteEndElement();
-                            xml.WriteStartElement("ContractedHours");
-                            xml.WriteString(dgv.Rows[i].Cells[2].Value.ToString());
-                            xml.WriteEndElement();
-                            xml.WriteStartElement("Colour");
-                            xml.WriteString(dgv.Rows[i].Cells[3].Value.ToString());
-                        }
-                        break;
-
-                    case 1:
-                        dgv = dataSubTable;
-                        for (int i = 0; i < dgv.RowCount - 1; i++)
-                        {
-                            xml.WriteStartElement("SubjectTable");
-                            xml.WriteAttributeString("ID", i.ToString());
-                            xml.WriteStartElement("Subject");
-                            xml.WriteString(dgv.Rows[i].Cells[0].Value.ToString());
-                            xml.WriteEndElement();
-                            xml.WriteStartElement("Label");
-                            xml.WriteString(dgv.Rows[i].Cells[1].Value.ToString());
-                            xml.WriteEndElement();
-                            xml.WriteStartElement("Colour");
-                            xml.WriteString(dgv.Rows[i].Cells[3].Value.ToString());
-                        }
-                        break;
-
-                    case 2:
-
-                        dgv = dataRoomTable;
-                        for (int i = 0; i < dgv.RowCount - 1; i++)
-                        {
-                            xml.WriteStartElement("RoomTable");
-                            xml.WriteAttributeString("ID", i.ToString());
-                            xml.WriteStartElement("Room No");
-                            xml.WriteString(dgv.Rows[i].Cells[0].Value.ToString());
-                            xml.WriteEndElement();
-                            xml.WriteStartElement("Smartboard");
-                            xml.WriteString(dgv.Rows[i].Cells[1].Value.ToString());
-                            xml.WriteEndElement();
-                            xml.WriteStartElement("TV");
-                            xml.WriteString(dgv.Rows[i].Cells[2].Value.ToString());
-                            xml.WriteEndElement();
-                            xml.WriteStartElement("Projector");
-                            xml.WriteString(dgv.Rows[i].Cells[3].Value.ToString());
-                            xml.WriteEndElement();
-                            xml.WriteStartElement("Network Lab");
-                            xml.WriteString(dgv.Rows[i].Cells[3].Value.ToString());
-                            xml.WriteEndElement();
-                            xml.WriteStartElement("Colour");
-                            xml.WriteString(dgv.Rows[i].Cells[3].Value.ToString());
-                        }
-                        break;
-
-                    case 3:
-
-                        dgv = dataClassTable;
-                        for (int i = 0; i < dgv.RowCount - 1; i++)
-                        {
-                            xml.WriteStartElement("ClassTable");
-                            xml.WriteAttributeString("ID", i.ToString());
-                            xml.WriteStartElement("Class");
-                            xml.WriteString(dgv.Rows[i].Cells[0].Value.ToString());
-                            xml.WriteEndElement();
-                            xml.WriteStartElement("Label");
-                            xml.WriteString(dgv.Rows[i].Cells[1].Value.ToString());
-                            xml.WriteEndElement();
-                            xml.WriteStartElement("Colour");
-                            xml.WriteString(dgv.Rows[i].Cells[3].Value.ToString());
-                        }
-                        break;
-
-                    default:
-
-                        MessageBox.Show("Error saving data, please try again!");
-
-                        break;
-                }
-
-                tn++;
-            } while (tn < 4);
-
-            xml.WriteEndElement();
-            xml.WriteEndDocument();
-            xml.Flush();
-            xml.Close();
-        }
-
-
-                //for (int i = 0; i <= dataSubTable.Rows.Count; i++)
-                //{
-                //    for (int j = 0; j <= dataSubTable.Rows[i].Cells.Count; j++)
-                //    {
-                //        if (dataSubTable.Rows[i].Cells[j].Value != null)                                                 //If a value is stored in a cell then
-                //            File.AppendAllText(save.FileName, dataSubTable.Rows[i].Cells[j].Value.ToString());             //saves the dataGridView cells value to string format
-                //        File.AppendAllText(save.FileName, dataSubTable.Rows[i].Cells[j].Style.BackColor.ToString());   //saves the RGB values for background colour
-                //    }
-                //}
-
-                //for (int i = 0; i <= dataRoomTable.Rows.Count; i++)
-                //{
-                //    for (int j = 0; j <= dataRoomTable.Rows[i].Cells.Count; j++)
-                //    {
-                //        if (dataRoomTable.Rows[i].Cells[j].Value != null)                                                 //If a value is stored in a cell then
-                //            File.AppendAllText(save.FileName, dataRoomTable.Rows[i].Cells[j].Value.ToString());             //saves the dataGridView cells value to string format
-                //        File.AppendAllText(save.FileName, dataRoomTable.Rows[i].Cells[j].Style.BackColor.ToString());   //saves the RGB values for background colour
-                //    }
-                //}
-
-                //for (int i = 0; i <= dataClassTable.Rows.Count; i++)
-                //{
-                //    for (int j = 0; j <= dataClassTable.Rows[i].Cells.Count; j++)
-                //    {
-                //        if (dataClassTable.Rows[i].Cells[j].Value != null)                                                 //If a value is stored in a cell then
-                //            File.AppendAllText(save.FileName, dataClassTable.Rows[i].Cells[j].Value.ToString());             //saves the dataGridView cells value to string format
-                //        File.AppendAllText(save.FileName, dataClassTable.Rows[i].Cells[j].Style.BackColor.ToString());   //saves the RGB values for background colour
-                //    }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ActiveMdiChild.Close();
         }
 
-
+        //Creates a colour dialogue with swatches and wheel, saves RGB value to contained Cell
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // If the selected colomn header equals "colour"
@@ -285,74 +98,233 @@ namespace CWATMS
                 colorDialog1.ShowDialog();                                                          //Shows colourDialogue window
                 dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = colorDialog1.Color;     //selected cell changes to Dialogue RGB colour
                 dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = colorDialog1.Color;     //selected text in cell hidden using Dialoge RGB colour
-
-                //dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.SelectionBackColor = colorDialog1.Color;
-                //dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.SelectionForeColor = colorDialog1.Color;
-                //dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = colorDialog1.Color.R.ToString() + ", " + colorDialog1.Color.G.ToString() + ", " +  colorDialog1.Color.B.ToString();   
-
+                dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = " ";
             }
 
         }
 
-        private void Form3_Load(object sender, EventArgs e)
+        private void dataLecTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            DataGridView dgv = (DataGridView)sender;
+            //  Input for row will 
+            if (validate(dgv, e))
+            {
 
-            dataLecTable.DataError += new DataGridViewDataErrorEventHandler(dataGridView1_DataError);
+                switch (tabControl1.SelectedIndex)
+                {
+                    case 0:	//	Lecturer DGV
+                        dgv = dataLecTable;
+                        if (dgv.Rows[e.RowIndex].Cells[0].Value != null &&
+                            dgv.Rows[e.RowIndex].Cells[1].Value != null &&
+                            dgv.Rows[e.RowIndex].Cells[2].Value != null &&
+                            dgv.Rows[e.RowIndex].Cells[3].Value != null)
+                        {
+                            string name = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            string label = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
+                            int hours;
+                            if (!int.TryParse(dgv.Rows[e.RowIndex].Cells[2].Value.ToString(), out hours)) //converts int to bool, if invalid then return false
+                            {
+                                return;
+                            }
+                            Color colour = dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
+
+                            DataCollection.Instance.Add(new Lecturer(name, hours, label, colour));
+                        }
+                        break;
+
+                    case 1:	//	Module DGV
+                        dgv = dataSubTable;
+                        if (dgv.Rows[e.RowIndex].Cells[0].Value != null &&
+                            dgv.Rows[e.RowIndex].Cells[1].Value != null &&
+                            dgv.Rows[e.RowIndex].Cells[2].Value != null &&
+                            dgv.Rows[e.RowIndex].Cells[3].Value != null)
+                        {
+                            String subject = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            String label = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
+                            String courseLevel = dgv.Rows[e.RowIndex].Cells[2].Value.ToString();
+                            Color colour = dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
+
+                            DataCollection.Instance.Add(new Module(subject, label, courseLevel, colour));
+                        }
+                        break;
+
+                    case 2:	//	Room DGV
+                        dgv = dataRoomTable;
+                        if (dgv.Rows[e.RowIndex].Cells[0].Value != null &&
+                           dgv.Rows[e.RowIndex].Cells[8].Value != null)
+                        {
+                            String name = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            String label = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
+                            String sCap = dgv.Rows[e.RowIndex].Cells[2].Value.ToString();
+                            Color colour = dgv.Rows[e.RowIndex].Cells[8].Style.BackColor;
+                            int capacity;
+                            try
+                            {
+                                capacity = int.Parse(sCap);
+                            }
+                            catch
+                            {
+                                return;
+                            }
+                            Room room = new Room(name, label, colour, capacity);
+                            room.SetEquipment(0, (bool)dgv.Rows[e.RowIndex].Cells[3].Value);
+                            room.SetEquipment(1, (bool)dgv.Rows[e.RowIndex].Cells[4].Value);
+                            room.SetEquipment(2, (bool)dgv.Rows[e.RowIndex].Cells[5].Value);
+                            room.SetEquipment(3, (bool)dgv.Rows[e.RowIndex].Cells[6].Value);
+                            room.SetEquipment(4, (bool)dgv.Rows[e.RowIndex].Cells[7].Value);
+                            DataCollection.Instance.Add(room);
+                        }
+                        break;
+
+                    case 3:	//	Group DGV
+                        dgv = dataClassTable;
+                        if (dgv.Rows[e.RowIndex].Cells[0].Value != null &&
+                          dgv.Rows[e.RowIndex].Cells[1].Value != null &&
+                          dgv.Rows[e.RowIndex].Cells[2].Value != null &&
+                          dgv.Rows[e.RowIndex].Cells[3].Value != null)
+                        {
+                            string group = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            string label = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
+                            Color colour = dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
+                            int numStudents;
+                            if (!int.TryParse(dgv.Rows[e.RowIndex].Cells[2].Value.ToString(), out numStudents)) //converts int to bool, if invalid then return false
+                            {
+                                return;
+                            }
+                            DataCollection.Instance.Add(new Group(group, label, colour, numStudents));
+                        }
+                        break;
+                }
+                FormMain main = (FormMain)(this.MdiParent);
+                main.populateTab();
+            }
         }
 
-        void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private bool validate(DataGridView dgv, DataGridViewCellEventArgs e)
         {
-        //    string allowedNumberSet = ("1234567890\b\n");
-        //    string allowedCharacterSet = (@"a-zA-Z+");
-        //    string message;
+            int min = 0;
+            int max = 0;
+            bool validChar = false;
+            bool isValid = true;
 
-        //    // you can obtain current editing value like this:
-        //    string value = null;
-        //    var ctl = dataLecTable.EditingControl as DataGridViewTextBoxEditingControl;
+            if (e.RowIndex > -1 && dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                string text = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
-        //    if (ctl != null)
-        //        value = ctl.Text;
+                //tab control to decide table validation
+                switch (tabControl1.SelectedIndex)
+                {
+                    case 0:
+                        switch (e.ColumnIndex)  //column value to decide cell validation
+                        {
+                            case 0:
+                                min = 1;
+                                max = 35;
+                                validChar = true;
+                                break;
+                            case 1:
+                                min = 1;
+                                max = 3;
+                                validChar = true;
+                                break;
+                            case 2:
+                                min = 1;
+                                max = 3;
+                                validChar = false;
+                                break;
+                            case 3:
+                                return true;
+                        }
+                        break;
+                    case 1:
+                        switch (e.ColumnIndex)
+                        {
+                            case 0:
+                                min = 1;
+                                max = 35;
+                                validChar = true;
+                                break;
+                            case 1:
+                                min = 1;
+                                max = 3;
+                                validChar = true;
+                                break;
+                            case 2:
+                                min = 1;
+                                max = 35;
+                                validChar = true;
+                                break;
+                            case 3:
+                                return true;
+                        }
+                        break;
+                    case 2:
+                        switch (e.ColumnIndex)
+                        {
+                            case 0:
+                                min = 1;
+                                max = 35;
+                                validChar = true;
+                                break;
+                            case 5:
+                                return true;
+                        }
+                        break;
+                    case 3:
+                        switch (e.ColumnIndex)
+                        {
+                            case 0:
+                                min = 1;
+                                max = 35;
+                                validChar = true;
+                                break;
+                            case 1:
+                                min = 1;
+                                max = 3;
+                                validChar = false;
+                                break;
+                            case 2:
+                                return true;
+                        }
+                        break;
+                }
+                if (!DataValidation.Instance.IsInRange(text.Length, min, max, true))
+                {
+                    MessageBox.Show("ERROR: Invalid input must be " + min + " - " + max + " characters long.");
+                    isValid = false;
+                }
 
-        //    // you can obtain the current commited value
-        //    String current = dataLecTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-            
+                if (validChar == true)
+                {
+                    if (DataValidation.Instance.ContainsNumbers(text))
+                    {
+                        MessageBox.Show("ERROR: Invalid input must be A-Z format.");
+                        isValid = false;
+                    }
+                }
+                else
+                {
+                    if (!DataValidation.Instance.ContainsNumbers(text))
+                    {
+                        MessageBox.Show("ERROR: Invalid input must be 0-9 format.");
+                        isValid = false;
+                    }
+                }
 
-        //    switch (e.ColumnIndex)
-        //    {
-        //        case 0:
-        //            // bound to integer field
-        //            validChar();
-        //            break;
-        //        case 1:
-        //            // bound to date time field
-        //            if (current.Contains(allowedCharacterSet))
-        //            {
-        //                message = "the value should be a character!";
-        //            }
-        //            if (current.Length < 3)
-        //            {
-        //                message = "the label should be no more than 3 characters!";
-        //            }
-        //            break;
-        //        case 2:
-
-        //        // other columns
-        //        default:
-        //            {
-        //                message = "Invalid data";
-        //            }
-        //            break;
-        //    }
-
-        //    MessageBox.Show(message);
-        //}
-        //private void ValidChar()
-        //{
-        //    if (current.Contains(allowedCharacterSet))
-        //    {
-        //        message = "the value should be a character!";
-        //    }
+                if (isValid == false)
+                {
+                    dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = null;
+                    dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Red;
+                }
+                else
+                {
+                    dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Empty;
+                }
+                return isValid;
+            }
+            return false;
         }
+           
     }
 
 

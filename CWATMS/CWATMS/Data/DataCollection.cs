@@ -12,6 +12,7 @@ namespace CWATMS
         public List<Room> Rooms;
         public List<Module> Modules;
         public List<Group> Groups;
+        public List<Lesson> Lessons;
 
         private static readonly DataCollection instance = new DataCollection();
 
@@ -25,6 +26,7 @@ namespace CWATMS
             Rooms = new List<Room>();
             Modules = new List<Module>();
             Groups = new List<Group>();
+            Lessons = new List<Lesson>();
         }
 
         /// <summary>
@@ -61,6 +63,11 @@ namespace CWATMS
         public void Add(Group group)
         {
             Groups.Add(group);
+        }
+
+        public void Add(Lesson lesson)
+        {
+            Lessons.Add(lesson);
         }
 
         /// <summary>
@@ -112,12 +119,74 @@ namespace CWATMS
                 Groups.Remove(group);
         }
 
+        public void Remove(Lesson lesson)
+        {
+            if (Lessons.Contains(lesson))
+                Lessons.Remove(lesson);
+        }
+
         public static DataCollection Instance
         {
             get
             {
                 return instance;
             }
+        }
+        public Lesson FindLesson(Data data, int time, int day)
+        {
+            if (data is Lecturer)
+            {
+                foreach (Lesson lesson in Lessons)
+                {
+                    if (lesson.Lecturer == data && (lesson.Time == time && lesson.Day == day))
+                    {
+                        return lesson;
+                    }
+                }
+            }
+            else if (data is Module)
+            {
+                foreach (Lesson lesson in Lessons)
+                {
+                    if (lesson.Module == data && (lesson.Time == time && lesson.Day == day))
+                    {
+                        return lesson;
+                    }
+                }
+            }
+            else if (data is Room)
+            {
+                foreach (Lesson lesson in Lessons)
+                {
+                    if (lesson.Room == data && (lesson.Time == time && lesson.Day == day))
+                    {
+                        return lesson;
+                    }
+                }
+            }
+            else if (data is Group)
+            {
+                foreach (Lesson lesson in Lessons)
+                {
+                    if (lesson.Group == data && (lesson.Time == time && lesson.Day == day))
+                    {
+                        return lesson;
+                    }
+                }
+            }
+            return null;
+
+        }
+        public Lesson FindLesson(Lesson data, int time, int day)
+        {
+            foreach (Lesson lesson in Lessons)
+            {
+                if (lesson == data && (lesson.Time == time && lesson.Day == day))
+                {
+                    return lesson;
+                }
+            }
+            return null;
         }
     }
 }

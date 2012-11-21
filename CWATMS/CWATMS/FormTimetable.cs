@@ -14,17 +14,12 @@ namespace CWATMS
 {
     public partial class FormTimetable : Form
     {
-        private Timetable m_timetable;
+        private Data m_data;
+        private int m_colour;
 
-        public FormTimetable(Timetable timetable)
+        public FormTimetable(Data data)
         {
-            m_timetable = timetable;
-            InitializeComponent();
-            AddGrids();
-        }
-
-        public FormTimetable()
-        {
+            m_data = data;
             InitializeComponent();
             AddGrids();
         }
@@ -36,7 +31,6 @@ namespace CWATMS
         private void AddGrids()
         {
             //  Create Grids
-            int index = 0;
             for (int i = 0; i < this.tlpTimetable.RowCount; i++)
             {
                 for (int j = 0; j < this.tlpTimetable.ColumnCount; j++)
@@ -46,10 +40,18 @@ namespace CWATMS
                     g.Text = g.Name;
                     g.DragOver += Panel_DragOver;
                     g.DragDrop += Panel_DragDrop;
+                    Lesson lesson = DataCollection.Instance.FindLesson(m_data, j, i);
+                    if (lesson != null)
+                    {
+                        g.LessonData = lesson;
+                        g.UpdateText();
+                    }
+                    g.LessonData.Day = i;
+                    g.LessonData.Time = j;
                     this.tlpTimetable.Controls.Add(g, j, i);
-                    index++;
                 }
             }
+            ChangeColours(m_colour);
         }
 
         private void Panel_MouseDown(object sender, MouseEventArgs e)
@@ -72,23 +74,47 @@ namespace CWATMS
         private void Panel_DragDrop(object sender, DragEventArgs e)
         {
             GridPanel gPanel = (GridPanel)sender;
+            Lesson lesson = new Lesson();
             if (e.Data.GetData(typeof(Lecturer)) is Lecturer)
             {
                 Lecturer lect = (Lecturer)e.Data.GetData(typeof(Lecturer));
                 gPanel.LessonData.Lecturer = lect;
-                gPanel.BackColor = lect.Colour;
+
             }
             else if (e.Data.GetData(typeof(Module)) is Module)
             {
                 Module mod = (Module)e.Data.GetData(typeof(Module));
                 gPanel.LessonData.Module = mod;
-                //gPanel.BackColor = mod.Colour;
+            }
+            else if (e.Data.GetData(typeof(Room)) is Room)
+            {
+                Room room = (Room)e.Data.GetData(typeof(Room));
+                gPanel.LessonData.Room = room;
+            }
+            else if (e.Data.GetData(typeof(Group)) is Group)
+            {
+                Group group = (Group)e.Data.GetData(typeof(Group));
+                gPanel.LessonData.Group = group;
+            }
+
+            lesson = gPanel.LessonData;
+
+            if (DataCollection.Instance.FindLesson(lesson, lesson.Time, lesson.Day) == null)
+            {
+                DataCollection.Instance.Add(lesson);
+            }
+            else
+            {
+                int i = DataCollection.Instance.Lessons.IndexOf(lesson);
+                DataCollection.Instance.Lessons[i] = lesson;
             }
             gPanel.UpdateText();
+            ChangeColours(m_colour);
         }
 
         private void ChangeColours(int i)
         {
+            m_colour = i;
             switch (i)
             {
                 case 0:
@@ -97,7 +123,7 @@ namespace CWATMS
                         if (c is GridPanel)
                         {
                             GridPanel gp = (GridPanel)c;
-                            if(gp.LessonData.Lecturer != null)
+                            if (gp.LessonData.Lecturer != null)
                                 gp.BackColor = gp.LessonData.Lecturer.Colour;
                             else
                                 gp.BackColor = Color.Empty;
