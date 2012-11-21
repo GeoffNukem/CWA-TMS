@@ -8,16 +8,13 @@ namespace CWATMS.UnitTest
     [TestClass]
     public class LecturerTest
     {
-        
+
         [TestMethod]
         public void Lecturer_Constructor()
         {
-            Lecturer l = new Lecturer("Joe", "Bloggs", 14, "JB", Color.Blue);
+            Lecturer l = new Lecturer("Joe Bloggs", 14, "JB", Color.Blue);
             Assert.AreEqual("Joe", l.Name);
-            Assert.AreEqual("Bloggs", l.Surname);
             Assert.AreEqual("JB", l.Label);
-            Assert.AreEqual("JB", l.Initials);
-            Assert.AreEqual("Joe Bloggs", l.FullName);
             Assert.AreEqual<int>(14, l.HoursPerWeek);
             Assert.AreEqual<Color>(Color.Blue, l.Colour);
         }
@@ -26,9 +23,9 @@ namespace CWATMS.UnitTest
         public void Lecturer_Add()
         {
             //  Create test instances
-            Lecturer l = new Lecturer("Joe", "Bloggs", 14, "JB", Color.Blue);
-            Lecturer l2 = new Lecturer("John", "Smith", 32, "JS1", Color.Blue);
-            Lecturer l3 = new Lecturer("Fred", "Flintstone", 50, "FF", Color.Blue);
+            Lecturer l = new Lecturer("Joe Bloggs", 14, "JB", Color.Blue);
+            Lecturer l2 = new Lecturer("John Smith", 32, "JS1", Color.Blue);
+            Lecturer l3 = new Lecturer("Fred Flintstone", 50, "FF", Color.Blue);
 
             //  Add an instance to the list and check if the instance is in the first index (0)
             DataCollection.Instance.Add(l);
@@ -44,6 +41,6 @@ namespace CWATMS.UnitTest
             Assert.AreEqual<Lecturer>(l3, DataCollection.Instance.Lecturers[1], "Lecturer3 not found at 1");
             Assert.AreEqual<Lecturer>(l2, DataCollection.Instance.Lecturers[2], "Lecturer2 not found at 2");
         }
-        
+
     }
 }
