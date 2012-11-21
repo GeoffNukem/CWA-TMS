@@ -19,6 +19,9 @@ namespace CWATMS
     {
         string titleLec = "List_of_Lecturers";
         string titleMod = "List_of_Modules";
+        string titleRoo = "List_of_Rooms";
+        string titleGro = "List_of_Groups";
+        string pdfFoter = " The A Team , Timetable Mangement System. Date and time produced ";
 
         public Export()
         {
@@ -27,59 +30,24 @@ namespace CWATMS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.WaitCursor;
-            Document document = new Document();
-            PdfWriter.GetInstance(document, new FileStream(titleLec + ".pdf", FileMode.Create));
-            document.Open();
-            Paragraph paragraph = new Paragraph(titleLec + System.Environment.NewLine + "\n");
-            PdfPTable t1 = new PdfPTable(5);
 
-            PdfPCell cfname = new PdfPCell(new Phrase("First Name"));
-            PdfPCell clname = new PdfPCell(new Phrase("Last Name"));
-            PdfPCell chpw = new PdfPCell(new Phrase("Hours Per Week"));
-            PdfPCell clabel = new PdfPCell(new Phrase("Label"));
-            PdfPCell ccolour = new PdfPCell(new Phrase("Colour"));
-
-            t1.AddCell(cfname);
-            t1.AddCell(clname);
-            t1.AddCell(chpw);
-            t1.AddCell(clabel);
-            t1.AddCell(ccolour);
-
-            foreach (DataGridViewRow rows in dataGridView_List_Lecturers.Rows)
-            {
-                if (Convert.ToBoolean(dataGridView_List_Lecturers.Rows[rows.Index].Cells[2].Value))
-                {
-                    string fname = dataGridView_List_Lecturers.Rows[rows.Index].Cells["First Name"].Value.ToString();
-                    string lname = dataGridView_List_Lecturers.Rows[rows.Index].Cells["Last Name"].Value.ToString();
-                    string hpw = dataGridView_List_Lecturers.Rows[rows.Index].Cells["Hours Per Week"].Value.ToString();
-                    string label = dataGridView_List_Lecturers.Rows[rows.Index].Cells["Label"].Value.ToString();
-                    string colour = dataGridView_List_Lecturers.Rows[rows.Index].Cells["Colour"].Value.ToString();
-
-                    PdfPCell c1 = new PdfPCell(new Phrase(fname));
-                    PdfPCell c2 = new PdfPCell(new Phrase(lname));
-                    PdfPCell c3 = new PdfPCell(new Phrase(hpw));
-                    PdfPCell c4 = new PdfPCell(new Phrase(label));
-                    PdfPCell c5 = new PdfPCell(new Phrase(colour));
-
-                    t1.AddCell(c1);
-                    t1.AddCell(c2);
-                    t1.AddCell(c3);
-                    t1.AddCell(c4);
-                    t1.AddCell(c5);
-                }
-            }
-            document.Add(paragraph);
-            document.Add(t1);
-            DateTime now = DateTime.Now;
-            document.Add(new Paragraph(document.BottomMargin, " The A Team , Timetable Mangement System. Date and time produced " + now ));
-            document.Close();
-
-            this.Cursor = Cursors.Default;
-
+            change_Cursor(0);
+            lecturer_List_Export();
+            change_Cursor(1);
             export_Complete(titleLec);
 
 
+        }
+
+        public void lecturer_List_Export()
+        {
+            string sfname = "First Name";
+            string slname = "Last Name";
+            string shpw = "Hours Per Week";
+            string slabel = "Label";
+            string scolour = "Colour";
+
+            create_PDF_5(titleLec, sfname, slname, shpw, slabel, scolour);
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,78 +57,60 @@ namespace CWATMS
 
         private void button2_Click(object sender, EventArgs e)
         {
-
-            Document document = new Document();
-            PdfWriter.GetInstance(document, new FileStream(titleMod + ".pdf", FileMode.Create));
-            document.Open();
-            Paragraph paragraph = new Paragraph(titleMod + System.Environment.NewLine);
-            PdfPTable t1 = new PdfPTable(4);
-
-            PdfPCell cname = new PdfPCell(new Phrase("Name"));
-            PdfPCell ccourselevel = new PdfPCell(new Phrase("Course Level"));
-            PdfPCell clabel = new PdfPCell(new Phrase("Label"));
-            PdfPCell ccolour = new PdfPCell(new Phrase("Colour"));
-
-            t1.AddCell(cname);
-            t1.AddCell(ccourselevel);
-            t1.AddCell(clabel);
-            t1.AddCell(ccolour);
-
-        foreach (DataGridViewRow rows in dataGridView_List_Lecturers.Rows)
-            {
-                if (Convert.ToBoolean(dataGridView_List_Lecturers.Rows[rows.Index].Cells[2].Value))
-                {
-                    string fname = dataGridView_List_Lecturers.Rows[rows.Index].Cells["First Name"].Value.ToString();
-                    string lname = dataGridView_List_Lecturers.Rows[rows.Index].Cells["Last Name"].Value.ToString();
-                    string hpw = dataGridView_List_Lecturers.Rows[rows.Index].Cells["Hours Per Week"].Value.ToString();
-                    string label = dataGridView_List_Lecturers.Rows[rows.Index].Cells["Label"].Value.ToString();
-                    string colour = dataGridView_List_Lecturers.Rows[rows.Index].Cells["Colour"].Value.ToString();
-
-                    PdfPCell c1 = new PdfPCell(new Phrase(fname));
-                    PdfPCell c2 = new PdfPCell(new Phrase(lname));
-                    PdfPCell c3 = new PdfPCell(new Phrase(hpw));
-                    PdfPCell c4 = new PdfPCell(new Phrase(label));
-                    PdfPCell c5 = new PdfPCell(new Phrase(colour));
-
-                    t1.AddCell(c1);
-                    t1.AddCell(c2);
-                    t1.AddCell(c3);
-                    t1.AddCell(c4);
-                    t1.AddCell(c5);
-                }
-            }
-            document.Add(paragraph);
-            document.Add(t1);
-            document.Close();
-
+            change_Cursor(0);
+            modules_List_Export();
+            change_Cursor(1);
             export_Complete(titleMod);
         }
 
+        public void modules_List_Export()
+        {
+            string sname = "Name";
+            string scourselevel = "Course Level";
+            string slabel = "Label";
+            string scolour = "Colour";
+            int dgv = 0;
 
+            create_PDF_4(titleMod, dgv, sname, scourselevel, slabel, scolour);
+        }
 
         private void List_Room_Export_Click(object sender, EventArgs e)
         {
-            string name1 = "List of Rooms";
-            Document document = new Document();
-            PdfWriter.GetInstance(document, new FileStream( name1 + ".pdf", FileMode.Create));
-            document.Open();
-            Paragraph paragraph = new Paragraph(name1 + System.Environment.NewLine);
-            PdfPTable t1 = new PdfPTable(4);
 
-            PdfPCell cname = new PdfPCell(new Phrase("Name"));
-            PdfPCell ccapacity = new PdfPCell(new Phrase("Capacity"));
-            PdfPCell clabel = new PdfPCell(new Phrase("Label"));
-            PdfPCell ccolour = new PdfPCell(new Phrase("Colour"));
+            change_Cursor(0);
+            rooms_List_Export();
+            change_Cursor(1);
+            export_Complete(titleRoo);
+        }
 
-            t1.AddCell(cname);
-            t1.AddCell(ccapacity);
-            t1.AddCell(clabel);
-            t1.AddCell(ccolour);
+        public void rooms_List_Export()
+        {
+            string sname = "Name";
+            string scapacity = "Capacity";
+            string slabel = "Label";
+            string scolour = "Colour";
+            int dgv = 1;
+
+            create_PDF_4(titleRoo, dgv, sname, scapacity, slabel, scolour);
         }
 
         private void List_Groups_Export_Click(object sender, EventArgs e)
         {
+            change_Cursor(0);
+            Groups_List_Export();
+            change_Cursor(1);
+            export_Complete(titleGro);
+        }
 
+        public void Groups_List_Export()
+        {
+            string sname = "Name";
+            string slabel = "Label";
+            string scolour = "Colour";
+            string scapacity = "Capacity";
+            int dgv = 2;
+
+            create_PDF_4(titleGro, dgv, sname, scapacity, slabel, scolour);
         }
 
 
@@ -253,6 +203,181 @@ namespace CWATMS
     MessageBoxIcon.Information,
     MessageBoxDefaultButton.Button1);
         }
+
+        public void change_Cursor(int num)
+        {
+            if (num == 0)
+            {
+                this.Cursor = Cursors.WaitCursor;
+            }
+
+            else
+            {
+                this.Cursor = Cursors.Default;
+            }
+
+        }
+
+        public void create_PDF_5(string title, string cN1, string cN2, string cN3, string cN4, string cN5)
+        {
+
+            Document document = new Document();
+            PdfWriter.GetInstance(document, new FileStream(title + ".pdf", FileMode.Create));
+            document.Open();
+            Paragraph paragraph = new Paragraph(titleLec + System.Environment.NewLine + "\n");
+            PdfPTable t1 = new PdfPTable(5);
+
+            PdfPCell ccell1 = new PdfPCell(new Phrase(cN1));
+            PdfPCell ccell2 = new PdfPCell(new Phrase(cN2));
+            PdfPCell ccell3 = new PdfPCell(new Phrase(cN3));
+            PdfPCell ccell4 = new PdfPCell(new Phrase(cN4));
+            PdfPCell ccell5 = new PdfPCell(new Phrase(cN5));
+
+            t1.AddCell(ccell1);
+            t1.AddCell(ccell2);
+            t1.AddCell(ccell3);
+            t1.AddCell(ccell4);
+            t1.AddCell(ccell5);
+
+            foreach (DataGridViewRow rows in dataGridView_List_Lecturers.Rows)
+            {
+                if (Convert.ToBoolean(dataGridView_List_Lecturers.Rows[rows.Index].Cells[2].Value))
+                {
+                    string cell1 = dataGridView_List_Lecturers.Rows[rows.Index].Cells[cN1].Value.ToString();
+                    string cell2 = dataGridView_List_Lecturers.Rows[rows.Index].Cells[cN2].Value.ToString();
+                    string cell3 = dataGridView_List_Lecturers.Rows[rows.Index].Cells[cN3].Value.ToString();
+                    string cell4 = dataGridView_List_Lecturers.Rows[rows.Index].Cells[cN4].Value.ToString();
+                    string cell5 = dataGridView_List_Lecturers.Rows[rows.Index].Cells[cN5].Value.ToString();
+
+                    PdfPCell c1 = new PdfPCell(new Phrase(cell1));
+                    PdfPCell c2 = new PdfPCell(new Phrase(cell2));
+                    PdfPCell c3 = new PdfPCell(new Phrase(cell3));
+                    PdfPCell c4 = new PdfPCell(new Phrase(cell4));
+                    PdfPCell c5 = new PdfPCell(new Phrase(cell5));
+
+                    t1.AddCell(c1);
+                    t1.AddCell(c2);
+                    t1.AddCell(c3);
+                    t1.AddCell(c4);
+                    t1.AddCell(c5);
+                }
+            }
+            document.Add(paragraph);
+            document.Add(t1);
+            DateTime now = DateTime.Now;
+            document.Add(new Paragraph(document.BottomMargin, pdfFoter  + now ));
+            document.Close();
+        }
+
+        public void create_PDF_4(string title, int dgvc, string cN1, string cN2, string cN3, string cN4)
+        {
+            Document document = new Document();
+            PdfWriter.GetInstance(document, new FileStream(title + ".pdf", FileMode.Create));
+            document.Open();
+            Paragraph paragraph = new Paragraph(title + System.Environment.NewLine + "\n");
+            PdfPTable t1 = new PdfPTable(4);
+
+            PdfPCell ccell1 = new PdfPCell(new Phrase(cN1));
+            PdfPCell ccell2 = new PdfPCell(new Phrase(cN2));
+            PdfPCell ccell3 = new PdfPCell(new Phrase(cN3));
+            PdfPCell ccell4 = new PdfPCell(new Phrase(cN4));
+
+            t1.AddCell(ccell1);
+            t1.AddCell(ccell2);
+            t1.AddCell(ccell3);
+            t1.AddCell(ccell4);
+
+            if (dgvc == 0)
+            {
+                foreach (DataGridViewRow rows in dataGridView_List_Modules.Rows)
+                {
+                    if (Convert.ToBoolean(dataGridView_List_Modules.Rows[rows.Index].Cells[2].Value))
+                    {
+                        string cell1 = dataGridView_List_Modules.Rows[rows.Index].Cells[cN1].Value.ToString();
+                        string cell2 = dataGridView_List_Modules.Rows[rows.Index].Cells[cN2].Value.ToString();
+                        string cell3 = dataGridView_List_Modules.Rows[rows.Index].Cells[cN3].Value.ToString();
+                        string cell4 = dataGridView_List_Modules.Rows[rows.Index].Cells[cN4].Value.ToString();
+
+                        PdfPCell c1 = new PdfPCell(new Phrase(cell1));
+                        PdfPCell c2 = new PdfPCell(new Phrase(cell2));
+                        PdfPCell c3 = new PdfPCell(new Phrase(cell3));
+                        PdfPCell c4 = new PdfPCell(new Phrase(cell4));
+
+                        t1.AddCell(c1);
+                        t1.AddCell(c2);
+                        t1.AddCell(c3);
+                        t1.AddCell(c4);
+                    }
+                }
+            }
+
+            if (dgvc == 1)
+            {
+                foreach (DataGridViewRow rows in dataGridView_List_Rooms.Rows)
+                {
+                    if (Convert.ToBoolean(dataGridView_List_Rooms.Rows[rows.Index].Cells[2].Value))
+                    {
+                        string cell1 = dataGridView_List_Rooms.Rows[rows.Index].Cells[cN1].Value.ToString();
+                        string cell2 = dataGridView_List_Rooms.Rows[rows.Index].Cells[cN2].Value.ToString();
+                        string cell3 = dataGridView_List_Rooms.Rows[rows.Index].Cells[cN3].Value.ToString();
+                        string cell4 = dataGridView_List_Rooms.Rows[rows.Index].Cells[cN4].Value.ToString();
+
+                        PdfPCell c1 = new PdfPCell(new Phrase(cell1));
+                        PdfPCell c2 = new PdfPCell(new Phrase(cell2));
+                        PdfPCell c3 = new PdfPCell(new Phrase(cell3));
+                        PdfPCell c4 = new PdfPCell(new Phrase(cell4));
+
+                        t1.AddCell(c1);
+                        t1.AddCell(c2);
+                        t1.AddCell(c3);
+                        t1.AddCell(c4);
+                    }
+                }
+            }
+
+            if (dgvc == 2)
+            {
+                foreach (DataGridViewRow rows in dataGridView_List_Groups.Rows)
+                {
+                    if (Convert.ToBoolean(dataGridView_List_Groups.Rows[rows.Index].Cells[2].Value))
+                    {
+                        string cell1 = dataGridView_List_Groups.Rows[rows.Index].Cells[cN1].Value.ToString();
+                        string cell2 = dataGridView_List_Groups.Rows[rows.Index].Cells[cN2].Value.ToString();
+                        string cell3 = dataGridView_List_Groups.Rows[rows.Index].Cells[cN3].Value.ToString();
+                        string cell4 = dataGridView_List_Groups.Rows[rows.Index].Cells[cN4].Value.ToString();
+
+                        PdfPCell c1 = new PdfPCell(new Phrase(cell1));
+                        PdfPCell c2 = new PdfPCell(new Phrase(cell2));
+                        PdfPCell c3 = new PdfPCell(new Phrase(cell3));
+                        PdfPCell c4 = new PdfPCell(new Phrase(cell4));
+
+                        t1.AddCell(c1);
+                        t1.AddCell(c2);
+                        t1.AddCell(c3);
+                        t1.AddCell(c4);
+                    }
+                }
+
+            }
+            document.Add(paragraph);
+            document.Add(t1);
+            DateTime now = DateTime.Now;
+            document.Add(new Paragraph(document.BottomMargin, pdfFoter + now));
+            document.Close();
+        }
+
+        private void Export_All_To_PDF_Click(object sender, EventArgs e)
+        {
+            change_Cursor(0);
+            string comple = titleLec + " " + titleMod + " " + titleRoo + " " + titleGro + " ";
+            lecturer_List_Export();
+            modules_List_Export();
+            rooms_List_Export();
+            Groups_List_Export();
+            change_Cursor(1);
+            export_Complete(comple);
+        }
+
 
     }
 }
