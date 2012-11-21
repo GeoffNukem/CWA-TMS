@@ -16,6 +16,7 @@ namespace CWATMS
     public partial class Form3 : Form
     {
         private static readonly Form3 instance = new Form3();
+        private bool loading = false;
 
         public Form3()
         {
@@ -33,7 +34,7 @@ namespace CWATMS
 
             //Open Dialogue configuration
 
-            open.DefaultExt = ".txt";
+            open.DefaultExt = ".xml";
             open.AddExtension = true;
             open.RestoreDirectory = true;
             open.InitialDirectory = @"C:\";
@@ -45,14 +46,30 @@ namespace CWATMS
             {
                 if (open.ShowDialog() == DialogResult.OK)
                 {
-                    //Save Dialogue corresponds to file location
-                    //DataFile.Instance.openAllXML(open.FileName);
+                    //MessageBox.Show("Opening File... " + open.FileName + "\n" + DataCollection.Instance.Lecturers.ToString());
+                    DataFile.Instance.FileName = open.FileName;
+                    DataFile.Instance.LoadLecturers();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+                return;
             }
+            //MessageBox.Show(DataCollection.Instance.Lecturers.Count.ToString());
+            loading = true;
+            dataLecTable.Rows.Clear();
+            foreach (Lecturer lect in DataCollection.Instance.Lecturers)
+            {
+                dataLecTable.Rows.Add(1);
+                //dataLecTable.Rows[0].CreateCells(dataLecTable);
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[0].Value = lect.Name;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[1].Value = lect.Label;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[2].Value = lect.HoursPerWeek;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Value = " ";
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Style.BackColor = lect.Colour;
+            }
+            loading = false;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -61,7 +78,7 @@ namespace CWATMS
 
             //Save Dialogue configuration
 
-            save.DefaultExt = ".txt";
+            save.DefaultExt = ".xml";
             save.AddExtension = true;
             save.RestoreDirectory = true;
             save.InitialDirectory = @"C:\";
@@ -73,8 +90,9 @@ namespace CWATMS
             {
                 if (save.ShowDialog() == DialogResult.OK)
                 {
-                    //Save Dialogue corresponds to file location
-                    //DataFile.Instance.saveAllXML(save.FileName);
+                    //MessageBox.Show("Saving File... " + save.FileName + "\n" + DataCollection.Instance.Lecturers.ToString());
+                    DataFile.Instance.FileName = save.FileName;
+                    DataFile.Instance.SaveLecturers();
                 }
             }
             catch (Exception ex)
@@ -85,7 +103,7 @@ namespace CWATMS
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ActiveMdiChild.Close();
+            this.Hide();
         }
 
         //Creates a colour dialogue with swatches and wheel, saves RGB value to contained Cell
@@ -128,7 +146,9 @@ namespace CWATMS
                             }
                             Color colour = dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
 
-                            DataCollection.Instance.Add(new Lecturer(name, hours, label, colour));
+                            Lecturer lect = new Lecturer(name, hours, label, colour);
+                            if (!loading)
+                                DataCollection.Instance.Add(lect);
                         }
                         break;
 
