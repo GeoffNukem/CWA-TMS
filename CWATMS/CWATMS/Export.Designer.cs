@@ -28,95 +28,104 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Export_Tab_List = new System.Windows.Forms.TabControl();
+            this.Export_List_Home = new System.Windows.Forms.TabPage();
             this.Open_All_List_PDF = new System.Windows.Forms.Button();
             this.Export_All_To_PDF = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Export_List_Lecturers = new System.Windows.Forms.TabPage();
+            this.dataLecTable = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colColour = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Print_PDF_Dialog_List_Lec = new System.Windows.Forms.Button();
             this.Print_PDF_Lst_Lecturers = new System.Windows.Forms.Button();
             this.Open_PDF_List_Lecturers = new System.Windows.Forms.Button();
             this.Lecturers_Export = new System.Windows.Forms.Button();
             this.dataGridView_List_Lecturers = new System.Windows.Forms.DataGridView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.Export_List_Modules = new System.Windows.Forms.TabPage();
             this.List_Mod_Print_Dia = new System.Windows.Forms.Button();
             this.List_Mod_Print_Pre = new System.Windows.Forms.Button();
             this.List_Mod_Open = new System.Windows.Forms.Button();
             this.List_Modules_Export = new System.Windows.Forms.Button();
             this.dataGridView_List_Modules = new System.Windows.Forms.DataGridView();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.Export_List_Rooms = new System.Windows.Forms.TabPage();
             this.List_Rooms_Print_Dia = new System.Windows.Forms.Button();
             this.List_Rooms_Print_pre = new System.Windows.Forms.Button();
             this.List_Rooms_Open = new System.Windows.Forms.Button();
             this.List_Room_Export = new System.Windows.Forms.Button();
             this.dataGridView_List_Rooms = new System.Windows.Forms.DataGridView();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.Export_List_Groups = new System.Windows.Forms.TabPage();
             this.List_Groups_Print_Dia = new System.Windows.Forms.Button();
             this.List_Groups_Print_Pre = new System.Windows.Forms.Button();
             this.List_Groups_Open = new System.Windows.Forms.Button();
             this.List_Groups_Export = new System.Windows.Forms.Button();
             this.dataGridView_List_Groups = new System.Windows.Forms.DataGridView();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.Export_Tab = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.tabControl3 = new System.Windows.Forms.TabControl();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.Export_Tab_Timetable = new System.Windows.Forms.TabControl();
+            this.Export_Timetable_Home = new System.Windows.Forms.TabPage();
+            this.Export_Timetable_Lecturers = new System.Windows.Forms.TabPage();
             this.Timtable_List_Lecturers = new System.Windows.Forms.ListView();
             this.Timetable_Lecturers_Export = new System.Windows.Forms.Button();
-            this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.Export_Timetable_Rooms = new System.Windows.Forms.TabPage();
             this.Timetable_List_Rooms = new System.Windows.Forms.ListView();
             this.Timetable_Rooms_Export = new System.Windows.Forms.Button();
-            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.Exprt_Timetable_Groups = new System.Windows.Forms.TabPage();
             this.Timetable_List_Groups = new System.Windows.Forms.ListView();
             this.Timetable_Groups_Export = new System.Windows.Forms.Button();
             this.Export_Settings = new System.Windows.Forms.TabPage();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.Export_Tab_Settings = new System.Windows.Forms.TabControl();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.Export_Settings_Advanced = new System.Windows.Forms.TabPage();
+            this.Export_Tab_List.SuspendLayout();
+            this.Export_List_Home.SuspendLayout();
+            this.Export_List_Lecturers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataLecTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List_Lecturers)).BeginInit();
-            this.tabPage3.SuspendLayout();
+            this.Export_List_Modules.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List_Modules)).BeginInit();
-            this.tabPage4.SuspendLayout();
+            this.Export_List_Rooms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List_Rooms)).BeginInit();
-            this.tabPage5.SuspendLayout();
+            this.Export_List_Groups.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List_Groups)).BeginInit();
-            this.tabControl2.SuspendLayout();
+            this.Export_Tab.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabPage7.SuspendLayout();
-            this.tabControl3.SuspendLayout();
-            this.tabPage9.SuspendLayout();
-            this.tabPage11.SuspendLayout();
-            this.tabPage12.SuspendLayout();
+            this.Export_Tab_Timetable.SuspendLayout();
+            this.Export_Timetable_Lecturers.SuspendLayout();
+            this.Export_Timetable_Rooms.SuspendLayout();
+            this.Exprt_Timetable_Groups.SuspendLayout();
             this.Export_Settings.SuspendLayout();
+            this.Export_Tab_Settings.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // Export_Tab_List
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Location = new System.Drawing.Point(6, 6);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(674, 365);
-            this.tabControl1.TabIndex = 0;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.Export_Tab_List.Controls.Add(this.Export_List_Home);
+            this.Export_Tab_List.Controls.Add(this.Export_List_Lecturers);
+            this.Export_Tab_List.Controls.Add(this.Export_List_Modules);
+            this.Export_Tab_List.Controls.Add(this.Export_List_Rooms);
+            this.Export_Tab_List.Controls.Add(this.Export_List_Groups);
+            this.Export_Tab_List.Location = new System.Drawing.Point(6, 6);
+            this.Export_Tab_List.Name = "Export_Tab_List";
+            this.Export_Tab_List.SelectedIndex = 0;
+            this.Export_Tab_List.Size = new System.Drawing.Size(674, 365);
+            this.Export_Tab_List.TabIndex = 0;
+            this.Export_Tab_List.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
-            // tabPage1
+            // Export_List_Home
             // 
-            this.tabPage1.Controls.Add(this.Open_All_List_PDF);
-            this.tabPage1.Controls.Add(this.Export_All_To_PDF);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(666, 339);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Home";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.Export_List_Home.Controls.Add(this.Open_All_List_PDF);
+            this.Export_List_Home.Controls.Add(this.Export_All_To_PDF);
+            this.Export_List_Home.Location = new System.Drawing.Point(4, 22);
+            this.Export_List_Home.Name = "Export_List_Home";
+            this.Export_List_Home.Padding = new System.Windows.Forms.Padding(3);
+            this.Export_List_Home.Size = new System.Drawing.Size(666, 339);
+            this.Export_List_Home.TabIndex = 0;
+            this.Export_List_Home.Text = "Home";
+            this.Export_List_Home.UseVisualStyleBackColor = true;
             // 
             // Open_All_List_PDF
             // 
@@ -126,6 +135,7 @@
             this.Open_All_List_PDF.TabIndex = 1;
             this.Open_All_List_PDF.Text = "Open all PDF in seperate window";
             this.Open_All_List_PDF.UseVisualStyleBackColor = true;
+            this.Open_All_List_PDF.Click += new System.EventHandler(this.Open_All_List_PDF_Click);
             // 
             // Export_All_To_PDF
             // 
@@ -137,20 +147,60 @@
             this.Export_All_To_PDF.UseVisualStyleBackColor = true;
             this.Export_All_To_PDF.Click += new System.EventHandler(this.Export_All_To_PDF_Click);
             // 
-            // tabPage2
+            // Export_List_Lecturers
             // 
-            this.tabPage2.Controls.Add(this.Print_PDF_Dialog_List_Lec);
-            this.tabPage2.Controls.Add(this.Print_PDF_Lst_Lecturers);
-            this.tabPage2.Controls.Add(this.Open_PDF_List_Lecturers);
-            this.tabPage2.Controls.Add(this.Lecturers_Export);
-            this.tabPage2.Controls.Add(this.dataGridView_List_Lecturers);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(666, 339);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Lecturers";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.Export_List_Lecturers.Controls.Add(this.dataLecTable);
+            this.Export_List_Lecturers.Controls.Add(this.Print_PDF_Dialog_List_Lec);
+            this.Export_List_Lecturers.Controls.Add(this.Print_PDF_Lst_Lecturers);
+            this.Export_List_Lecturers.Controls.Add(this.Open_PDF_List_Lecturers);
+            this.Export_List_Lecturers.Controls.Add(this.Lecturers_Export);
+            this.Export_List_Lecturers.Controls.Add(this.dataGridView_List_Lecturers);
+            this.Export_List_Lecturers.Location = new System.Drawing.Point(4, 22);
+            this.Export_List_Lecturers.Name = "Export_List_Lecturers";
+            this.Export_List_Lecturers.Padding = new System.Windows.Forms.Padding(3);
+            this.Export_List_Lecturers.Size = new System.Drawing.Size(666, 339);
+            this.Export_List_Lecturers.TabIndex = 1;
+            this.Export_List_Lecturers.Text = "Lecturers";
+            this.Export_List_Lecturers.UseVisualStyleBackColor = true;
+            // 
+            // dataLecTable
+            // 
+            this.dataLecTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataLecTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataLecTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.colColour});
+            this.dataLecTable.Location = new System.Drawing.Point(6, 68);
+            this.dataLecTable.MultiSelect = false;
+            this.dataLecTable.Name = "dataLecTable";
+            this.dataLecTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataLecTable.Size = new System.Drawing.Size(445, 210);
+            this.dataLecTable.TabIndex = 8;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Lecturer Name";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Label";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Hours Per Module";
+            this.Column3.Name = "Column3";
+            // 
+            // colColour
+            // 
+            this.colColour.HeaderText = "Colour";
+            this.colColour.Name = "colColour";
+            this.colColour.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // Print_PDF_Dialog_List_Lec
             // 
@@ -201,20 +251,20 @@
             this.dataGridView_List_Lecturers.TabIndex = 0;
             this.dataGridView_List_Lecturers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_List_Lecturers_CellContentClick);
             // 
-            // tabPage3
+            // Export_List_Modules
             // 
-            this.tabPage3.Controls.Add(this.List_Mod_Print_Dia);
-            this.tabPage3.Controls.Add(this.List_Mod_Print_Pre);
-            this.tabPage3.Controls.Add(this.List_Mod_Open);
-            this.tabPage3.Controls.Add(this.List_Modules_Export);
-            this.tabPage3.Controls.Add(this.dataGridView_List_Modules);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(666, 339);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Modules";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.Export_List_Modules.Controls.Add(this.List_Mod_Print_Dia);
+            this.Export_List_Modules.Controls.Add(this.List_Mod_Print_Pre);
+            this.Export_List_Modules.Controls.Add(this.List_Mod_Open);
+            this.Export_List_Modules.Controls.Add(this.List_Modules_Export);
+            this.Export_List_Modules.Controls.Add(this.dataGridView_List_Modules);
+            this.Export_List_Modules.Location = new System.Drawing.Point(4, 22);
+            this.Export_List_Modules.Name = "Export_List_Modules";
+            this.Export_List_Modules.Padding = new System.Windows.Forms.Padding(3);
+            this.Export_List_Modules.Size = new System.Drawing.Size(666, 339);
+            this.Export_List_Modules.TabIndex = 2;
+            this.Export_List_Modules.Text = "Modules";
+            this.Export_List_Modules.UseVisualStyleBackColor = true;
             // 
             // List_Mod_Print_Dia
             // 
@@ -224,6 +274,7 @@
             this.List_Mod_Print_Dia.TabIndex = 10;
             this.List_Mod_Print_Dia.Text = "Print Dialog";
             this.List_Mod_Print_Dia.UseVisualStyleBackColor = true;
+            this.List_Mod_Print_Dia.Click += new System.EventHandler(this.List_Mod_Print_Dia_Click);
             // 
             // List_Mod_Print_Pre
             // 
@@ -233,6 +284,7 @@
             this.List_Mod_Print_Pre.TabIndex = 9;
             this.List_Mod_Print_Pre.Text = "Print Preview";
             this.List_Mod_Print_Pre.UseVisualStyleBackColor = true;
+            this.List_Mod_Print_Pre.Click += new System.EventHandler(this.List_Mod_Print_Pre_Click);
             // 
             // List_Mod_Open
             // 
@@ -242,6 +294,7 @@
             this.List_Mod_Open.TabIndex = 8;
             this.List_Mod_Open.Text = "Open PDF";
             this.List_Mod_Open.UseVisualStyleBackColor = true;
+            this.List_Mod_Open.Click += new System.EventHandler(this.List_Mod_Open_Click);
             // 
             // List_Modules_Export
             // 
@@ -261,20 +314,20 @@
             this.dataGridView_List_Modules.Size = new System.Drawing.Size(235, 313);
             this.dataGridView_List_Modules.TabIndex = 2;
             // 
-            // tabPage4
+            // Export_List_Rooms
             // 
-            this.tabPage4.Controls.Add(this.List_Rooms_Print_Dia);
-            this.tabPage4.Controls.Add(this.List_Rooms_Print_pre);
-            this.tabPage4.Controls.Add(this.List_Rooms_Open);
-            this.tabPage4.Controls.Add(this.List_Room_Export);
-            this.tabPage4.Controls.Add(this.dataGridView_List_Rooms);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(666, 339);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Rooms";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.Export_List_Rooms.Controls.Add(this.List_Rooms_Print_Dia);
+            this.Export_List_Rooms.Controls.Add(this.List_Rooms_Print_pre);
+            this.Export_List_Rooms.Controls.Add(this.List_Rooms_Open);
+            this.Export_List_Rooms.Controls.Add(this.List_Room_Export);
+            this.Export_List_Rooms.Controls.Add(this.dataGridView_List_Rooms);
+            this.Export_List_Rooms.Location = new System.Drawing.Point(4, 22);
+            this.Export_List_Rooms.Name = "Export_List_Rooms";
+            this.Export_List_Rooms.Padding = new System.Windows.Forms.Padding(3);
+            this.Export_List_Rooms.Size = new System.Drawing.Size(666, 339);
+            this.Export_List_Rooms.TabIndex = 3;
+            this.Export_List_Rooms.Text = "Rooms";
+            this.Export_List_Rooms.UseVisualStyleBackColor = true;
             // 
             // List_Rooms_Print_Dia
             // 
@@ -321,19 +374,19 @@
             this.dataGridView_List_Rooms.Size = new System.Drawing.Size(235, 313);
             this.dataGridView_List_Rooms.TabIndex = 2;
             // 
-            // tabPage5
+            // Export_List_Groups
             // 
-            this.tabPage5.Controls.Add(this.List_Groups_Print_Dia);
-            this.tabPage5.Controls.Add(this.List_Groups_Print_Pre);
-            this.tabPage5.Controls.Add(this.List_Groups_Open);
-            this.tabPage5.Controls.Add(this.List_Groups_Export);
-            this.tabPage5.Controls.Add(this.dataGridView_List_Groups);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(666, 339);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Groups";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.Export_List_Groups.Controls.Add(this.List_Groups_Print_Dia);
+            this.Export_List_Groups.Controls.Add(this.List_Groups_Print_Pre);
+            this.Export_List_Groups.Controls.Add(this.List_Groups_Open);
+            this.Export_List_Groups.Controls.Add(this.List_Groups_Export);
+            this.Export_List_Groups.Controls.Add(this.dataGridView_List_Groups);
+            this.Export_List_Groups.Location = new System.Drawing.Point(4, 22);
+            this.Export_List_Groups.Name = "Export_List_Groups";
+            this.Export_List_Groups.Size = new System.Drawing.Size(666, 339);
+            this.Export_List_Groups.TabIndex = 4;
+            this.Export_List_Groups.Text = "Groups";
+            this.Export_List_Groups.UseVisualStyleBackColor = true;
             // 
             // List_Groups_Print_Dia
             // 
@@ -380,20 +433,20 @@
             this.dataGridView_List_Groups.Size = new System.Drawing.Size(235, 313);
             this.dataGridView_List_Groups.TabIndex = 4;
             // 
-            // tabControl2
+            // Export_Tab
             // 
-            this.tabControl2.Controls.Add(this.tabPage6);
-            this.tabControl2.Controls.Add(this.tabPage7);
-            this.tabControl2.Controls.Add(this.Export_Settings);
-            this.tabControl2.Location = new System.Drawing.Point(29, 13);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(694, 403);
-            this.tabControl2.TabIndex = 1;
+            this.Export_Tab.Controls.Add(this.tabPage6);
+            this.Export_Tab.Controls.Add(this.tabPage7);
+            this.Export_Tab.Controls.Add(this.Export_Settings);
+            this.Export_Tab.Location = new System.Drawing.Point(29, 13);
+            this.Export_Tab.Name = "Export_Tab";
+            this.Export_Tab.SelectedIndex = 0;
+            this.Export_Tab.Size = new System.Drawing.Size(694, 403);
+            this.Export_Tab.TabIndex = 1;
             // 
             // tabPage6
             // 
-            this.tabPage6.Controls.Add(this.tabControl1);
+            this.tabPage6.Controls.Add(this.Export_Tab_List);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
@@ -404,7 +457,7 @@
             // 
             // tabPage7
             // 
-            this.tabPage7.Controls.Add(this.tabControl3);
+            this.tabPage7.Controls.Add(this.Export_Tab_Timetable);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
@@ -413,39 +466,39 @@
             this.tabPage7.Text = "Timetables";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
-            // tabControl3
+            // Export_Tab_Timetable
             // 
-            this.tabControl3.Controls.Add(this.tabPage8);
-            this.tabControl3.Controls.Add(this.tabPage9);
-            this.tabControl3.Controls.Add(this.tabPage11);
-            this.tabControl3.Controls.Add(this.tabPage12);
-            this.tabControl3.Location = new System.Drawing.Point(6, 6);
-            this.tabControl3.Name = "tabControl3";
-            this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(674, 365);
-            this.tabControl3.TabIndex = 1;
+            this.Export_Tab_Timetable.Controls.Add(this.Export_Timetable_Home);
+            this.Export_Tab_Timetable.Controls.Add(this.Export_Timetable_Lecturers);
+            this.Export_Tab_Timetable.Controls.Add(this.Export_Timetable_Rooms);
+            this.Export_Tab_Timetable.Controls.Add(this.Exprt_Timetable_Groups);
+            this.Export_Tab_Timetable.Location = new System.Drawing.Point(6, 6);
+            this.Export_Tab_Timetable.Name = "Export_Tab_Timetable";
+            this.Export_Tab_Timetable.SelectedIndex = 0;
+            this.Export_Tab_Timetable.Size = new System.Drawing.Size(674, 365);
+            this.Export_Tab_Timetable.TabIndex = 1;
             // 
-            // tabPage8
+            // Export_Timetable_Home
             // 
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(666, 339);
-            this.tabPage8.TabIndex = 0;
-            this.tabPage8.Text = "Home";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            this.Export_Timetable_Home.Location = new System.Drawing.Point(4, 22);
+            this.Export_Timetable_Home.Name = "Export_Timetable_Home";
+            this.Export_Timetable_Home.Padding = new System.Windows.Forms.Padding(3);
+            this.Export_Timetable_Home.Size = new System.Drawing.Size(666, 339);
+            this.Export_Timetable_Home.TabIndex = 0;
+            this.Export_Timetable_Home.Text = "Home";
+            this.Export_Timetable_Home.UseVisualStyleBackColor = true;
             // 
-            // tabPage9
+            // Export_Timetable_Lecturers
             // 
-            this.tabPage9.Controls.Add(this.Timtable_List_Lecturers);
-            this.tabPage9.Controls.Add(this.Timetable_Lecturers_Export);
-            this.tabPage9.Location = new System.Drawing.Point(4, 22);
-            this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(666, 339);
-            this.tabPage9.TabIndex = 1;
-            this.tabPage9.Text = "Lecturers";
-            this.tabPage9.UseVisualStyleBackColor = true;
+            this.Export_Timetable_Lecturers.Controls.Add(this.Timtable_List_Lecturers);
+            this.Export_Timetable_Lecturers.Controls.Add(this.Timetable_Lecturers_Export);
+            this.Export_Timetable_Lecturers.Location = new System.Drawing.Point(4, 22);
+            this.Export_Timetable_Lecturers.Name = "Export_Timetable_Lecturers";
+            this.Export_Timetable_Lecturers.Padding = new System.Windows.Forms.Padding(3);
+            this.Export_Timetable_Lecturers.Size = new System.Drawing.Size(666, 339);
+            this.Export_Timetable_Lecturers.TabIndex = 1;
+            this.Export_Timetable_Lecturers.Text = "Lecturers";
+            this.Export_Timetable_Lecturers.UseVisualStyleBackColor = true;
             // 
             // Timtable_List_Lecturers
             // 
@@ -465,17 +518,17 @@
             this.Timetable_Lecturers_Export.UseVisualStyleBackColor = true;
             this.Timetable_Lecturers_Export.Click += new System.EventHandler(this.Timetable_Lecturers_Export_Click);
             // 
-            // tabPage11
+            // Export_Timetable_Rooms
             // 
-            this.tabPage11.Controls.Add(this.Timetable_List_Rooms);
-            this.tabPage11.Controls.Add(this.Timetable_Rooms_Export);
-            this.tabPage11.Location = new System.Drawing.Point(4, 22);
-            this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(666, 339);
-            this.tabPage11.TabIndex = 3;
-            this.tabPage11.Text = "Rooms";
-            this.tabPage11.UseVisualStyleBackColor = true;
+            this.Export_Timetable_Rooms.Controls.Add(this.Timetable_List_Rooms);
+            this.Export_Timetable_Rooms.Controls.Add(this.Timetable_Rooms_Export);
+            this.Export_Timetable_Rooms.Location = new System.Drawing.Point(4, 22);
+            this.Export_Timetable_Rooms.Name = "Export_Timetable_Rooms";
+            this.Export_Timetable_Rooms.Padding = new System.Windows.Forms.Padding(3);
+            this.Export_Timetable_Rooms.Size = new System.Drawing.Size(666, 339);
+            this.Export_Timetable_Rooms.TabIndex = 3;
+            this.Export_Timetable_Rooms.Text = "Rooms";
+            this.Export_Timetable_Rooms.UseVisualStyleBackColor = true;
             // 
             // Timetable_List_Rooms
             // 
@@ -494,16 +547,16 @@
             this.Timetable_Rooms_Export.Text = "Export as PDF";
             this.Timetable_Rooms_Export.UseVisualStyleBackColor = true;
             // 
-            // tabPage12
+            // Exprt_Timetable_Groups
             // 
-            this.tabPage12.Controls.Add(this.Timetable_List_Groups);
-            this.tabPage12.Controls.Add(this.Timetable_Groups_Export);
-            this.tabPage12.Location = new System.Drawing.Point(4, 22);
-            this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Size = new System.Drawing.Size(666, 339);
-            this.tabPage12.TabIndex = 4;
-            this.tabPage12.Text = "Groups";
-            this.tabPage12.UseVisualStyleBackColor = true;
+            this.Exprt_Timetable_Groups.Controls.Add(this.Timetable_List_Groups);
+            this.Exprt_Timetable_Groups.Controls.Add(this.Timetable_Groups_Export);
+            this.Exprt_Timetable_Groups.Location = new System.Drawing.Point(4, 22);
+            this.Exprt_Timetable_Groups.Name = "Exprt_Timetable_Groups";
+            this.Exprt_Timetable_Groups.Size = new System.Drawing.Size(666, 339);
+            this.Exprt_Timetable_Groups.TabIndex = 4;
+            this.Exprt_Timetable_Groups.Text = "Groups";
+            this.Exprt_Timetable_Groups.UseVisualStyleBackColor = true;
             // 
             // Timetable_List_Groups
             // 
@@ -525,7 +578,7 @@
             // 
             // Export_Settings
             // 
-            this.Export_Settings.Controls.Add(this.checkBox1);
+            this.Export_Settings.Controls.Add(this.Export_Tab_Settings);
             this.Export_Settings.Location = new System.Drawing.Point(4, 22);
             this.Export_Settings.Name = "Export_Settings";
             this.Export_Settings.Padding = new System.Windows.Forms.Padding(3);
@@ -534,82 +587,102 @@
             this.Export_Settings.Text = "Export Settings";
             this.Export_Settings.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // Export_Tab_Settings
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(48, 24);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.Export_Tab_Settings.Controls.Add(this.tabPage10);
+            this.Export_Tab_Settings.Controls.Add(this.Export_Settings_Advanced);
+            this.Export_Tab_Settings.Location = new System.Drawing.Point(6, 6);
+            this.Export_Tab_Settings.Name = "Export_Tab_Settings";
+            this.Export_Tab_Settings.SelectedIndex = 0;
+            this.Export_Tab_Settings.Size = new System.Drawing.Size(674, 365);
+            this.Export_Tab_Settings.TabIndex = 1;
+            // 
+            // tabPage10
+            // 
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage10.Size = new System.Drawing.Size(666, 339);
+            this.tabPage10.TabIndex = 0;
+            this.tabPage10.Text = "Basic";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // Export_Settings_Advanced
+            // 
+            this.Export_Settings_Advanced.Location = new System.Drawing.Point(4, 22);
+            this.Export_Settings_Advanced.Name = "Export_Settings_Advanced";
+            this.Export_Settings_Advanced.Padding = new System.Windows.Forms.Padding(3);
+            this.Export_Settings_Advanced.Size = new System.Drawing.Size(666, 339);
+            this.Export_Settings_Advanced.TabIndex = 1;
+            this.Export_Settings_Advanced.Text = "Advanced";
+            this.Export_Settings_Advanced.UseVisualStyleBackColor = true;
             // 
             // Export
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(735, 428);
-            this.Controls.Add(this.tabControl2);
+            this.Controls.Add(this.Export_Tab);
             this.Name = "Export";
             this.Text = "Export";
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
+            this.Export_Tab_List.ResumeLayout(false);
+            this.Export_List_Home.ResumeLayout(false);
+            this.Export_List_Lecturers.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataLecTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List_Lecturers)).EndInit();
-            this.tabPage3.ResumeLayout(false);
+            this.Export_List_Modules.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List_Modules)).EndInit();
-            this.tabPage4.ResumeLayout(false);
+            this.Export_List_Rooms.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List_Rooms)).EndInit();
-            this.tabPage5.ResumeLayout(false);
+            this.Export_List_Groups.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List_Groups)).EndInit();
-            this.tabControl2.ResumeLayout(false);
+            this.Export_Tab.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
-            this.tabControl3.ResumeLayout(false);
-            this.tabPage9.ResumeLayout(false);
-            this.tabPage11.ResumeLayout(false);
-            this.tabPage12.ResumeLayout(false);
+            this.Export_Tab_Timetable.ResumeLayout(false);
+            this.Export_Timetable_Lecturers.ResumeLayout(false);
+            this.Export_Timetable_Rooms.ResumeLayout(false);
+            this.Exprt_Timetable_Groups.ResumeLayout(false);
             this.Export_Settings.ResumeLayout(false);
-            this.Export_Settings.PerformLayout();
+            this.Export_Tab_Settings.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabControl Export_Tab_List;
+        private System.Windows.Forms.TabPage Export_List_Home;
+        private System.Windows.Forms.TabPage Export_List_Lecturers;
         private System.Windows.Forms.Button Lecturers_Export;
         private System.Windows.Forms.DataGridView dataGridView_List_Lecturers;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage Export_List_Modules;
         private System.Windows.Forms.Button List_Modules_Export;
         private System.Windows.Forms.DataGridView dataGridView_List_Modules;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage Export_List_Rooms;
         private System.Windows.Forms.Button List_Room_Export;
         private System.Windows.Forms.DataGridView dataGridView_List_Rooms;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage Export_List_Groups;
         private System.Windows.Forms.Button List_Groups_Export;
         private System.Windows.Forms.DataGridView dataGridView_List_Groups;
-        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabControl Export_Tab;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.TabControl tabControl3;
-        private System.Windows.Forms.TabPage tabPage8;
-        private System.Windows.Forms.TabPage tabPage9;
+        private System.Windows.Forms.TabControl Export_Tab_Timetable;
+        private System.Windows.Forms.TabPage Export_Timetable_Home;
+        private System.Windows.Forms.TabPage Export_Timetable_Lecturers;
         private System.Windows.Forms.ListView Timtable_List_Lecturers;
         private System.Windows.Forms.Button Timetable_Lecturers_Export;
-        private System.Windows.Forms.TabPage tabPage11;
+        private System.Windows.Forms.TabPage Export_Timetable_Rooms;
         private System.Windows.Forms.ListView Timetable_List_Rooms;
         private System.Windows.Forms.Button Timetable_Rooms_Export;
-        private System.Windows.Forms.TabPage tabPage12;
+        private System.Windows.Forms.TabPage Exprt_Timetable_Groups;
         private System.Windows.Forms.ListView Timetable_List_Groups;
         private System.Windows.Forms.Button Timetable_Groups_Export;
         private System.Windows.Forms.Button Open_PDF_List_Lecturers;
         private System.Windows.Forms.Button Print_PDF_Lst_Lecturers;
         private System.Windows.Forms.Button Print_PDF_Dialog_List_Lec;
         private System.Windows.Forms.TabPage Export_Settings;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button List_Mod_Print_Dia;
         private System.Windows.Forms.Button List_Mod_Print_Pre;
         private System.Windows.Forms.Button List_Mod_Open;
@@ -621,5 +694,13 @@
         private System.Windows.Forms.Button List_Groups_Open;
         private System.Windows.Forms.Button Open_All_List_PDF;
         private System.Windows.Forms.Button Export_All_To_PDF;
+        private System.Windows.Forms.TabControl Export_Tab_Settings;
+        private System.Windows.Forms.TabPage tabPage10;
+        private System.Windows.Forms.TabPage Export_Settings_Advanced;
+        private System.Windows.Forms.DataGridView dataLecTable;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colColour;
     }
 }

@@ -18,24 +18,57 @@ namespace CWATMS
 {
     public partial class Export : Form
     {
+        // list of commonly used strings.
         string titleLec = "List_of_Lecturers";
         string titleMod = "List_of_Modules";
         string titleRoo = "List_of_Rooms";
         string titleGro = "List_of_Groups";
         string pdfFoter = " The A Team , Timetable Mangement System. Date and time produced ";
+        string lisLoc = @"PDF\Lists\";
+
 
         public Export()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// LIST HOME TAB.
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void Export_All_To_PDF_Click(object sender, EventArgs e)
+        {
+            change_Cursor(0);
+            string comple = titleLec + " " + titleMod + " " + titleRoo + " " + titleGro + " ";
+            lecturer_List_Export();
+            modules_List_Export();
+            rooms_List_Export();
+            Groups_List_Export();
+            change_Cursor(1);
+            export_Complete(comple);
+        }
+
+        private void Open_All_List_PDF_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// List Lecturer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
         private void button1_Click(object sender, EventArgs e)
         {
 
-            change_Cursor(0);
-            lecturer_List_Export();
-            change_Cursor(1);
-            export_Complete(titleLec);
+            change_Cursor(0);              // changes cursor to wait
+            lecturer_List_Export();       // exports list to pdf
+            change_Cursor(1);            // changes cursor back to default
+            export_Complete(titleLec);  //acknowledgement of completion
 
 
         }
@@ -51,10 +84,37 @@ namespace CWATMS
             create_PDF_5(titleLec, sfname, slname, shpw, slabel, scolour);
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private void Open_PDF_List_Lecturers_Click(object sender, EventArgs e)
         {
 
+
+            string sourceName = lisLoc + titleLec + ".pdf";
+            view_PDF(sourceName);
+
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            string sourceName = lisLoc + titleLec + ".pdf";
+
+            print_Dialog(sourceName);
+        }
+
+        private void Print_PDF_Lst_Lecturers_Click(object sender, EventArgs e)
+        {
+            string sourceName = lisLoc + titleLec + ".pdf";
+
+            print_PDF(sourceName);
+
+        }
+
+        /// <summary>
+        /// MODULES TAB
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -62,6 +122,11 @@ namespace CWATMS
             modules_List_Export();
             change_Cursor(1);
             export_Complete(titleMod);
+        }
+
+        private void List_Mod_Open_Click(object sender, EventArgs e)
+        {
+
         }
 
         public void modules_List_Export()
@@ -74,6 +139,17 @@ namespace CWATMS
 
             create_PDF_4(titleMod, dgv, sname, scourselevel, slabel, scolour);
         }
+
+        private void List_Mod_Print_Dia_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void List_Mod_Print_Pre_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         private void List_Room_Export_Click(object sender, EventArgs e)
         {
@@ -122,7 +198,8 @@ namespace CWATMS
 
         private void Open_PDF_List_Modules_Click(object sender, EventArgs e)
         {
-
+            string sourceName = lisLoc + titleMod + ".pdf";
+            view_PDF(sourceName);
         }
 
         private void Open_List_Modules_Location_Click(object sender, EventArgs e)
@@ -135,26 +212,13 @@ namespace CWATMS
 
         }
 
-        private void Open_PDF_List_Lecturers_Click(object sender, EventArgs e)
-        {
 
-            string sourceName = titleLec + ".pdf";
 
-            view_PDF(sourceName);
 
-        }
-
-        private void Print_PDF_Lst_Lecturers_Click(object sender, EventArgs e)
-        {
-            string sourceName = "List_of_Lecturers.pdf";
-
-            print_PDF(sourceName);
-
-        }
 
         private void View_PDF_List_All_Click(object sender, EventArgs e)
         {
-            string sourceName = "List_of_Lecturers.pdf";
+            string sourceName = lisLoc + titleLec + ".pdf";
 
             view_PDF(sourceName);
         }
@@ -189,15 +253,11 @@ namespace CWATMS
             Process x = Process.Start(p);
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            string sourceName = "List_of_Lecturers.pdf";
 
-            print_Dialog(sourceName);
-        }
 
         public void export_Complete(string title)
         {
+            // message box dialog, acknowledgment n successful exportation 
             MessageBox.Show(title + " has successfully been exported",
     "Export",
     MessageBoxButtons.OK,
@@ -207,6 +267,7 @@ namespace CWATMS
 
         public void change_Cursor(int num)
         {
+            // if statement to change the cursor, wait cursor or default cursor.
             if (num == 0)
             {
                 this.Cursor = Cursors.WaitCursor;
@@ -223,7 +284,7 @@ namespace CWATMS
         {
 
             Document document = new Document();
-            PdfWriter.GetInstance(document, new FileStream(title + ".pdf", FileMode.Create));
+            PdfWriter.GetInstance(document, new FileStream(@"PDF\Lists\" + title + ".pdf", FileMode.Create));
             document.Open();
             Paragraph paragraph = new Paragraph(titleLec + System.Environment.NewLine + "\n");
             PdfPTable t1 = new PdfPTable(5);
@@ -240,15 +301,15 @@ namespace CWATMS
             t1.AddCell(ccell4);
             t1.AddCell(ccell5);
 
-            foreach (DataGridViewRow rows in dataGridView_List_Lecturers.Rows)
+            foreach (DataGridViewRow rows in dataLecTable.Rows)
             {
-                if (Convert.ToBoolean(dataGridView_List_Lecturers.Rows[rows.Index].Cells[2].Value))
+                if (Convert.ToBoolean(dataLecTable.Rows[rows.Index].Cells[2].Value))
                 {
-                    string cell1 = dataGridView_List_Lecturers.Rows[rows.Index].Cells[cN1].Value.ToString();
-                    string cell2 = dataGridView_List_Lecturers.Rows[rows.Index].Cells[cN2].Value.ToString();
-                    string cell3 = dataGridView_List_Lecturers.Rows[rows.Index].Cells[cN3].Value.ToString();
-                    string cell4 = dataGridView_List_Lecturers.Rows[rows.Index].Cells[cN4].Value.ToString();
-                    string cell5 = dataGridView_List_Lecturers.Rows[rows.Index].Cells[cN5].Value.ToString();
+                    string cell1 = dataLecTable.Rows[rows.Index].Cells[cN1].Value.ToString();
+                    string cell2 = dataLecTable.Rows[rows.Index].Cells[cN2].Value.ToString();
+                    string cell3 = dataLecTable.Rows[rows.Index].Cells[cN3].Value.ToString();
+                    string cell4 = dataLecTable.Rows[rows.Index].Cells[cN4].Value.ToString();
+                    string cell5 = dataLecTable.Rows[rows.Index].Cells[cN5].Value.ToString();
 
                     PdfPCell c1 = new PdfPCell(new Phrase(cell1));
                     PdfPCell c2 = new PdfPCell(new Phrase(cell2));
@@ -273,7 +334,7 @@ namespace CWATMS
         public void create_PDF_4(string title, int dgvc, string cN1, string cN2, string cN3, string cN4)
         {
             Document document = new Document();
-            PdfWriter.GetInstance(document, new FileStream(title + ".pdf", FileMode.Create));
+            PdfWriter.GetInstance(document, new FileStream(@"PDF\Lists\" + title + ".pdf", FileMode.Create));
             document.Open();
             Paragraph paragraph = new Paragraph(title + System.Environment.NewLine + "\n");
             PdfPTable t1 = new PdfPTable(4);
@@ -367,45 +428,36 @@ namespace CWATMS
             document.Close();
         }
 
-        private void Export_All_To_PDF_Click(object sender, EventArgs e)
-        {
-            change_Cursor(0);
-            string comple = titleLec + " " + titleMod + " " + titleRoo + " " + titleGro + " ";
-            lecturer_List_Export();
-            modules_List_Export();
-            rooms_List_Export();
-            Groups_List_Export();
-            change_Cursor(1);
-            export_Complete(comple);
-        }
+       
 
         private void Timetable_Lecturers_Export_Click(object sender, EventArgs e)
         {
-            FormTimetable r = new FormTimetable();
-            r.FormBorderStyle = FormBorderStyle.None;
-            r.WindowState = FormWindowState.Maximized;
-            r.Show();
-            capture_Image();
-            r.Close();
-            Create_PDF_Timetabless();
+            //FormTimetable r = new FormTimetable(Lecturer);
+            //r.FormBorderStyle = FormBorderStyle.None;
+            //r.WindowState = FormWindowState.Maximized;
+            //r.Show();
+            //capture_Image();
+            //r.Close();
+            //Create_PDF_Timetabless(@"PDF\Timetables\Lecturers\");
 
         }
 
-        public void Create_PDF_Timetabless()
+        public void Create_PDF_Timetabless(string location)
         {
             string title = "test";
-            Document document = new Document(PageSize.A4.Rotate());
-            PdfWriter.GetInstance(document, new FileStream(title + ".pdf", FileMode.Create));
+            Document document = new Document(PageSize.A4.Rotate());  // creates new pdf file A4 landscape
+            PdfWriter.GetInstance(document, new FileStream(location + ".pdf", FileMode.Create));  // writes the pdf to file
             document.Open();
             Paragraph paragraph = new Paragraph(title + System.Environment.NewLine + "\n");
-            iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance("test.jpg");
-            jpg.ScalePercent(45f);
+            iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance("temp.jpg");
+            jpg.ScalePercent(45f);  // scales the image file to fit on to page.
             document.Add(jpg);
             document.Close();
         }
 
         public void capture_Image()
         {
+            // takes a screenshot and saves the file.
             System.Drawing.Rectangle bounds = Screen.GetBounds(Point.Empty);
             using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
             {
@@ -413,9 +465,20 @@ namespace CWATMS
                 {
                     g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
                 }
-                bitmap.Save("test.jpg", ImageFormat.Jpeg);
+                bitmap.Save(@"PDF\temp\temp.jpg", ImageFormat.Jpeg);
             }
         }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+
+
 
     }
 }

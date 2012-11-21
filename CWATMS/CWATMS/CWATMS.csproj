@@ -177,6 +177,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PDF\Lists\" />
+    <Folder Include="PDF\temp\" />
+    <Folder Include="PDF\Timetables\Class\" />
+    <Folder Include="PDF\Timetables\Lecturers\" />
+    <Folder Include="PDF\Timetables\Rooms\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
