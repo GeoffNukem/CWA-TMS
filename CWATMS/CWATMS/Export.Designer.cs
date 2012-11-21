@@ -30,6 +30,8 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Open_All_List_PDF = new System.Windows.Forms.Button();
+            this.Export_All_To_PDF = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.Print_PDF_Dialog_List_Lec = new System.Windows.Forms.Button();
             this.Print_PDF_Lst_Lecturers = new System.Windows.Forms.Button();
@@ -37,12 +39,21 @@
             this.Lecturers_Export = new System.Windows.Forms.Button();
             this.dataGridView_List_Lecturers = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.List_Mod_Print_Dia = new System.Windows.Forms.Button();
+            this.List_Mod_Print_Pre = new System.Windows.Forms.Button();
+            this.List_Mod_Open = new System.Windows.Forms.Button();
             this.List_Modules_Export = new System.Windows.Forms.Button();
             this.dataGridView_List_Modules = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.List_Rooms_Print_Dia = new System.Windows.Forms.Button();
+            this.List_Rooms_Print_pre = new System.Windows.Forms.Button();
+            this.List_Rooms_Open = new System.Windows.Forms.Button();
             this.List_Room_Export = new System.Windows.Forms.Button();
             this.dataGridView_List_Rooms = new System.Windows.Forms.DataGridView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.List_Groups_Print_Dia = new System.Windows.Forms.Button();
+            this.List_Groups_Print_Pre = new System.Windows.Forms.Button();
+            this.List_Groups_Open = new System.Windows.Forms.Button();
             this.List_Groups_Export = new System.Windows.Forms.Button();
             this.dataGridView_List_Groups = new System.Windows.Forms.DataGridView();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -51,28 +62,16 @@
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.Print_all_Lec_Timtab = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.Timtable_List_Lecturers = new System.Windows.Forms.ListView();
             this.Timetable_Lecturers_Export = new System.Windows.Forms.Button();
             this.tabPage11 = new System.Windows.Forms.TabPage();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.Timetable_List_Rooms = new System.Windows.Forms.ListView();
             this.Timetable_Rooms_Export = new System.Windows.Forms.Button();
             this.tabPage12 = new System.Windows.Forms.TabPage();
-            this.listView3 = new System.Windows.Forms.ListView();
+            this.Timetable_List_Groups = new System.Windows.Forms.ListView();
             this.Timetable_Groups_Export = new System.Windows.Forms.Button();
             this.Export_Settings = new System.Windows.Forms.TabPage();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.List_Mod_Print_Dia = new System.Windows.Forms.Button();
-            this.List_Mod_Print_Pre = new System.Windows.Forms.Button();
-            this.List_Mod_Open = new System.Windows.Forms.Button();
-            this.List_Rooms_Print_Dia = new System.Windows.Forms.Button();
-            this.List_Rooms_Print_pre = new System.Windows.Forms.Button();
-            this.List_Rooms_Open = new System.Windows.Forms.Button();
-            this.List_Groups_Print_Dia = new System.Windows.Forms.Button();
-            this.List_Groups_Print_Pre = new System.Windows.Forms.Button();
-            this.List_Groups_Open = new System.Windows.Forms.Button();
-            this.Export_All_To_PDF = new System.Windows.Forms.Button();
-            this.Open_All_List_PDF = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -118,6 +117,25 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Home";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // Open_All_List_PDF
+            // 
+            this.Open_All_List_PDF.Location = new System.Drawing.Point(98, 81);
+            this.Open_All_List_PDF.Name = "Open_All_List_PDF";
+            this.Open_All_List_PDF.Size = new System.Drawing.Size(157, 77);
+            this.Open_All_List_PDF.TabIndex = 1;
+            this.Open_All_List_PDF.Text = "Open all PDF in seperate window";
+            this.Open_All_List_PDF.UseVisualStyleBackColor = true;
+            // 
+            // Export_All_To_PDF
+            // 
+            this.Export_All_To_PDF.Location = new System.Drawing.Point(98, 181);
+            this.Export_All_To_PDF.Name = "Export_All_To_PDF";
+            this.Export_All_To_PDF.Size = new System.Drawing.Size(157, 77);
+            this.Export_All_To_PDF.TabIndex = 0;
+            this.Export_All_To_PDF.Text = "Export All List To PDF";
+            this.Export_All_To_PDF.UseVisualStyleBackColor = true;
+            this.Export_All_To_PDF.Click += new System.EventHandler(this.Export_All_To_PDF_Click);
             // 
             // tabPage2
             // 
@@ -198,6 +216,33 @@
             this.tabPage3.Text = "Modules";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // List_Mod_Print_Dia
+            // 
+            this.List_Mod_Print_Dia.Location = new System.Drawing.Point(445, 249);
+            this.List_Mod_Print_Dia.Name = "List_Mod_Print_Dia";
+            this.List_Mod_Print_Dia.Size = new System.Drawing.Size(108, 23);
+            this.List_Mod_Print_Dia.TabIndex = 10;
+            this.List_Mod_Print_Dia.Text = "Print Dialog";
+            this.List_Mod_Print_Dia.UseVisualStyleBackColor = true;
+            // 
+            // List_Mod_Print_Pre
+            // 
+            this.List_Mod_Print_Pre.Location = new System.Drawing.Point(445, 278);
+            this.List_Mod_Print_Pre.Name = "List_Mod_Print_Pre";
+            this.List_Mod_Print_Pre.Size = new System.Drawing.Size(108, 23);
+            this.List_Mod_Print_Pre.TabIndex = 9;
+            this.List_Mod_Print_Pre.Text = "Print Preview";
+            this.List_Mod_Print_Pre.UseVisualStyleBackColor = true;
+            // 
+            // List_Mod_Open
+            // 
+            this.List_Mod_Open.Location = new System.Drawing.Point(445, 220);
+            this.List_Mod_Open.Name = "List_Mod_Open";
+            this.List_Mod_Open.Size = new System.Drawing.Size(108, 23);
+            this.List_Mod_Open.TabIndex = 8;
+            this.List_Mod_Open.Text = "Open PDF";
+            this.List_Mod_Open.UseVisualStyleBackColor = true;
+            // 
             // List_Modules_Export
             // 
             this.List_Modules_Export.Location = new System.Drawing.Point(445, 191);
@@ -231,6 +276,33 @@
             this.tabPage4.Text = "Rooms";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // List_Rooms_Print_Dia
+            // 
+            this.List_Rooms_Print_Dia.Location = new System.Drawing.Point(471, 266);
+            this.List_Rooms_Print_Dia.Name = "List_Rooms_Print_Dia";
+            this.List_Rooms_Print_Dia.Size = new System.Drawing.Size(108, 23);
+            this.List_Rooms_Print_Dia.TabIndex = 10;
+            this.List_Rooms_Print_Dia.Text = "Print Dialog";
+            this.List_Rooms_Print_Dia.UseVisualStyleBackColor = true;
+            // 
+            // List_Rooms_Print_pre
+            // 
+            this.List_Rooms_Print_pre.Location = new System.Drawing.Point(471, 295);
+            this.List_Rooms_Print_pre.Name = "List_Rooms_Print_pre";
+            this.List_Rooms_Print_pre.Size = new System.Drawing.Size(108, 23);
+            this.List_Rooms_Print_pre.TabIndex = 9;
+            this.List_Rooms_Print_pre.Text = "Print Preview";
+            this.List_Rooms_Print_pre.UseVisualStyleBackColor = true;
+            // 
+            // List_Rooms_Open
+            // 
+            this.List_Rooms_Open.Location = new System.Drawing.Point(471, 237);
+            this.List_Rooms_Open.Name = "List_Rooms_Open";
+            this.List_Rooms_Open.Size = new System.Drawing.Size(108, 23);
+            this.List_Rooms_Open.TabIndex = 8;
+            this.List_Rooms_Open.Text = "Open PDF";
+            this.List_Rooms_Open.UseVisualStyleBackColor = true;
+            // 
             // List_Room_Export
             // 
             this.List_Room_Export.Location = new System.Drawing.Point(474, 208);
@@ -262,6 +334,33 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Groups";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // List_Groups_Print_Dia
+            // 
+            this.List_Groups_Print_Dia.Location = new System.Drawing.Point(488, 249);
+            this.List_Groups_Print_Dia.Name = "List_Groups_Print_Dia";
+            this.List_Groups_Print_Dia.Size = new System.Drawing.Size(108, 23);
+            this.List_Groups_Print_Dia.TabIndex = 10;
+            this.List_Groups_Print_Dia.Text = "Print Dialog";
+            this.List_Groups_Print_Dia.UseVisualStyleBackColor = true;
+            // 
+            // List_Groups_Print_Pre
+            // 
+            this.List_Groups_Print_Pre.Location = new System.Drawing.Point(488, 278);
+            this.List_Groups_Print_Pre.Name = "List_Groups_Print_Pre";
+            this.List_Groups_Print_Pre.Size = new System.Drawing.Size(108, 23);
+            this.List_Groups_Print_Pre.TabIndex = 9;
+            this.List_Groups_Print_Pre.Text = "Print Preview";
+            this.List_Groups_Print_Pre.UseVisualStyleBackColor = true;
+            // 
+            // List_Groups_Open
+            // 
+            this.List_Groups_Open.Location = new System.Drawing.Point(488, 220);
+            this.List_Groups_Open.Name = "List_Groups_Open";
+            this.List_Groups_Open.Size = new System.Drawing.Size(108, 23);
+            this.List_Groups_Open.TabIndex = 8;
+            this.List_Groups_Open.Text = "Open PDF";
+            this.List_Groups_Open.UseVisualStyleBackColor = true;
             // 
             // List_Groups_Export
             // 
@@ -338,8 +437,7 @@
             // 
             // tabPage9
             // 
-            this.tabPage9.Controls.Add(this.Print_all_Lec_Timtab);
-            this.tabPage9.Controls.Add(this.listView1);
+            this.tabPage9.Controls.Add(this.Timtable_List_Lecturers);
             this.tabPage9.Controls.Add(this.Timetable_Lecturers_Export);
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
@@ -349,35 +447,27 @@
             this.tabPage9.Text = "Lecturers";
             this.tabPage9.UseVisualStyleBackColor = true;
             // 
-            // Print_all_Lec_Timtab
+            // Timtable_List_Lecturers
             // 
-            this.Print_all_Lec_Timtab.Location = new System.Drawing.Point(364, 26);
-            this.Print_all_Lec_Timtab.Name = "Print_all_Lec_Timtab";
-            this.Print_all_Lec_Timtab.Size = new System.Drawing.Size(120, 55);
-            this.Print_all_Lec_Timtab.TabIndex = 3;
-            this.Print_all_Lec_Timtab.Text = "Print all lecturer timetables";
-            this.Print_all_Lec_Timtab.UseVisualStyleBackColor = true;
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(25, 26);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(302, 287);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.Timtable_List_Lecturers.Location = new System.Drawing.Point(25, 26);
+            this.Timtable_List_Lecturers.Name = "Timtable_List_Lecturers";
+            this.Timtable_List_Lecturers.Size = new System.Drawing.Size(302, 287);
+            this.Timtable_List_Lecturers.TabIndex = 2;
+            this.Timtable_List_Lecturers.UseCompatibleStateImageBehavior = false;
             // 
             // Timetable_Lecturers_Export
             // 
-            this.Timetable_Lecturers_Export.Location = new System.Drawing.Point(364, 250);
+            this.Timetable_Lecturers_Export.Location = new System.Drawing.Point(400, 290);
             this.Timetable_Lecturers_Export.Name = "Timetable_Lecturers_Export";
             this.Timetable_Lecturers_Export.Size = new System.Drawing.Size(194, 23);
             this.Timetable_Lecturers_Export.TabIndex = 1;
-            this.Timetable_Lecturers_Export.Text = "Export selected as PDF";
+            this.Timetable_Lecturers_Export.Text = "Export All as PDF";
             this.Timetable_Lecturers_Export.UseVisualStyleBackColor = true;
+            this.Timetable_Lecturers_Export.Click += new System.EventHandler(this.Timetable_Lecturers_Export_Click);
             // 
             // tabPage11
             // 
-            this.tabPage11.Controls.Add(this.listView2);
+            this.tabPage11.Controls.Add(this.Timetable_List_Rooms);
             this.tabPage11.Controls.Add(this.Timetable_Rooms_Export);
             this.tabPage11.Location = new System.Drawing.Point(4, 22);
             this.tabPage11.Name = "tabPage11";
@@ -387,13 +477,13 @@
             this.tabPage11.Text = "Rooms";
             this.tabPage11.UseVisualStyleBackColor = true;
             // 
-            // listView2
+            // Timetable_List_Rooms
             // 
-            this.listView2.Location = new System.Drawing.Point(25, 26);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(302, 287);
-            this.listView2.TabIndex = 4;
-            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.Timetable_List_Rooms.Location = new System.Drawing.Point(25, 26);
+            this.Timetable_List_Rooms.Name = "Timetable_List_Rooms";
+            this.Timetable_List_Rooms.Size = new System.Drawing.Size(302, 287);
+            this.Timetable_List_Rooms.TabIndex = 4;
+            this.Timetable_List_Rooms.UseCompatibleStateImageBehavior = false;
             // 
             // Timetable_Rooms_Export
             // 
@@ -406,7 +496,7 @@
             // 
             // tabPage12
             // 
-            this.tabPage12.Controls.Add(this.listView3);
+            this.tabPage12.Controls.Add(this.Timetable_List_Groups);
             this.tabPage12.Controls.Add(this.Timetable_Groups_Export);
             this.tabPage12.Location = new System.Drawing.Point(4, 22);
             this.tabPage12.Name = "tabPage12";
@@ -415,13 +505,13 @@
             this.tabPage12.Text = "Groups";
             this.tabPage12.UseVisualStyleBackColor = true;
             // 
-            // listView3
+            // Timetable_List_Groups
             // 
-            this.listView3.Location = new System.Drawing.Point(25, 26);
-            this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(302, 287);
-            this.listView3.TabIndex = 6;
-            this.listView3.UseCompatibleStateImageBehavior = false;
+            this.Timetable_List_Groups.Location = new System.Drawing.Point(25, 26);
+            this.Timetable_List_Groups.Name = "Timetable_List_Groups";
+            this.Timetable_List_Groups.Size = new System.Drawing.Size(302, 287);
+            this.Timetable_List_Groups.TabIndex = 6;
+            this.Timetable_List_Groups.UseCompatibleStateImageBehavior = false;
             // 
             // Timetable_Groups_Export
             // 
@@ -453,106 +543,6 @@
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "checkBox1";
             this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // List_Mod_Print_Dia
-            // 
-            this.List_Mod_Print_Dia.Location = new System.Drawing.Point(445, 249);
-            this.List_Mod_Print_Dia.Name = "List_Mod_Print_Dia";
-            this.List_Mod_Print_Dia.Size = new System.Drawing.Size(108, 23);
-            this.List_Mod_Print_Dia.TabIndex = 10;
-            this.List_Mod_Print_Dia.Text = "Print Dialog";
-            this.List_Mod_Print_Dia.UseVisualStyleBackColor = true;
-            // 
-            // List_Mod_Print_Pre
-            // 
-            this.List_Mod_Print_Pre.Location = new System.Drawing.Point(445, 278);
-            this.List_Mod_Print_Pre.Name = "List_Mod_Print_Pre";
-            this.List_Mod_Print_Pre.Size = new System.Drawing.Size(108, 23);
-            this.List_Mod_Print_Pre.TabIndex = 9;
-            this.List_Mod_Print_Pre.Text = "Print Preview";
-            this.List_Mod_Print_Pre.UseVisualStyleBackColor = true;
-            // 
-            // List_Mod_Open
-            // 
-            this.List_Mod_Open.Location = new System.Drawing.Point(445, 220);
-            this.List_Mod_Open.Name = "List_Mod_Open";
-            this.List_Mod_Open.Size = new System.Drawing.Size(108, 23);
-            this.List_Mod_Open.TabIndex = 8;
-            this.List_Mod_Open.Text = "Open PDF";
-            this.List_Mod_Open.UseVisualStyleBackColor = true;
-            // 
-            // List_Rooms_Print_Dia
-            // 
-            this.List_Rooms_Print_Dia.Location = new System.Drawing.Point(471, 266);
-            this.List_Rooms_Print_Dia.Name = "List_Rooms_Print_Dia";
-            this.List_Rooms_Print_Dia.Size = new System.Drawing.Size(108, 23);
-            this.List_Rooms_Print_Dia.TabIndex = 10;
-            this.List_Rooms_Print_Dia.Text = "Print Dialog";
-            this.List_Rooms_Print_Dia.UseVisualStyleBackColor = true;
-            // 
-            // List_Rooms_Print_pre
-            // 
-            this.List_Rooms_Print_pre.Location = new System.Drawing.Point(471, 295);
-            this.List_Rooms_Print_pre.Name = "List_Rooms_Print_pre";
-            this.List_Rooms_Print_pre.Size = new System.Drawing.Size(108, 23);
-            this.List_Rooms_Print_pre.TabIndex = 9;
-            this.List_Rooms_Print_pre.Text = "Print Preview";
-            this.List_Rooms_Print_pre.UseVisualStyleBackColor = true;
-            // 
-            // List_Rooms_Open
-            // 
-            this.List_Rooms_Open.Location = new System.Drawing.Point(471, 237);
-            this.List_Rooms_Open.Name = "List_Rooms_Open";
-            this.List_Rooms_Open.Size = new System.Drawing.Size(108, 23);
-            this.List_Rooms_Open.TabIndex = 8;
-            this.List_Rooms_Open.Text = "Open PDF";
-            this.List_Rooms_Open.UseVisualStyleBackColor = true;
-            // 
-            // List_Groups_Print_Dia
-            // 
-            this.List_Groups_Print_Dia.Location = new System.Drawing.Point(488, 249);
-            this.List_Groups_Print_Dia.Name = "List_Groups_Print_Dia";
-            this.List_Groups_Print_Dia.Size = new System.Drawing.Size(108, 23);
-            this.List_Groups_Print_Dia.TabIndex = 10;
-            this.List_Groups_Print_Dia.Text = "Print Dialog";
-            this.List_Groups_Print_Dia.UseVisualStyleBackColor = true;
-            // 
-            // List_Groups_Print_Pre
-            // 
-            this.List_Groups_Print_Pre.Location = new System.Drawing.Point(488, 278);
-            this.List_Groups_Print_Pre.Name = "List_Groups_Print_Pre";
-            this.List_Groups_Print_Pre.Size = new System.Drawing.Size(108, 23);
-            this.List_Groups_Print_Pre.TabIndex = 9;
-            this.List_Groups_Print_Pre.Text = "Print Preview";
-            this.List_Groups_Print_Pre.UseVisualStyleBackColor = true;
-            // 
-            // List_Groups_Open
-            // 
-            this.List_Groups_Open.Location = new System.Drawing.Point(488, 220);
-            this.List_Groups_Open.Name = "List_Groups_Open";
-            this.List_Groups_Open.Size = new System.Drawing.Size(108, 23);
-            this.List_Groups_Open.TabIndex = 8;
-            this.List_Groups_Open.Text = "Open PDF";
-            this.List_Groups_Open.UseVisualStyleBackColor = true;
-            // 
-            // Export_All_To_PDF
-            // 
-            this.Export_All_To_PDF.Location = new System.Drawing.Point(98, 181);
-            this.Export_All_To_PDF.Name = "Export_All_To_PDF";
-            this.Export_All_To_PDF.Size = new System.Drawing.Size(157, 77);
-            this.Export_All_To_PDF.TabIndex = 0;
-            this.Export_All_To_PDF.Text = "Export All List To PDF";
-            this.Export_All_To_PDF.UseVisualStyleBackColor = true;
-            this.Export_All_To_PDF.Click += new System.EventHandler(this.Export_All_To_PDF_Click);
-            // 
-            // Open_All_List_PDF
-            // 
-            this.Open_All_List_PDF.Location = new System.Drawing.Point(98, 81);
-            this.Open_All_List_PDF.Name = "Open_All_List_PDF";
-            this.Open_All_List_PDF.Size = new System.Drawing.Size(157, 77);
-            this.Open_All_List_PDF.TabIndex = 1;
-            this.Open_All_List_PDF.Text = "Open all PDF in seperate window";
-            this.Open_All_List_PDF.UseVisualStyleBackColor = true;
             // 
             // Export
             // 
@@ -607,17 +597,16 @@
         private System.Windows.Forms.TabControl tabControl3;
         private System.Windows.Forms.TabPage tabPage8;
         private System.Windows.Forms.TabPage tabPage9;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView Timtable_List_Lecturers;
         private System.Windows.Forms.Button Timetable_Lecturers_Export;
         private System.Windows.Forms.TabPage tabPage11;
-        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ListView Timetable_List_Rooms;
         private System.Windows.Forms.Button Timetable_Rooms_Export;
         private System.Windows.Forms.TabPage tabPage12;
-        private System.Windows.Forms.ListView listView3;
+        private System.Windows.Forms.ListView Timetable_List_Groups;
         private System.Windows.Forms.Button Timetable_Groups_Export;
         private System.Windows.Forms.Button Open_PDF_List_Lecturers;
         private System.Windows.Forms.Button Print_PDF_Lst_Lecturers;
-        private System.Windows.Forms.Button Print_all_Lec_Timtab;
         private System.Windows.Forms.Button Print_PDF_Dialog_List_Lec;
         private System.Windows.Forms.TabPage Export_Settings;
         private System.Windows.Forms.CheckBox checkBox1;

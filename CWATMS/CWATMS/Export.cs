@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -378,6 +379,43 @@ namespace CWATMS
             export_Complete(comple);
         }
 
+        private void Timetable_Lecturers_Export_Click(object sender, EventArgs e)
+        {
+            FormTimetable r = new FormTimetable();
+            r.FormBorderStyle = FormBorderStyle.None;
+            r.WindowState = FormWindowState.Maximized;
+            r.Show();
+            capture_Image();
+            r.Close();
+            Create_PDF_Timetabless();
+
+        }
+
+        public void Create_PDF_Timetabless()
+        {
+            string title = "test";
+            Document document = new Document(PageSize.A4.Rotate());
+            PdfWriter.GetInstance(document, new FileStream(title + ".pdf", FileMode.Create));
+            document.Open();
+            Paragraph paragraph = new Paragraph(title + System.Environment.NewLine + "\n");
+            iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance("test.jpg");
+            jpg.ScalePercent(45f);
+            document.Add(jpg);
+            document.Close();
+        }
+
+        public void capture_Image()
+        {
+            System.Drawing.Rectangle bounds = Screen.GetBounds(Point.Empty);
+            using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
+            {
+                using (Graphics g = Graphics.FromImage(bitmap))
+                {
+                    g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
+                }
+                bitmap.Save("test.jpg", ImageFormat.Jpeg);
+            }
+        }
 
     }
 }
