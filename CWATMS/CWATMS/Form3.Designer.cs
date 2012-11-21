@@ -49,6 +49,12 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabRoom = new System.Windows.Forms.TabPage();
             this.dataRoomTable = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabClass = new System.Windows.Forms.TabPage();
             this.dataClassTable = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,12 +67,6 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataLecTable)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -146,6 +146,7 @@
             this.dataLecTable.Size = new System.Drawing.Size(721, 323);
             this.dataLecTable.TabIndex = 1;
             this.dataLecTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataLecTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataLecTable_CellValueChanged);
             // 
             // Column1
             // 
@@ -218,6 +219,7 @@
             this.dataSubTable.Size = new System.Drawing.Size(721, 323);
             this.dataSubTable.TabIndex = 2;
             this.dataSubTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataSubTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataLecTable_CellValueChanged);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -265,6 +267,37 @@
             this.dataRoomTable.Size = new System.Drawing.Size(721, 323);
             this.dataRoomTable.TabIndex = 2;
             this.dataRoomTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataRoomTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataLecTable_CellValueChanged);
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Room No";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Smart Board";
+            this.Column4.Name = "Column4";
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "TV";
+            this.Column6.Name = "Column6";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Projector";
+            this.Column5.Name = "Column5";
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Network Lab";
+            this.Column7.Name = "Column7";
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "Colour";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             // 
             // tabClass
             // 
@@ -293,6 +326,7 @@
             this.dataClassTable.Size = new System.Drawing.Size(721, 323);
             this.dataClassTable.TabIndex = 2;
             this.dataClassTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataClassTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataLecTable_CellValueChanged);
             // 
             // dataGridViewTextBoxColumn10
             // 
@@ -340,36 +374,6 @@
             this.dataGridViewTextBoxColumn13.HeaderText = "Colour";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Room No";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Smart Board";
-            this.Column4.Name = "Column4";
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "TV";
-            this.Column6.Name = "Column6";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Projector";
-            this.Column5.Name = "Column5";
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Network Lab";
-            this.Column7.Name = "Column7";
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "Colour";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -380,7 +384,6 @@
             this.MainMenuStrip = this.menuData;
             this.Name = "Form3";
             this.Text = "Form3";
-            this.Load += new System.EventHandler(this.Form3_Load);
             this.menuData.ResumeLayout(false);
             this.menuData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataLecTable)).EndInit();

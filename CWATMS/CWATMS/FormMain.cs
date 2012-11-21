@@ -16,16 +16,23 @@ namespace CWATMS
         //public delegate void SaveDelegate(object sender, EventArgs e);
         //public event SaveDelegate Save;
 
+        private Form3 m_dataForm;
+
         public FormMain()
         {
             InitializeComponent();
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FormMain_Load(object sender, EventArgs e)
         {
-            FormTimetable childForm = new FormTimetable();              // Declare the child form as a new one.
-            childForm.MdiParent = this;                 // Set the main form as a parent form.
-            childForm.Show();                           // Show the child form.
+            m_dataForm = new Form3();
+            m_dataForm.MdiParent = this;
+            populateTab();
+        }
+
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {                         // Show the child form.
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -49,13 +56,16 @@ namespace CWATMS
 
         private void manageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form3 childForm = new Form3(); // Declare the child form as a new one.
-            childForm.MdiParent = this;// Set the main form as a parent form.
-            childForm.Show();// Show the child form.
+            m_dataForm.Show();// Show the child form.
         }
 
-        private void populateTab()
+        public void populateTab()
         {
+            tabLecturer.Controls.Clear();
+            tabSubject.Controls.Clear();
+            tabRoom.Controls.Clear();
+            tabClass.Controls.Clear();
+            tabLesson.Controls.Clear();
             foreach (Lecturer lect in DataCollection.Instance.Lecturers)
             {
                 DataButton button = new DataButton();
@@ -64,6 +74,7 @@ namespace CWATMS
                 button.Lecturer = lect;
                 button.Text = button.Lecturer.Name;
                 button.BackColor = button.Lecturer.Colour;
+                button.Size = new Size(98, 50);
                 button.CreateControl();
                 this.tabLecturer.Controls.Add(button);
             }
@@ -75,6 +86,7 @@ namespace CWATMS
                 button.Module = mod;
                 button.Text = button.Module.Name;
                 button.BackColor = button.Module.Colour;
+                button.Size = new Size(98, 50);
                 button.CreateControl();
                 this.tabSubject.Controls.Add(button);
             }
@@ -86,6 +98,7 @@ namespace CWATMS
                 button.Room = room;
                 button.Text = button.Room.Name;
                 button.BackColor = button.Room.Colour;
+                button.Size = new Size(98, 50);
                 button.CreateControl();
                 this.tabSubject.Controls.Add(button);
             }
@@ -97,6 +110,7 @@ namespace CWATMS
                 button.Group = grp;
                 button.Text = button.Group.Name;
                 button.BackColor = button.Group.Colour;
+                button.Size = new Size(98, 50);
                 button.CreateControl();
                 this.tabSubject.Controls.Add(button);
             }
@@ -104,22 +118,48 @@ namespace CWATMS
 
         private void Button_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && e.Clicks == 1)
+            if (sender is DataButton)
             {
-                if (sender is DataButton)
+                DataButton button = (DataButton)sender;
+                if (e.Button == MouseButtons.Left && e.Clicks == 1)
                 {
-                    DataButton button = (DataButton)sender;
                     if (button.Lecturer != null)
                         button.DoDragDrop(button.Lecturer, DragDropEffects.Copy);
                     else if (button.Module != null)
                         button.DoDragDrop(button.Module, DragDropEffects.Copy);
+                    else if (button.Room != null)
+                        button.DoDragDrop(button.Room, DragDropEffects.Copy);
+                    else if (button.Group != null)
+                        button.DoDragDrop(button.Group, DragDropEffects.Copy);
+                }
+                else if (e.Button == MouseButtons.Left && e.Clicks == 2)
+                {
+                    if (button.Lecturer != null)
+                    {
+                        FormTimetable childForm = new FormTimetable(button.Lecturer);
+                        childForm.MdiParent = this;
+                        childForm.Show();
+                    }
+                    else if (button.Module != null)
+                    {
+                        FormTimetable childForm = new FormTimetable(button.Module);
+                        childForm.MdiParent = this;
+                        childForm.Show();
+                    }
+                    else if (button.Room != null)
+                    {
+                        FormTimetable childForm = new FormTimetable(button.Room);
+                        childForm.MdiParent = this;
+                        childForm.Show();
+                    }
+                    else if (button.Group != null)
+                    {
+                        FormTimetable childForm = new FormTimetable(button.Group);
+                        childForm.MdiParent = this;
+                        childForm.Show();
+                    }
                 }
             }
-        }
-
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-            populateTab();
         }
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
