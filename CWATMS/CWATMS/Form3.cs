@@ -16,7 +16,6 @@ namespace CWATMS
     public partial class Form3 : Form
     {
         private static readonly Form3 instance = new Form3();
-        private bool loading = false;
 
         public Form3()
         {
@@ -34,7 +33,7 @@ namespace CWATMS
 
             //Open Dialogue configuration
 
-            open.DefaultExt = ".xml";
+            open.DefaultExt = ".txt";
             open.AddExtension = true;
             open.RestoreDirectory = true;
             open.InitialDirectory = @"C:\";
@@ -46,30 +45,14 @@ namespace CWATMS
             {
                 if (open.ShowDialog() == DialogResult.OK)
                 {
-                    //MessageBox.Show("Opening File... " + open.FileName + "\n" + DataCollection.Instance.Lecturers.ToString());
-                    DataFile.Instance.FileName = open.FileName;
-                    DataFile.Instance.LoadLecturers();
+                    //Save Dialogue corresponds to file location
+                    //DataFile.Instance.openAllXML(open.FileName);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                return;
             }
-            //MessageBox.Show(DataCollection.Instance.Lecturers.Count.ToString());
-            loading = true;
-            dataLecTable.Rows.Clear();
-            foreach (Lecturer lect in DataCollection.Instance.Lecturers)
-            {
-                dataLecTable.Rows.Add(1);
-                //dataLecTable.Rows[0].CreateCells(dataLecTable);
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[0].Value = lect.Name;
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[1].Value = lect.Label;
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[2].Value = lect.HoursPerWeek;
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Value = " ";
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Style.BackColor = lect.Colour;
-            }
-            loading = false;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -78,7 +61,7 @@ namespace CWATMS
 
             //Save Dialogue configuration
 
-            save.DefaultExt = ".xml";
+            save.DefaultExt = ".txt";
             save.AddExtension = true;
             save.RestoreDirectory = true;
             save.InitialDirectory = @"C:\";
@@ -90,9 +73,8 @@ namespace CWATMS
             {
                 if (save.ShowDialog() == DialogResult.OK)
                 {
-                    //MessageBox.Show("Saving File... " + save.FileName + "\n" + DataCollection.Instance.Lecturers.ToString());
-                    DataFile.Instance.FileName = save.FileName;
-                    DataFile.Instance.SaveLecturers();
+                    //Save Dialogue corresponds to file location
+                    //DataFile.Instance.saveAllXML(save.FileName);
                 }
             }
             catch (Exception ex)
@@ -101,9 +83,41 @@ namespace CWATMS
             }
         }
 
+       
+
+
+                //for (int i = 0; i <= dataSubTable.Rows.Count; i++)
+                //{
+                //    for (int j = 0; j <= dataSubTable.Rows[i].Cells.Count; j++)
+                //    {
+                //        if (dataSubTable.Rows[i].Cells[j].Value != null)                                                 //If a value is stored in a cell then
+                //            File.AppendAllText(save.FileName, dataSubTable.Rows[i].Cells[j].Value.ToString());             //saves the dataGridView cells value to string format
+                //        File.AppendAllText(save.FileName, dataSubTable.Rows[i].Cells[j].Style.BackColor.ToString());   //saves the RGB values for background colour
+                //    }
+                //}
+
+                //for (int i = 0; i <= dataRoomTable.Rows.Count; i++)
+                //{
+                //    for (int j = 0; j <= dataRoomTable.Rows[i].Cells.Count; j++)
+                //    {
+                //        if (dataRoomTable.Rows[i].Cells[j].Value != null)                                                 //If a value is stored in a cell then
+                //            File.AppendAllText(save.FileName, dataRoomTable.Rows[i].Cells[j].Value.ToString());             //saves the dataGridView cells value to string format
+                //        File.AppendAllText(save.FileName, dataRoomTable.Rows[i].Cells[j].Style.BackColor.ToString());   //saves the RGB values for background colour
+                //    }
+                //}
+
+                //for (int i = 0; i <= dataClassTable.Rows.Count; i++)
+                //{
+                //    for (int j = 0; j <= dataClassTable.Rows[i].Cells.Count; j++)
+                //    {
+                //        if (dataClassTable.Rows[i].Cells[j].Value != null)                                                 //If a value is stored in a cell then
+                //            File.AppendAllText(save.FileName, dataClassTable.Rows[i].Cells[j].Value.ToString());             //saves the dataGridView cells value to string format
+                //        File.AppendAllText(save.FileName, dataClassTable.Rows[i].Cells[j].Style.BackColor.ToString());   //saves the RGB values for background colour
+                //    }
+
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            ActiveMdiChild.Close();
         }
 
         //Creates a colour dialogue with swatches and wheel, saves RGB value to contained Cell
@@ -117,87 +131,136 @@ namespace CWATMS
                 dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = colorDialog1.Color;     //selected cell changes to Dialogue RGB colour
                 dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = colorDialog1.Color;     //selected text in cell hidden using Dialoge RGB colour
                 dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = " ";
+                //dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.SelectionBackColor = colorDialog1.Color;
+                //dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.SelectionForeColor = colorDialog1.Color;
+                //dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = colorDialog1.Color.R.ToString() + ", " + colorDialog1.Color.G.ToString() + ", " +  colorDialog1.Color.B.ToString();   
+
             }
 
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+
+            dataLecTable.DataError += new DataGridViewDataErrorEventHandler(dataGridView1_DataError);
+        }
+
+        void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+        //    string allowedNumberSet = ("1234567890\b\n");
+        //    string allowedCharacterSet = (@"a-zA-Z+");
+        //    string message;
+
+        //    // you can obtain current editing value like this:
+        //    string value = null;
+        //    var ctl = dataLecTable.EditingControl as DataGridViewTextBoxEditingControl;
+
+        //    if (ctl != null)
+        //        value = ctl.Text;
+
+        //    // you can obtain the current commited value
+        //    String current = dataLecTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            
+
+        //    switch (e.ColumnIndex)
+        //    {
+        //        case 0:
+        //            // bound to integer field
+        //            validChar();
+        //            break;
+        //        case 1:
+        //            // bound to date time field
+        //            if (current.Contains(allowedCharacterSet))
+        //            {
+        //                message = "the value should be a character!";
+        //            }
+        //            if (current.Length < 3)
+        //            {
+        //                message = "the label should be no more than 3 characters!";
+        //            }
+        //            break;
+        //        case 2:
+
+        //        // other columns
+        //        default:
+        //            {
+        //                message = "Invalid data";
+        //            }
+        //            break;
+        //    }
+
+        //    MessageBox.Show(message);
+        //}
+        //private void ValidChar()
+        //{
+        //    if (current.Contains(allowedCharacterSet))
+        //    {
+        //        message = "the value should be a character!";
+        //    }
         }
 
         private void dataLecTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
+            
             //  Input for row will 
             if (validate(dgv, e))
             {
-
                 switch (tabControl1.SelectedIndex)
                 {
                     case 0:	//	Lecturer DGV
-                        dgv = dataLecTable;
                         if (dgv.Rows[e.RowIndex].Cells[0].Value != null &&
                             dgv.Rows[e.RowIndex].Cells[1].Value != null &&
                             dgv.Rows[e.RowIndex].Cells[2].Value != null &&
                             dgv.Rows[e.RowIndex].Cells[3].Value != null)
                         {
-                            string name = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            string lecturer = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
                             string label = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
                             int hours;
                             if (!int.TryParse(dgv.Rows[e.RowIndex].Cells[2].Value.ToString(), out hours)) //converts int to bool, if invalid then return false
                             {
                                 return;
                             }
-                            Color colour = dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
+                            Color colour = (Color)dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
 
-                            Lecturer lect = new Lecturer(name, hours, label, colour);
-                            if (!loading)
-                                DataCollection.Instance.Add(lect);
+                            DataCollection.Instance.Add(new Lecturer(lecturer, label, hours, colour));
                         }
                         break;
 
                     case 1:	//	Module DGV
-                        dgv = dataSubTable;
                         if (dgv.Rows[e.RowIndex].Cells[0].Value != null &&
                             dgv.Rows[e.RowIndex].Cells[1].Value != null &&
                             dgv.Rows[e.RowIndex].Cells[2].Value != null &&
                             dgv.Rows[e.RowIndex].Cells[3].Value != null)
                         {
-                            String subject = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
-                            String label = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
-                            String courseLevel = dgv.Rows[e.RowIndex].Cells[2].Value.ToString();
-                            Color colour = dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
+                            string subject = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            string label = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
+                            string courseLvl = dgv.Rows[e.RowIndex].Cells[2].Value.ToString();
+                            Color colour = (Color)dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
 
-                            DataCollection.Instance.Add(new Module(subject, label, courseLevel, colour));
+                            DataCollection.Instance.Add(new Module(subject, label, courseLvl, colour));
                         }
                         break;
 
                     case 2:	//	Room DGV
-                        dgv = dataRoomTable;
                         if (dgv.Rows[e.RowIndex].Cells[0].Value != null &&
-                           dgv.Rows[e.RowIndex].Cells[8].Value != null)
+                           dgv.Rows[e.RowIndex].Cells[1].Value != null &&
+                           dgv.Rows[e.RowIndex].Cells[2].Value != null &&
+                           dgv.Rows[e.RowIndex].Cells[3].Value != null)
                         {
-                            String name = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
-                            String label = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
-                            String sCap = dgv.Rows[e.RowIndex].Cells[2].Value.ToString();
-                            Color colour = dgv.Rows[e.RowIndex].Cells[8].Style.BackColor;
+                            string name = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            string label = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
+                            Color colour = (Color)dgv.Rows[e.RowIndex].Cells[2].Style.BackColor;
                             int capacity;
-                            try
-                            {
-                                capacity = int.Parse(sCap);
-                            }
-                            catch
+                            if (!int.TryParse(dgv.Rows[e.RowIndex].Cells[3].Value.ToString(), out capacity)) //converts int to bool, if invalid then return false
                             {
                                 return;
                             }
-                            Room room = new Room(name, label, colour, capacity);
-                            room.SetEquipment(0, (bool)dgv.Rows[e.RowIndex].Cells[3].Value);
-                            room.SetEquipment(1, (bool)dgv.Rows[e.RowIndex].Cells[4].Value);
-                            room.SetEquipment(2, (bool)dgv.Rows[e.RowIndex].Cells[5].Value);
-                            room.SetEquipment(3, (bool)dgv.Rows[e.RowIndex].Cells[6].Value);
-                            room.SetEquipment(4, (bool)dgv.Rows[e.RowIndex].Cells[7].Value);
-                            DataCollection.Instance.Add(room);
+                            DataCollection.Instance.Add(new Room(name, label, Color.Empty, capacity));
                         }
                         break;
 
                     case 3:	//	Group DGV
-                        dgv = dataClassTable;
                         if (dgv.Rows[e.RowIndex].Cells[0].Value != null &&
                           dgv.Rows[e.RowIndex].Cells[1].Value != null &&
                           dgv.Rows[e.RowIndex].Cells[2].Value != null &&
@@ -205,18 +268,17 @@ namespace CWATMS
                         {
                             string group = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
                             string label = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
-                            Color colour = dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
+                            Color colour = (Color)dgv.Rows[e.RowIndex].Cells[2].Style.BackColor;
                             int numStudents;
-                            if (!int.TryParse(dgv.Rows[e.RowIndex].Cells[2].Value.ToString(), out numStudents)) //converts int to bool, if invalid then return false
+                            if (!int.TryParse(dgv.Rows[e.RowIndex].Cells[3].Value.ToString(), out numStudents)) //converts int to bool, if invalid then return false
                             {
                                 return;
                             }
                             DataCollection.Instance.Add(new Group(group, label, colour, numStudents));
+                            
                         }
                         break;
                 }
-                FormMain main = (FormMain)(this.MdiParent);
-                main.populateTab();
             }
         }
 
@@ -230,7 +292,9 @@ namespace CWATMS
             if (e.RowIndex > -1 && dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 string text = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-
+                
+               
+                
                 //tab control to decide table validation
                 switch (tabControl1.SelectedIndex)
                 {
@@ -253,10 +317,13 @@ namespace CWATMS
                                 validChar = false;
                                 break;
                             case 3:
-                                return true;
+                                min = 1;
+                                max = 6;
+                                validChar = false;
+                                break;
                         }
                         break;
-                    case 1:
+                case 1:
                         switch (e.ColumnIndex)
                         {
                             case 0:
@@ -271,26 +338,17 @@ namespace CWATMS
                                 break;
                             case 2:
                                 min = 1;
-                                max = 35;
-                                validChar = true;
+                                max = 9;
+                                validChar = false;
                                 break;
                             case 3:
-                                return true;
-                        }
-                        break;
-                    case 2:
-                        switch (e.ColumnIndex)
-                        {
-                            case 0:
                                 min = 1;
-                                max = 35;
-                                validChar = true;
+                                max = 6;
+                                validChar = false;
                                 break;
-                            case 5:
-                                return true;
                         }
                         break;
-                    case 3:
+                case 2:
                         switch (e.ColumnIndex)
                         {
                             case 0:
@@ -299,21 +357,70 @@ namespace CWATMS
                                 validChar = true;
                                 break;
                             case 1:
+                                min = 1;
+                                max = 3;
+                                validChar = true;
+                                break;
+                            case 2:
+                                min = 1;
+                                max = 5;
+                                validChar = false;
+                                break;
+                            case 3:
+                                min = 1;
+                                max = 5;
+                                validChar = false;
+                                break;
+                            case 4:
+                                min = 1;
+                                max = 5;
+                                validChar = false;
+                                break;
+                            case 5:
+                                min = 1;
+                                max = 5;
+                                validChar = false;
+                                break;
+                            case 6:
+                                min = 1;
+                                max = 6;
+                                validChar = false;
+                                break;
+                        }
+                        break;
+                case 3:
+                        switch (e.ColumnIndex)
+                        {
+                            case 0:
+                                min = 1;
+                                max = 35;
+                                validChar = true;
+                                break;
+                            case 1:
+                                min = 1;
+                                max = 3;
+                                validChar = true;
+                                break;
+                            case 2:
                                 min = 1;
                                 max = 3;
                                 validChar = false;
                                 break;
-                            case 2:
-                                return true;
+                            case 3:
+                                min = 1;
+                                max = 6;
+                                validChar = false;
+                                break;
                         }
                         break;
                 }
                 if (!DataValidation.Instance.IsInRange(text.Length, min, max, true))
                 {
-                    MessageBox.Show("ERROR: Invalid input must be " + min + " - " + max + " characters long.");
+                    //  Error
+                    MessageBox.Show("ERROR: Invalid input must be " + min +" - " + max + " characters long.");
                     isValid = false;
                 }
-
+                
                 if (validChar == true)
                 {
                     if (DataValidation.Instance.ContainsNumbers(text))
@@ -328,7 +435,7 @@ namespace CWATMS
                     {
                         MessageBox.Show("ERROR: Invalid input must be 0-9 format.");
                         isValid = false;
-                    }
+                    }  
                 }
 
                 if (isValid == false)
@@ -343,6 +450,11 @@ namespace CWATMS
                 return isValid;
             }
             return false;
+        }
+
+        public static Form3 Instance
+        {
+            get { return instance; }
         }
            
     }
