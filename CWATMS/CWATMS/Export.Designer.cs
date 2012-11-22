@@ -42,7 +42,6 @@
             this.Print_PDF_Lst_Lecturers = new System.Windows.Forms.Button();
             this.Open_PDF_List_Lecturers = new System.Windows.Forms.Button();
             this.Lecturers_Export = new System.Windows.Forms.Button();
-            this.dataGridView_List_Lecturers = new System.Windows.Forms.DataGridView();
             this.Export_List_Modules = new System.Windows.Forms.TabPage();
             this.List_Mod_Print_Dia = new System.Windows.Forms.Button();
             this.List_Mod_Print_Pre = new System.Windows.Forms.Button();
@@ -79,11 +78,11 @@
             this.Export_Tab_Settings = new System.Windows.Forms.TabControl();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.Export_Settings_Advanced = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.Export_Tab_List.SuspendLayout();
             this.Export_List_Home.SuspendLayout();
             this.Export_List_Lecturers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataLecTable)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List_Lecturers)).BeginInit();
             this.Export_List_Modules.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List_Modules)).BeginInit();
             this.Export_List_Rooms.SuspendLayout();
@@ -94,6 +93,7 @@
             this.tabPage6.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.Export_Tab_Timetable.SuspendLayout();
+            this.Export_Timetable_Home.SuspendLayout();
             this.Export_Timetable_Lecturers.SuspendLayout();
             this.Export_Timetable_Rooms.SuspendLayout();
             this.Exprt_Timetable_Groups.SuspendLayout();
@@ -154,7 +154,6 @@
             this.Export_List_Lecturers.Controls.Add(this.Print_PDF_Lst_Lecturers);
             this.Export_List_Lecturers.Controls.Add(this.Open_PDF_List_Lecturers);
             this.Export_List_Lecturers.Controls.Add(this.Lecturers_Export);
-            this.Export_List_Lecturers.Controls.Add(this.dataGridView_List_Lecturers);
             this.Export_List_Lecturers.Location = new System.Drawing.Point(4, 22);
             this.Export_List_Lecturers.Name = "Export_List_Lecturers";
             this.Export_List_Lecturers.Padding = new System.Windows.Forms.Padding(3);
@@ -242,15 +241,6 @@
             this.Lecturers_Export.UseVisualStyleBackColor = true;
             this.Lecturers_Export.Click += new System.EventHandler(this.button1_Click);
             // 
-            // dataGridView_List_Lecturers
-            // 
-            this.dataGridView_List_Lecturers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_List_Lecturers.Location = new System.Drawing.Point(51, 6);
-            this.dataGridView_List_Lecturers.Name = "dataGridView_List_Lecturers";
-            this.dataGridView_List_Lecturers.Size = new System.Drawing.Size(235, 313);
-            this.dataGridView_List_Lecturers.TabIndex = 0;
-            this.dataGridView_List_Lecturers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_List_Lecturers_CellContentClick);
-            // 
             // Export_List_Modules
             // 
             this.Export_List_Modules.Controls.Add(this.List_Mod_Print_Dia);
@@ -337,6 +327,7 @@
             this.List_Rooms_Print_Dia.TabIndex = 10;
             this.List_Rooms_Print_Dia.Text = "Print Dialog";
             this.List_Rooms_Print_Dia.UseVisualStyleBackColor = true;
+            this.List_Rooms_Print_Dia.Click += new System.EventHandler(this.List_Rooms_Print_Dia_Click);
             // 
             // List_Rooms_Print_pre
             // 
@@ -346,6 +337,7 @@
             this.List_Rooms_Print_pre.TabIndex = 9;
             this.List_Rooms_Print_pre.Text = "Print Preview";
             this.List_Rooms_Print_pre.UseVisualStyleBackColor = true;
+            this.List_Rooms_Print_pre.Click += new System.EventHandler(this.List_Rooms_Print_pre_Click);
             // 
             // List_Rooms_Open
             // 
@@ -355,6 +347,7 @@
             this.List_Rooms_Open.TabIndex = 8;
             this.List_Rooms_Open.Text = "Open PDF";
             this.List_Rooms_Open.UseVisualStyleBackColor = true;
+            this.List_Rooms_Open.Click += new System.EventHandler(this.List_Rooms_Open_Click);
             // 
             // List_Room_Export
             // 
@@ -396,6 +389,7 @@
             this.List_Groups_Print_Dia.TabIndex = 10;
             this.List_Groups_Print_Dia.Text = "Print Dialog";
             this.List_Groups_Print_Dia.UseVisualStyleBackColor = true;
+            this.List_Groups_Print_Dia.Click += new System.EventHandler(this.List_Groups_Print_Dia_Click);
             // 
             // List_Groups_Print_Pre
             // 
@@ -405,6 +399,7 @@
             this.List_Groups_Print_Pre.TabIndex = 9;
             this.List_Groups_Print_Pre.Text = "Print Preview";
             this.List_Groups_Print_Pre.UseVisualStyleBackColor = true;
+            this.List_Groups_Print_Pre.Click += new System.EventHandler(this.List_Groups_Print_Pre_Click);
             // 
             // List_Groups_Open
             // 
@@ -414,6 +409,7 @@
             this.List_Groups_Open.TabIndex = 8;
             this.List_Groups_Open.Text = "Open PDF";
             this.List_Groups_Open.UseVisualStyleBackColor = true;
+            this.List_Groups_Open.Click += new System.EventHandler(this.List_Groups_Open_Click);
             // 
             // List_Groups_Export
             // 
@@ -480,6 +476,7 @@
             // 
             // Export_Timetable_Home
             // 
+            this.Export_Timetable_Home.Controls.Add(this.button1);
             this.Export_Timetable_Home.Location = new System.Drawing.Point(4, 22);
             this.Export_Timetable_Home.Name = "Export_Timetable_Home";
             this.Export_Timetable_Home.Padding = new System.Windows.Forms.Padding(3);
@@ -546,6 +543,7 @@
             this.Timetable_Rooms_Export.TabIndex = 3;
             this.Timetable_Rooms_Export.Text = "Export as PDF";
             this.Timetable_Rooms_Export.UseVisualStyleBackColor = true;
+            this.Timetable_Rooms_Export.Click += new System.EventHandler(this.Timetable_Rooms_Export_Click);
             // 
             // Exprt_Timetable_Groups
             // 
@@ -617,6 +615,15 @@
             this.Export_Settings_Advanced.Text = "Advanced";
             this.Export_Settings_Advanced.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(39, 117);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(139, 74);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Export all timetable to PDF";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Export
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -629,7 +636,6 @@
             this.Export_List_Home.ResumeLayout(false);
             this.Export_List_Lecturers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataLecTable)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List_Lecturers)).EndInit();
             this.Export_List_Modules.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List_Modules)).EndInit();
             this.Export_List_Rooms.ResumeLayout(false);
@@ -640,6 +646,7 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
             this.Export_Tab_Timetable.ResumeLayout(false);
+            this.Export_Timetable_Home.ResumeLayout(false);
             this.Export_Timetable_Lecturers.ResumeLayout(false);
             this.Export_Timetable_Rooms.ResumeLayout(false);
             this.Exprt_Timetable_Groups.ResumeLayout(false);
@@ -655,7 +662,6 @@
         private System.Windows.Forms.TabPage Export_List_Home;
         private System.Windows.Forms.TabPage Export_List_Lecturers;
         private System.Windows.Forms.Button Lecturers_Export;
-        private System.Windows.Forms.DataGridView dataGridView_List_Lecturers;
         private System.Windows.Forms.TabPage Export_List_Modules;
         private System.Windows.Forms.Button List_Modules_Export;
         private System.Windows.Forms.DataGridView dataGridView_List_Modules;
@@ -702,5 +708,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn colColour;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -54,6 +54,8 @@ namespace CWATMS
         private void Open_All_List_PDF_Click(object sender, EventArgs e)
         {
 
+            string sourceName = lisLoc + titleLec + ".pdf " + lisLoc + titleMod + ".pdf " + lisLoc + titleRoo + ".pdf " + lisLoc + titleGro + ".pdf ";
+            view_PDF(sourceName);
         }
 
         /// <summary>
@@ -89,7 +91,7 @@ namespace CWATMS
 
 
             string sourceName = lisLoc + titleLec + ".pdf";
-            view_PDF(sourceName);
+            does_File_Exist(sourceName, titleLec, 1);
 
         }
 
@@ -97,14 +99,14 @@ namespace CWATMS
         {
             string sourceName = lisLoc + titleLec + ".pdf";
 
-            print_Dialog(sourceName);
+            does_File_Exist(sourceName, titleLec, 2);
         }
 
         private void Print_PDF_Lst_Lecturers_Click(object sender, EventArgs e)
         {
             string sourceName = lisLoc + titleLec + ".pdf";
 
-            print_PDF(sourceName);
+            does_File_Exist(sourceName, titleLec, 3);
 
         }
 
@@ -126,7 +128,8 @@ namespace CWATMS
 
         private void List_Mod_Open_Click(object sender, EventArgs e)
         {
-
+            string sourceName = lisLoc + titleMod + ".pdf";
+            does_File_Exist(sourceName, titleMod, 1);
         }
 
         public void modules_List_Export()
@@ -140,16 +143,31 @@ namespace CWATMS
             create_PDF_4(titleMod, dgv, sname, scourselevel, slabel, scolour);
         }
 
+        private void Open_PDF_List_Modules_Click(object sender, EventArgs e)
+        {
+            string sourceName = lisLoc + titleMod + ".pdf";
+            does_File_Exist(sourceName, titleMod, 1);
+        }
+
         private void List_Mod_Print_Dia_Click(object sender, EventArgs e)
         {
+            string sourceName = lisLoc + titleMod + ".pdf";
 
+            does_File_Exist(sourceName, titleMod, 2);
         }
 
         private void List_Mod_Print_Pre_Click(object sender, EventArgs e)
         {
+            string sourceName = lisLoc + titleMod + ".pdf";
 
+            does_File_Exist(sourceName, titleLec, 3);
         }
 
+        /// <summary>
+        /// ROOM TAB
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void List_Room_Export_Click(object sender, EventArgs e)
         {
@@ -171,6 +189,32 @@ namespace CWATMS
             create_PDF_4(titleRoo, dgv, sname, scapacity, slabel, scolour);
         }
 
+        private void List_Rooms_Open_Click(object sender, EventArgs e)
+        {
+            string sourceName = lisLoc + titleRoo + ".pdf";
+            does_File_Exist(sourceName, titleRoo, 1);
+        }
+
+        private void List_Rooms_Print_Dia_Click(object sender, EventArgs e)
+        {
+            string sourceName = lisLoc + titleRoo + ".pdf";
+
+            does_File_Exist(sourceName, titleRoo, 2);
+        }
+
+        private void List_Rooms_Print_pre_Click(object sender, EventArgs e)
+        {
+            string sourceName = lisLoc + titleRoo + ".pdf";
+
+            does_File_Exist(sourceName, titleRoo, 3);
+        }
+
+        /// <summary>
+        /// GROUPS TAB
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
         private void List_Groups_Export_Click(object sender, EventArgs e)
         {
             change_Cursor(0);
@@ -190,16 +234,70 @@ namespace CWATMS
             create_PDF_4(titleGro, dgv, sname, scapacity, slabel, scolour);
         }
 
+        private void List_Groups_Open_Click(object sender, EventArgs e)
+        {
+            string sourceName = lisLoc + titleGro + ".pdf";
+            does_File_Exist(sourceName, titleGro, 1);
+        }
 
-        private void Timetable_Groups_Export_Click(object sender, EventArgs e)
+        private void List_Groups_Print_Dia_Click(object sender, EventArgs e)
+        {
+            string sourceName = lisLoc + titleGro + ".pdf";
+
+            print_Dialog(sourceName);
+        }
+
+        private void List_Groups_Print_Pre_Click(object sender, EventArgs e)
+        {
+            string sourceName = lisLoc + titleGro + ".pdf";
+
+            print_PDF(sourceName);
+        }
+
+        /// <summary>
+        /// TIMETABLE LECTURER
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
+
+        private void Timetable_Lecturers_Export_Click(object sender, EventArgs e)
+        {
+            //calculate_ETA_Timetable_Export();
+            //FormTimetable r = new FormTimetable(Lecturer);
+            //r.FormBorderStyle = FormBorderStyle.None;
+            //r.WindowState = FormWindowState.Maximized;
+            //r.Show();
+            //capture_Image();
+            //r.Close();
+            //Create_PDF_Timetabless(@"PDF\Timetables\Lecturers\");
+
+        }
+
+        /// <summary>
+        /// ROOM TIMETABLES
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+
+       
+
+        private void Timetable_Rooms_Export_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void Open_PDF_List_Modules_Click(object sender, EventArgs e)
+        /// <summary>
+        /// GROUP TIMETABLE
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
+
+        private void Timetable_Groups_Export_Click(object sender, EventArgs e)
         {
-            string sourceName = lisLoc + titleMod + ".pdf";
-            view_PDF(sourceName);
+
         }
 
         private void Open_List_Modules_Location_Click(object sender, EventArgs e)
@@ -223,6 +321,11 @@ namespace CWATMS
             view_PDF(sourceName);
         }
 
+
+        /// <summary>
+        /// RESOURCES
+        /// </summary>
+        /// <param name="source"></param>
         public void view_PDF(string source)
         {
             ProcessStartInfo p = new ProcessStartInfo();
@@ -428,19 +531,6 @@ namespace CWATMS
             document.Close();
         }
 
-       
-
-        private void Timetable_Lecturers_Export_Click(object sender, EventArgs e)
-        {
-            //FormTimetable r = new FormTimetable(Lecturer);
-            //r.FormBorderStyle = FormBorderStyle.None;
-            //r.WindowState = FormWindowState.Maximized;
-            //r.Show();
-            //capture_Image();
-            //r.Close();
-            //Create_PDF_Timetabless(@"PDF\Timetables\Lecturers\");
-
-        }
 
         public void Create_PDF_Timetabless(string location)
         {
@@ -473,6 +563,69 @@ namespace CWATMS
         {
 
         }
+
+        public void calculate_ETA_Timetable_Export()
+        {
+
+        }
+
+        /// <summary>
+        /// ERROR HANDLING
+        /// </summary>
+
+
+
+        public void does_File_Exist(string source, string title, int num)
+        {
+            string opdf = "Error - Open ";
+            string ppdf = "Error - Print Dialog ";
+            string pppdf = "Error - Print Preview ";
+            if (File.Exists(source))
+            {
+                if (num == 1)
+                {
+                    view_PDF(source);
+                }
+
+                if (num == 2)
+                {
+                    print_Dialog(source);
+                }
+
+                if (num == 3)
+                {
+                    print_PDF(source);
+                }
+
+            }
+
+            if (num == 1)
+            {
+                Error_Open_PDF_Box(title, opdf);
+            }
+
+            if (num == 2)
+            {
+                Error_Open_PDF_Box(title, ppdf);
+            }
+
+            if (num == 3)
+            {
+                Error_Open_PDF_Box(title, pppdf);
+            }
+        }
+
+        public void Error_Open_PDF_Box(string title, string errortitle)
+        {
+            // message box dialog, File Not Found
+            MessageBox.Show(title + " Can Not Be Found \nHave you exported the PDF? \nError Code : 0058" ,
+    errortitle,
+    MessageBoxButtons.OK,
+    MessageBoxIcon.Error,
+    MessageBoxDefaultButton.Button1);
+        }
+
+
 
 
 
