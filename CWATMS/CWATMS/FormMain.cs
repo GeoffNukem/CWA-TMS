@@ -27,6 +27,7 @@ namespace CWATMS
         {
             m_dataForm = new Form3();
             m_dataForm.MdiParent = this;
+            m_dataForm.LoadData();
             populateTab();
         }
 

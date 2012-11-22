@@ -51,7 +51,7 @@ namespace CWATMS
                 m_writer.WriteAttributeString("Count", DataCollection.Instance.Lecturers.Count.ToString());
                 int i = 0;
                 // For each person, write each property into the XML document.
-                foreach (Lecturer lect in DataCollection.Instance.Lecturers)
+                foreach(Lecturer lect in DataCollection.Instance.Lecturers)
                 {
                     m_writer.WriteStartElement("Lecturer");
                     m_writer.WriteAttributeString("ID", i.ToString());
@@ -87,7 +87,7 @@ namespace CWATMS
 
         public void SaveGroups() { }
 
-        public void LoadLecturers()
+        public void LoadLecturers() 
         {
             m_reader = new XmlTextReader(m_fileName);
 
@@ -102,38 +102,38 @@ namespace CWATMS
                         currentNode = m_reader.Name;
                         break;
                     case XmlNodeType.Text:
-                        switch (currentNode)
-                        {
-                            case "Name":
-                                lect = new Lecturer("", 0, "", Color.Empty);
-                                lect.Name = m_reader.Value;
-                                break;
-                            case "Label":
-                                lect.Label = m_reader.Value;
-                                break;
-                            case "HoursPerWeek":
-                                try
-                                {
-                                    lect.HoursPerWeek = int.Parse(m_reader.Value);
-                                }
-                                catch
-                                {
-                                    return;
-                                }
-                                break;
-                            case "Colour":
-                                try
-                                {
-                                    lect.Colour = Color.FromArgb(int.Parse(m_reader.Value));
-                                }
-                                catch
-                                {
-                                    return;
-                                }
-                                break;
-                            default:
-                                break;
-                        }
+                            switch (currentNode)
+                            {
+                                case "Name":
+                                    lect = new Lecturer("", 0, "", Color.Empty);
+                                    lect.Name = m_reader.Value;
+                                    break;
+                                case "Label":
+                                    lect.Label = m_reader.Value;
+                                    break;
+                                case "HoursPerWeek":
+                                    try
+                                    {
+                                        lect.HoursPerWeek = int.Parse(m_reader.Value);
+                                    }
+                                    catch
+                                    {
+                                        return;
+                                    }
+                                    break;
+                                case "Colour":
+                                    try
+                                    {
+                                        lect.Colour = Color.FromArgb(int.Parse(m_reader.Value));
+                                    }
+                                    catch
+                                    {
+                                        return;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
                         break;
                     case XmlNodeType.EndElement:
                         if (m_reader.Name == "Lecturer")

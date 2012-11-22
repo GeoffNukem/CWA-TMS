@@ -384,6 +384,7 @@
             this.MainMenuStrip = this.menuData;
             this.Name = "Form3";
             this.Text = "Form3";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form3_FormClosing);
             this.menuData.ResumeLayout(false);
             this.menuData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataLecTable)).EndInit();
