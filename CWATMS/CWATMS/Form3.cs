@@ -231,11 +231,11 @@ namespace CWATMS
             {
                 string text = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
-                //tab control to decide table validation
+                 //tab control to decide table validation
                 switch (tabControl1.SelectedIndex)
                 {
-                    case 0:
-                        switch (e.ColumnIndex)  //column value to decide cell validation
+                    case 0: 							//Lecturer Table
+                        switch (e.ColumnIndex)  		//column value to decide cell validation
                         {
                             case 0:
                                 min = 1;
@@ -253,10 +253,13 @@ namespace CWATMS
                                 validChar = false;
                                 break;
                             case 3:
-                                return true;
+                                min = 1;
+                                max = 6;
+                                validChar = false;
+                                break;
                         }
                         break;
-                    case 1:
+                case 1: 							//Subject Table
                         switch (e.ColumnIndex)
                         {
                             case 0:
@@ -271,26 +274,17 @@ namespace CWATMS
                                 break;
                             case 2:
                                 min = 1;
-                                max = 35;
-                                validChar = true;
+                                max = 9;
+                                validChar = false;
                                 break;
                             case 3:
-                                return true;
-                        }
-                        break;
-                    case 2:
-                        switch (e.ColumnIndex)
-                        {
-                            case 0:
                                 min = 1;
-                                max = 35;
-                                validChar = true;
+                                max = 6;
+                                validChar = false;
                                 break;
-                            case 5:
-                                return true;
                         }
                         break;
-                    case 3:
+                case 2: 							//Room Table
                         switch (e.ColumnIndex)
                         {
                             case 0:
@@ -299,14 +293,44 @@ namespace CWATMS
                                 validChar = true;
                                 break;
                             case 1:
+                                min = 1;
+                                max = 3;
+                                validChar = true;
+                                break;
+                            case 6:
+                                min = 1;
+                                max = 6;
+                                validChar = false;
+                                break;
+                        }
+                        break;
+                case 3: 							//Group Table
+                        switch (e.ColumnIndex)
+                        {
+                            case 0:
+                                min = 1;
+                                max = 35;
+                                validChar = true;
+                                break;
+                            case 1:
+                                min = 1;
+                                max = 3;
+                                validChar = true;
+                                break;
+                            case 2:
                                 min = 1;
                                 max = 3;
                                 validChar = false;
                                 break;
-                            case 2:
-                                return true;
+                            case 3:
+                                min = 1;
+                                max = 6;
+                                validChar = false;
+                                break;
                         }
                         break;
+					}
+					break;
                 }
                 if (!DataValidation.Instance.IsInRange(text.Length, min, max, true))
                 {
