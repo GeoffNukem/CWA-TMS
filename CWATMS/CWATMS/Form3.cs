@@ -344,7 +344,32 @@ namespace CWATMS
             }
             return false;
         }
-           
+
+        private void Form3_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
+
+        public void LoadData()
+        {
+            DataFile.Instance.FileName = "F:\\Degree\\Software Engineering\\PROJECT\\CWATMS\\CWATMS\\bin\\Debug\\DataTest.xml";
+            DataFile.Instance.LoadLecturers();
+
+            loading = true;
+            dataLecTable.Rows.Clear();
+            foreach (Lecturer lect in DataCollection.Instance.Lecturers)
+            {
+                dataLecTable.Rows.Add(1);
+                //dataLecTable.Rows[0].CreateCells(dataLecTable);
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[0].Value = lect.Name;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[1].Value = lect.Label;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[2].Value = lect.HoursPerWeek;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Value = " ";
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Style.BackColor = lect.Colour;
+            }
+            loading = false;
+        } 
     }
 
 
