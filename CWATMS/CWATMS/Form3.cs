@@ -377,7 +377,7 @@ namespace CWATMS
 
         public void LoadData()
         {
-            DataFile.Instance.FileName = "F:\\Degree\\Software Engineering\\PROJECT\\CWATMS\\CWATMS\\bin\\Debug\\DataTest.xml";
+            DataFile.Instance.FileName = @".\DataTest.xml";
             DataFile.Instance.LoadLecturers();
 
             loading = true;
