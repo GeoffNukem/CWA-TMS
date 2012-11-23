@@ -618,7 +618,7 @@ namespace CWATMS
         public void Error_Open_PDF_Box(string title, string errortitle)
         {
             // message box dialog, File Not Found
-            MessageBox.Show(title + " Can Not Be Found \nHave you exported the PDF? \nError Code : 0058" ,
+            MessageBox.Show(title + " Can Not Be Found \nHave you exported the PDF? \nError Code : 0058 PC LOAD LETTER" ,
     errortitle,
     MessageBoxButtons.OK,
     MessageBoxIcon.Error,
