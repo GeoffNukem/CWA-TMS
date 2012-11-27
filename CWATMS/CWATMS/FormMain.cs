@@ -16,7 +16,7 @@ namespace CWATMS
         //public delegate void SaveDelegate(object sender, EventArgs e);
         //public event SaveDelegate Save;
 
-        private Form3 m_dataForm;
+        private FormData m_dataForm;
 
         public FormMain()
         {
@@ -25,7 +25,7 @@ namespace CWATMS
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            m_dataForm = new Form3();
+            m_dataForm = new FormData();
             m_dataForm.MdiParent = this;
             m_dataForm.LoadData();
             populateTab();

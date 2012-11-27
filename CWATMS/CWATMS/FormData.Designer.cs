@@ -1,6 +1,6 @@
 ﻿namespace CWATMS
 {
-    partial class Form3
+    partial class FormData
     {
         /// <summary>
         /// Required designer variable.
