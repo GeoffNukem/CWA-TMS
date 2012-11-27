@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Lecturers Count="5">
+  <Lecturer ID="0">
+    <Name>AAA</Name>
+    <Label>AAA</Label>
+    <HoursPerWeek>111</HoursPerWeek>
+    <Colour>-8323073</Colour>
+  </Lecturer>
+  <Lecturer ID="1">
+    <Name>BBB</Name>
+    <Label>BBB</Label>
+    <HoursPerWeek>222</HoursPerWeek>
+    <Colour>-32576</Colour>
+  </Lecturer>
+  <Lecturer ID="2">
+    <Name>CCC</Name>
+    <Label>CCC</Label>
+    <HoursPerWeek>333</HoursPerWeek>
+    <Colour>-128</Colour>
+  </Lecturer>
+  <Lecturer ID="3">
+    <Name>DDD</Name>
+    <Label>DDD</Label>
+    <HoursPerWeek>444</HoursPerWeek>
+    <Colour>-32640</Colour>
+  </Lecturer>
+  <Lecturer ID="4">
+    <Name>EEE</Name>
+    <Label>EEE</Label>
+    <HoursPerWeek>555</HoursPerWeek>
+    <Colour>-8323200</Colour>
+  </Lecturer>
+</Lecturers>
