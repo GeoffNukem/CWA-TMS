@@ -26,6 +26,23 @@ namespace CWATMS
 
         private void FormTimetable_Load(object sender, EventArgs e)
         {
+            if (m_data is Lecturer)
+            {
+                this.Text = "Lecturer: ";
+            }
+            else if (m_data is Module)
+            {
+                this.Text = "Subject: ";
+            }
+            else if (m_data is Group)
+            {
+                this.Text = "Class: ";
+            }
+            else if (m_data is Room)
+            {
+                this.Text = "Room: ";
+            }
+            this.Text += m_data.Name;
         }
 
         private void AddGrids()

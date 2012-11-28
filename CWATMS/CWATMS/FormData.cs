@@ -9,8 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-
 namespace CWATMS
 {
     public partial class FormData : Form
@@ -48,7 +46,8 @@ namespace CWATMS
                 {
                     //MessageBox.Show("Opening File... " + open.FileName + "\n" + DataCollection.Instance.Lecturers.ToString());
                     DataFile.Instance.FileName = open.FileName;
-                    DataFile.Instance.LoadLecturers();
+                    DataFile.Instance.LoadAll();
+                    LoadTables();
                 }
             }
             catch (Exception ex)
@@ -56,18 +55,55 @@ namespace CWATMS
                 MessageBox.Show(ex.ToString());
                 return;
             }
-            //MessageBox.Show(DataCollection.Instance.Lecturers.Count.ToString());
+        }
+
+        private void LoadTables()
+        {
             loading = true;
             dataLecTable.Rows.Clear();
             foreach (Lecturer lect in DataCollection.Instance.Lecturers)
             {
                 dataLecTable.Rows.Add(1);
-                //dataLecTable.Rows[0].CreateCells(dataLecTable);
                 dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[0].Value = lect.Name;
                 dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[1].Value = lect.Label;
                 dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[2].Value = lect.HoursPerWeek;
                 dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Value = " ";
                 dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Style.BackColor = lect.Colour;
+            }
+            dataSubTable.Rows.Clear();
+            foreach (Module mod in DataCollection.Instance.Modules)
+            {
+                dataSubTable.Rows.Add(1);
+                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[0].Value = mod.Name;
+                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[1].Value = mod.Label;
+                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[2].Value = mod.CourseLevel;
+                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[3].Value = " ";
+                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[3].Style.BackColor = mod.Colour;
+            }
+            dataRoomTable.Rows.Clear();
+            foreach (Room room in DataCollection.Instance.Rooms)
+            {
+                dataRoomTable.Rows.Add(1);
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[0].Value = room.Name;
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[1].Value = room.Label;
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[2].Value = room.Capacity;
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[3].Value = room.HasLecturerPC();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[4].Value = room.HasSmartboard();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[5].Value = room.HasTelevision();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[6].Value = room.HasProjector();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[7].Value = room.IsNetworkLab();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[8].Value = " ";
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[8].Style.BackColor = room.Colour;
+            }
+            dataClassTable.Rows.Clear();
+            foreach (Group group in DataCollection.Instance.Groups)
+            {
+                dataClassTable.Rows.Add(1);
+                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[0].Value = group.Name;
+                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[1].Value = group.Label;
+                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[2].Value = group.TotalStudents;
+                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[3].Value = " ";
+                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[3].Style.BackColor = group.Colour;
             }
             loading = false;
         }
@@ -350,26 +386,6 @@ namespace CWATMS
             e.Cancel = true;
             this.Hide();
         }
-
-        public void LoadData()
-        {
-            DataFile.Instance.FileName = @".\DataTest.xml";
-            DataFile.Instance.LoadLecturers();
-
-            loading = true;
-            dataLecTable.Rows.Clear();
-            foreach (Lecturer lect in DataCollection.Instance.Lecturers)
-            {
-                dataLecTable.Rows.Add(1);
-                //dataLecTable.Rows[0].CreateCells(dataLecTable);
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[0].Value = lect.Name;
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[1].Value = lect.Label;
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[2].Value = lect.HoursPerWeek;
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Value = " ";
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Style.BackColor = lect.Colour;
-            }
-            loading = false;
-        } 
     }
 
 

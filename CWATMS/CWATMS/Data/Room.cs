@@ -10,13 +10,12 @@ namespace CWATMS
     public class Room : Data
     {
         private int m_capacity;
-        private List<Boolean> m_equipmentList;
+        private Boolean[] m_equipmentList = { false, false, false, false, false };
 
         public Room(String name, String label, Color colour, int capacity)
             : base(name, label, colour)
         {
             m_capacity = capacity;
-            m_equipmentList = new List<bool>(5);
         }
 
         public int Capacity
@@ -32,7 +31,32 @@ namespace CWATMS
         /// <param name="flag"></param>
         public void SetEquipment(int index, bool flag)
         {
-            m_equipmentList[index] = false;
+            m_equipmentList[index] = flag;
+        }
+
+        public bool HasLecturerPC()
+        {
+            return m_equipmentList[0];
+        }
+
+        public bool HasSmartboard()
+        {
+            return m_equipmentList[1];
+        }
+
+        public bool HasTelevision()
+        {
+            return m_equipmentList[2];
+        }
+
+        public bool HasProjector()
+        {
+            return m_equipmentList[3];
+        }
+
+        public bool IsNetworkLab()
+        {
+            return m_equipmentList[4];
         }
     }
 }
