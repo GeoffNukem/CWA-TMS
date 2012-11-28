@@ -13,28 +13,50 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
 using System.Diagnostics;
+using CWATMS.Controls;
 
 namespace CWATMS
 {
     public partial class Export : Form
     {
-        // list of commonly used strings.
-        string titleLec = "List_of_Lecturers";
-        string titleMod = "List_of_Modules";
-        string titleRoo = "List_of_Rooms";
-        string titleGro = "List_of_Groups";
-        string pdfFoter = " The A Team , Timetable Mangement System. Date and time produced ";
-        string lisLoc = @"PDF\Lists\";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        static class Constants
+        {
+            public const string titleLec = "List_of_Lecturers";
+            public const string titleMod = "List_of_Modules";
+            public const string titleRoo = "List_of_Rooms";
+            public const string titleGro = "List_of_Groups";
+            public const string pdfFoter = " The A Team , Timetable Mangement System. Date and time produced ";
+            public const string lisLoc = @"PDF\Lists\";
+            public const string tempJpeg = @"PDF\temp\temp.jpg";
+            public const string error = "Error - ";
+            public const string opdf = "Open ";
+            public const string ppdf = "Print Dialog ";
+            public const string pppdf = "Print Preview ";
+        }
+
+        static class ConstantsErrorCode
+        {
+            public const string ec0058 = "PC LOAD LETTER 0058";
+        }
 
 
+
+        /// <summary>
+        /// THe class constructor.
+        /// </summary>
         public Export()
         {
             InitializeComponent();
+            fill_dgv();
         }
 
+        // LIST HOME TAB
         /// <summary>
-        /// LIST HOME TAB.
-        /// 
+        /// Method which exports list's of lecturer, modules, rooms and groups to PDF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -42,7 +64,7 @@ namespace CWATMS
         private void Export_All_To_PDF_Click(object sender, EventArgs e)
         {
             change_Cursor(0);
-            string comple = titleLec + " " + titleMod + " " + titleRoo + " " + titleGro + " ";
+            string comple = Constants.titleLec + " " + Constants.titleMod + " " + Constants.titleRoo + " " + Constants.titleGro + " ";
             lecturer_List_Export();
             modules_List_Export();
             rooms_List_Export();
@@ -50,88 +72,119 @@ namespace CWATMS
             change_Cursor(1);
             export_Complete(comple);
         }
-
-        private void Open_All_List_PDF_Click(object sender, EventArgs e)
-        {
-
-            string sourceName = lisLoc + titleLec + ".pdf " + lisLoc + titleMod + ".pdf " + lisLoc + titleRoo + ".pdf " + lisLoc + titleGro + ".pdf ";
-            view_PDF(sourceName);
-        }
-
         /// <summary>
-        /// List Lecturer
+        /// Opens PDF lecturer, modules, rooms and groups.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void Open_All_List_PDF_Click(object sender, EventArgs e)
+        {
 
+            string sourceName = Constants.lisLoc + Constants.titleLec + ".pdf " + Constants.lisLoc + Constants.titleMod + ".pdf " + Constants.lisLoc + Constants.titleRoo + ".pdf " + Constants.lisLoc + Constants.titleGro + ".pdf ";
+            view_PDF(sourceName);
+        }
+
+// LIST LECTURER TAB
+
+
+        /// <summary>
+        /// Button code that exports list of lecturers to PDF.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
 
             change_Cursor(0);              // changes cursor to wait
             lecturer_List_Export();       // exports list to pdf
             change_Cursor(1);            // changes cursor back to default
-            export_Complete(titleLec);  //acknowledgement of completion
+            export_Complete(Constants.titleLec);  //acknowledgement of completion
 
-
-        }
-
-        public void lecturer_List_Export()
-        {
-            string sfname = "First Name";
-            string slname = "Last Name";
-            string shpw = "Hours Per Week";
-            string slabel = "Label";
-            string scolour = "Colour";
-
-            create_PDF_5(titleLec, sfname, slname, shpw, slabel, scolour);
-        }
-
-        private void Open_PDF_List_Lecturers_Click(object sender, EventArgs e)
-        {
-
-
-            string sourceName = lisLoc + titleLec + ".pdf";
-            does_File_Exist(sourceName, titleLec, 1);
-
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            string sourceName = lisLoc + titleLec + ".pdf";
-
-            does_File_Exist(sourceName, titleLec, 2);
-        }
-
-        private void Print_PDF_Lst_Lecturers_Click(object sender, EventArgs e)
-        {
-            string sourceName = lisLoc + titleLec + ".pdf";
-
-            does_File_Exist(sourceName, titleLec, 3);
 
         }
 
         /// <summary>
-        /// MODULES TAB
+        /// sends parameters to create pdf method
+        /// </summary>
+        public void lecturer_List_Export()
+        {
+            string sfname = "LecturerName";
+            string slabel = "Label";
+            string shpw = "HoursPerModule";
+            //string scolour = "Colour";
+
+            create_PDF_5(Constants.titleLec, sfname, shpw, slabel);
+        }
+
+        /// <summary>
+        /// BUtton that open PDF of list of lecturers.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void Open_PDF_List_Lecturers_Click(object sender, EventArgs e)
+        {
 
 
+            string sourceName = Constants.lisLoc + Constants.titleLec + ".pdf";
+            does_File_Exist(sourceName, Constants.titleLec, 1);
 
+        }
+
+        /// <summary>
+        /// Print list of lecturers 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            string sourceName = Constants.lisLoc + Constants.titleLec + ".pdf";
+
+            does_File_Exist(sourceName, Constants.titleLec, 2);
+        }
+
+        /// <summary>
+        /// Print list of lecturers 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Print_PDF_Lst_Lecturers_Click(object sender, EventArgs e)
+        {
+            string sourceName = Constants.lisLoc + Constants.titleLec + ".pdf";
+
+            does_File_Exist(sourceName, Constants.titleLec, 3);
+
+        }
+
+// MODULES TAB
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             change_Cursor(0);
             modules_List_Export();
             change_Cursor(1);
-            export_Complete(titleMod);
+            export_Complete(Constants.titleMod);
         }
 
+        /// <summary>
+        /// Open PDF of list of modules
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void List_Mod_Open_Click(object sender, EventArgs e)
         {
-            string sourceName = lisLoc + titleMod + ".pdf";
-            does_File_Exist(sourceName, titleMod, 1);
+            string sourceName = Constants.lisLoc + Constants.titleMod + ".pdf";
+            does_File_Exist(sourceName, Constants.titleMod, 1);
         }
 
+        /// <summary>
+        /// Export List of modules to PDF
+        /// </summary>
         public void modules_List_Export()
         {
             string sname = "Name";
@@ -140,44 +193,65 @@ namespace CWATMS
             string scolour = "Colour";
             int dgv = 0;
 
-            create_PDF_4(titleMod, dgv, sname, scourselevel, slabel, scolour);
-        }
-
-        private void Open_PDF_List_Modules_Click(object sender, EventArgs e)
-        {
-            string sourceName = lisLoc + titleMod + ".pdf";
-            does_File_Exist(sourceName, titleMod, 1);
-        }
-
-        private void List_Mod_Print_Dia_Click(object sender, EventArgs e)
-        {
-            string sourceName = lisLoc + titleMod + ".pdf";
-
-            does_File_Exist(sourceName, titleMod, 2);
-        }
-
-        private void List_Mod_Print_Pre_Click(object sender, EventArgs e)
-        {
-            string sourceName = lisLoc + titleMod + ".pdf";
-
-            does_File_Exist(sourceName, titleLec, 3);
+            create_PDF_4(Constants.titleMod, dgv, sname, scourselevel, slabel, scolour);
         }
 
         /// <summary>
-        /// ROOM TAB
+        /// Open PDF (list of modules)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void Open_PDF_List_Modules_Click(object sender, EventArgs e)
+        {
+            string sourceName = Constants.lisLoc + Constants.titleMod + ".pdf";
+            does_File_Exist(sourceName, Constants.titleMod, 1);
+        }
 
+        /// <summary>
+        /// PRint PDF(List of modules) show print dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void List_Mod_Print_Dia_Click(object sender, EventArgs e)
+        {
+            string sourceName = Constants.lisLoc + Constants.titleMod + ".pdf";
+
+            does_File_Exist(sourceName, Constants.titleMod, 2);
+        }
+
+        /// <summary>
+        ///  PRint PDF(List of modules) show print dialog and PDF preview
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void List_Mod_Print_Pre_Click(object sender, EventArgs e)
+        {
+            string sourceName = Constants.lisLoc + Constants.titleMod + ".pdf";
+
+            does_File_Exist(sourceName, Constants.titleLec, 3);
+        }
+
+ // ROOM TAB
+
+        /// <summary>
+        /// Export PDF(List of Rooms).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void List_Room_Export_Click(object sender, EventArgs e)
         {
 
             change_Cursor(0);
             rooms_List_Export();
             change_Cursor(1);
-            export_Complete(titleRoo);
+            export_Complete(Constants.titleRoo);
         }
 
+        /// <summary>
+        /// Export PDF(List of Rooms).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void rooms_List_Export()
         {
             string sname = "Name";
@@ -186,41 +260,39 @@ namespace CWATMS
             string scolour = "Colour";
             int dgv = 1;
 
-            create_PDF_4(titleRoo, dgv, sname, scapacity, slabel, scolour);
+            create_PDF_4(Constants.titleRoo, dgv, sname, scapacity, slabel, scolour);
         }
 
         private void List_Rooms_Open_Click(object sender, EventArgs e)
         {
-            string sourceName = lisLoc + titleRoo + ".pdf";
-            does_File_Exist(sourceName, titleRoo, 1);
+            string sourceName = Constants.lisLoc + Constants.titleRoo + ".pdf";
+            does_File_Exist(sourceName, Constants.titleRoo, 1);
         }
 
         private void List_Rooms_Print_Dia_Click(object sender, EventArgs e)
         {
-            string sourceName = lisLoc + titleRoo + ".pdf";
+            string sourceName = Constants.lisLoc + Constants.titleRoo + ".pdf";
 
-            does_File_Exist(sourceName, titleRoo, 2);
+            does_File_Exist(sourceName, Constants.titleRoo, 2);
         }
 
         private void List_Rooms_Print_pre_Click(object sender, EventArgs e)
         {
-            string sourceName = lisLoc + titleRoo + ".pdf";
+            string sourceName = Constants.lisLoc + Constants.titleRoo + ".pdf";
 
-            does_File_Exist(sourceName, titleRoo, 3);
+            does_File_Exist(sourceName, Constants.titleRoo, 3);
         }
 
-        /// <summary>
-        /// GROUPS TAB
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
+        // GROUPS TAB
+
 
         private void List_Groups_Export_Click(object sender, EventArgs e)
         {
             change_Cursor(0);
             Groups_List_Export();
             change_Cursor(1);
-            export_Complete(titleGro);
+            export_Complete(Constants.titleGro);
         }
 
         public void Groups_List_Export()
@@ -231,40 +303,35 @@ namespace CWATMS
             string scapacity = "Capacity";
             int dgv = 2;
 
-            create_PDF_4(titleGro, dgv, sname, scapacity, slabel, scolour);
+            create_PDF_4(Constants.titleGro, dgv, sname, scapacity, slabel, scolour);
         }
 
         private void List_Groups_Open_Click(object sender, EventArgs e)
         {
-            string sourceName = lisLoc + titleGro + ".pdf";
-            does_File_Exist(sourceName, titleGro, 1);
+            string sourceName = Constants.lisLoc + Constants.titleGro + ".pdf";
+            does_File_Exist(sourceName, Constants.titleGro, 1);
         }
 
         private void List_Groups_Print_Dia_Click(object sender, EventArgs e)
         {
-            string sourceName = lisLoc + titleGro + ".pdf";
+            string sourceName = Constants.lisLoc + Constants.titleGro + ".pdf";
 
             print_Dialog(sourceName);
         }
 
         private void List_Groups_Print_Pre_Click(object sender, EventArgs e)
         {
-            string sourceName = lisLoc + titleGro + ".pdf";
+            string sourceName = Constants.lisLoc + Constants.titleGro + ".pdf";
 
             print_PDF(sourceName);
         }
 
-        /// <summary>
-        /// TIMETABLE LECTURER
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// 
+
+        // TIMETABLE LECTURER
 
         private void Timetable_Lecturers_Export_Click(object sender, EventArgs e)
         {
-            //calculate_ETA_Timetable_Export();
-            //FormTimetable r = new FormTimetable(Lecturer);
+            //FormTimetable r = new FormTimetable();
             //r.FormBorderStyle = FormBorderStyle.None;
             //r.WindowState = FormWindowState.Maximized;
             //r.Show();
@@ -274,11 +341,8 @@ namespace CWATMS
 
         }
 
-        /// <summary>
-        /// ROOM TIMETABLES
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
+        // ROOM TIMETABLES
 
 
        
@@ -288,12 +352,7 @@ namespace CWATMS
 
         }
 
-        /// <summary>
-        /// GROUP TIMETABLE
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// 
+        // GROUP TIMETABLE
 
         private void Timetable_Groups_Export_Click(object sender, EventArgs e)
         {
@@ -316,16 +375,20 @@ namespace CWATMS
 
         private void View_PDF_List_All_Click(object sender, EventArgs e)
         {
-            string sourceName = lisLoc + titleLec + ".pdf";
+            string sourceName = Constants.lisLoc + Constants.titleLec + ".pdf";
 
             view_PDF(sourceName);
         }
 
 
+        // RESOURCES
+
         /// <summary>
-        /// RESOURCES
+        /// Opens PDF
         /// </summary>
-        /// <param name="source"></param>
+        /// <remarks>starts a new instance of SumatraPDF(running in restrict mode), which will open a PDF file according to the source address</remarks>
+        /// <param name="source">File location as a string</param>
+        /// <seealso cref="System.String">
         public void view_PDF(string source)
         {
             ProcessStartInfo p = new ProcessStartInfo();
@@ -336,6 +399,12 @@ namespace CWATMS
             Process x = Process.Start(p);
         }
 
+        /// <summary>
+        /// Prints PDF via dialog and with preview
+        /// </summary>
+        /// <remarks>starts a new instance of SumatraPDF which will open a PDF file according to the source address and a print dialog </remarks>
+        /// <param name="source">File location as a string</param>
+        /// <seealso cref="System.String">
         public void print_PDF(string source)
         {
             ProcessStartInfo p = new ProcessStartInfo();
@@ -346,6 +415,12 @@ namespace CWATMS
             Process x = Process.Start(p);
         }
 
+        /// <summary>
+        /// Prints PDF via dialog
+        /// </summary>
+        /// <remarks>starts a new instance of SumatraPDF(Only the print dialog is shown), which will open a PDF file according to the source address(PDF not shown)</remarks>
+        /// <param name="source">File location as a string</param>
+        /// <seealso cref="System.String">
         public void print_Dialog(string source)
         {
             ProcessStartInfo p = new ProcessStartInfo();
@@ -357,10 +432,13 @@ namespace CWATMS
         }
 
 
-
+        /// <summary>
+        /// Modal dialog, acknowledgment of export.
+        /// </summary>
+        /// <param name="title">title information</param>
+        /// <seealso cref="System.String">
         public void export_Complete(string title)
         {
-            // message box dialog, acknowledgment n successful exportation 
             MessageBox.Show(title + " has successfully been exported",
     "Export",
     MessageBoxButtons.OK,
@@ -368,9 +446,13 @@ namespace CWATMS
     MessageBoxDefaultButton.Button1);
         }
 
+        /// <summary>
+        /// changes cursor to wait or default
+        /// </summary>
+        /// <param name="num">number used for if statement</param>
+        /// <seealso cref="System.Int">
         public void change_Cursor(int num)
         {
-            // if statement to change the cursor, wait cursor or default cursor.
             if (num == 0)
             {
                 this.Cursor = Cursors.WaitCursor;
@@ -383,26 +465,33 @@ namespace CWATMS
 
         }
 
-        public void create_PDF_5(string title, string cN1, string cN2, string cN3, string cN4, string cN5)
+        /// <summary>
+        /// Create PDF with 5 columns.
+        /// </summary>
+        /// <param name="title">file name</param>
+        /// <param name="cN1">column 1 name</param>
+        /// <param name="cN2">column 2 name</param>
+        /// <param name="cN3">column 3 name</param>
+        /// <param name="cN4">column 4 name</param>
+        /// <param name="cN5">column 5 name</param>
+        public void create_PDF_5(string title, string cN1, string cN2, string cN3)
         {
 
             Document document = new Document();
             PdfWriter.GetInstance(document, new FileStream(@"PDF\Lists\" + title + ".pdf", FileMode.Create));
             document.Open();
-            Paragraph paragraph = new Paragraph(titleLec + System.Environment.NewLine + "\n");
-            PdfPTable t1 = new PdfPTable(5);
+            Paragraph paragraph = new Paragraph(Constants.titleLec + System.Environment.NewLine + "\n");
+            PdfPTable t1 = new PdfPTable(3);
 
             PdfPCell ccell1 = new PdfPCell(new Phrase(cN1));
             PdfPCell ccell2 = new PdfPCell(new Phrase(cN2));
             PdfPCell ccell3 = new PdfPCell(new Phrase(cN3));
-            PdfPCell ccell4 = new PdfPCell(new Phrase(cN4));
-            PdfPCell ccell5 = new PdfPCell(new Phrase(cN5));
+            //PdfPCell ccell4 = new PdfPCell(new Phrase(cN4));
 
             t1.AddCell(ccell1);
             t1.AddCell(ccell2);
             t1.AddCell(ccell3);
-            t1.AddCell(ccell4);
-            t1.AddCell(ccell5);
+            //t1.AddCell(ccell4);
 
             foreach (DataGridViewRow rows in dataLecTable.Rows)
             {
@@ -411,29 +500,35 @@ namespace CWATMS
                     string cell1 = dataLecTable.Rows[rows.Index].Cells[cN1].Value.ToString();
                     string cell2 = dataLecTable.Rows[rows.Index].Cells[cN2].Value.ToString();
                     string cell3 = dataLecTable.Rows[rows.Index].Cells[cN3].Value.ToString();
-                    string cell4 = dataLecTable.Rows[rows.Index].Cells[cN4].Value.ToString();
-                    string cell5 = dataLecTable.Rows[rows.Index].Cells[cN5].Value.ToString();
+                    //string cell4 = dataLecTable.Rows[rows.Index].Cells[cN4].Value.ToString();
 
                     PdfPCell c1 = new PdfPCell(new Phrase(cell1));
                     PdfPCell c2 = new PdfPCell(new Phrase(cell2));
                     PdfPCell c3 = new PdfPCell(new Phrase(cell3));
-                    PdfPCell c4 = new PdfPCell(new Phrase(cell4));
-                    PdfPCell c5 = new PdfPCell(new Phrase(cell5));
+                    //PdfPCell c4 = new PdfPCell(new Phrase(cell4));
 
                     t1.AddCell(c1);
                     t1.AddCell(c2);
                     t1.AddCell(c3);
-                    t1.AddCell(c4);
-                    t1.AddCell(c5);
+                    //t1.AddCell(c4);
                 }
             }
             document.Add(paragraph);
             document.Add(t1);
             DateTime now = DateTime.Now;
-            document.Add(new Paragraph(document.BottomMargin, pdfFoter  + now ));
+            document.Add(new Paragraph(document.BottomMargin, Constants.pdfFoter + now));
             document.Close();
         }
 
+        /// <summary>
+        /// Create PDF with 4 columns.
+        /// </summary>
+        /// <param name="title">File Name</param>
+        /// <param name="dgvc">number used for if statement to determine which data view grid to use.</param>
+        /// <param name="cN1">column 1 name</param>
+        /// <param name="cN2">column 2 name</param>
+        /// <param name="cN3">column 3 name</param>
+        /// <param name="cN4">column 4 name</param>
         public void create_PDF_4(string title, int dgvc, string cN1, string cN2, string cN3, string cN4)
         {
             Document document = new Document();
@@ -454,14 +549,14 @@ namespace CWATMS
 
             if (dgvc == 0)
             {
-                foreach (DataGridViewRow rows in dataGridView_List_Modules.Rows)
+                foreach (DataGridViewRow rows in dataSubTable.Rows)
                 {
-                    if (Convert.ToBoolean(dataGridView_List_Modules.Rows[rows.Index].Cells[2].Value))
+                    if (Convert.ToBoolean(dataSubTable.Rows[rows.Index].Cells[2].Value))
                     {
-                        string cell1 = dataGridView_List_Modules.Rows[rows.Index].Cells[cN1].Value.ToString();
-                        string cell2 = dataGridView_List_Modules.Rows[rows.Index].Cells[cN2].Value.ToString();
-                        string cell3 = dataGridView_List_Modules.Rows[rows.Index].Cells[cN3].Value.ToString();
-                        string cell4 = dataGridView_List_Modules.Rows[rows.Index].Cells[cN4].Value.ToString();
+                        string cell1 = dataSubTable.Rows[rows.Index].Cells[cN1].Value.ToString();
+                        string cell2 = dataSubTable.Rows[rows.Index].Cells[cN2].Value.ToString();
+                        string cell3 = dataSubTable.Rows[rows.Index].Cells[cN3].Value.ToString();
+                        string cell4 = dataSubTable.Rows[rows.Index].Cells[cN4].Value.ToString();
 
                         PdfPCell c1 = new PdfPCell(new Phrase(cell1));
                         PdfPCell c2 = new PdfPCell(new Phrase(cell2));
@@ -478,14 +573,14 @@ namespace CWATMS
 
             if (dgvc == 1)
             {
-                foreach (DataGridViewRow rows in dataGridView_List_Rooms.Rows)
+                foreach (DataGridViewRow rows in dataRoomTable.Rows)
                 {
-                    if (Convert.ToBoolean(dataGridView_List_Rooms.Rows[rows.Index].Cells[2].Value))
+                    if (Convert.ToBoolean(dataRoomTable.Rows[rows.Index].Cells[2].Value))
                     {
-                        string cell1 = dataGridView_List_Rooms.Rows[rows.Index].Cells[cN1].Value.ToString();
-                        string cell2 = dataGridView_List_Rooms.Rows[rows.Index].Cells[cN2].Value.ToString();
-                        string cell3 = dataGridView_List_Rooms.Rows[rows.Index].Cells[cN3].Value.ToString();
-                        string cell4 = dataGridView_List_Rooms.Rows[rows.Index].Cells[cN4].Value.ToString();
+                        string cell1 = dataRoomTable.Rows[rows.Index].Cells[cN1].Value.ToString();
+                        string cell2 = dataRoomTable.Rows[rows.Index].Cells[cN2].Value.ToString();
+                        string cell3 = dataRoomTable.Rows[rows.Index].Cells[cN3].Value.ToString();
+                        string cell4 = dataRoomTable.Rows[rows.Index].Cells[cN4].Value.ToString();
 
                         PdfPCell c1 = new PdfPCell(new Phrase(cell1));
                         PdfPCell c2 = new PdfPCell(new Phrase(cell2));
@@ -502,14 +597,14 @@ namespace CWATMS
 
             if (dgvc == 2)
             {
-                foreach (DataGridViewRow rows in dataGridView_List_Groups.Rows)
+                foreach (DataGridViewRow rows in dataClassTable.Rows)
                 {
-                    if (Convert.ToBoolean(dataGridView_List_Groups.Rows[rows.Index].Cells[2].Value))
+                    if (Convert.ToBoolean(dataClassTable.Rows[rows.Index].Cells[2].Value))
                     {
-                        string cell1 = dataGridView_List_Groups.Rows[rows.Index].Cells[cN1].Value.ToString();
-                        string cell2 = dataGridView_List_Groups.Rows[rows.Index].Cells[cN2].Value.ToString();
-                        string cell3 = dataGridView_List_Groups.Rows[rows.Index].Cells[cN3].Value.ToString();
-                        string cell4 = dataGridView_List_Groups.Rows[rows.Index].Cells[cN4].Value.ToString();
+                        string cell1 = dataClassTable.Rows[rows.Index].Cells[cN1].Value.ToString();
+                        string cell2 = dataClassTable.Rows[rows.Index].Cells[cN2].Value.ToString();
+                        string cell3 = dataClassTable.Rows[rows.Index].Cells[cN3].Value.ToString();
+                        string cell4 = dataClassTable.Rows[rows.Index].Cells[cN4].Value.ToString();
 
                         PdfPCell c1 = new PdfPCell(new Phrase(cell1));
                         PdfPCell c2 = new PdfPCell(new Phrase(cell2));
@@ -527,14 +622,18 @@ namespace CWATMS
             document.Add(paragraph);
             document.Add(t1);
             DateTime now = DateTime.Now;
-            document.Add(new Paragraph(document.BottomMargin, pdfFoter + now));
+            document.Add(new Paragraph(document.BottomMargin, Constants.pdfFoter + now));
             document.Close();
         }
 
 
+        /// <summary>
+        /// create PDF of a timetable
+        /// </summary>
+        /// <param name="location">file location</param>
         public void Create_PDF_Timetabless(string location)
         {
-            string title = "test";
+            string title = "temp";
             Document document = new Document(PageSize.A4.Rotate());  // creates new pdf file A4 landscape
             PdfWriter.GetInstance(document, new FileStream(location + ".pdf", FileMode.Create));  // writes the pdf to file
             document.Open();
@@ -545,6 +644,9 @@ namespace CWATMS
             document.Close();
         }
 
+        /// <summary>
+        /// take screenshot.
+        /// </summary>
         public void capture_Image()
         {
             // takes a screenshot and saves the file.
@@ -555,7 +657,7 @@ namespace CWATMS
                 {
                     g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
                 }
-                bitmap.Save(@"PDF\temp\temp.jpg", ImageFormat.Jpeg);
+                bitmap.Save(Constants.tempJpeg, ImageFormat.Jpeg);
             }
         }
 
@@ -564,26 +666,30 @@ namespace CWATMS
 
         }
 
-        public void calculate_ETA_Timetable_Export()
-        {
+        
+        // ERROR HANDLING
+        
 
-        }
 
         /// <summary>
-        /// ERROR HANDLING
+        /// checks to see if a file exists
         /// </summary>
-
-
-
+        /// <param name="source">file location</param>
+        /// <param name="title">name of the file</param>
+        /// <param name="num">number used for if statement to determine 
+        /// </param>
+        /// <remarks>
+        /// num '1' = Open PDF error
+        /// num '2' = Print dialog error
+        /// num '3' = Print preview error
+        /// </remarks>
         public void does_File_Exist(string source, string title, int num)
         {
-            string opdf = "Error - Open ";
-            string ppdf = "Error - Print Dialog ";
-            string pppdf = "Error - Print Preview ";
+
             if (File.Exists(source))
             {
                 if (num == 1)
-                {
+                { 
                     view_PDF(source);
                 }
 
@@ -598,33 +704,124 @@ namespace CWATMS
                 }
 
             }
+            else
 
             if (num == 1)
             {
-                Error_Open_PDF_Box(title, opdf);
+                Error_Open_PDF_Box(title, Constants.opdf,"0056");
             }
 
             if (num == 2)
             {
-                Error_Open_PDF_Box(title, ppdf);
+                Error_Open_PDF_Box(title, Constants.ppdf, "PC LOAD LETTER 0057");
             }
 
             if (num == 3)
             {
-                Error_Open_PDF_Box(title, pppdf);
+                Error_Open_PDF_Box(title, Constants.pppdf, ConstantsErrorCode.ec0058);
             }
         }
 
-        public void Error_Open_PDF_Box(string title, string errortitle)
+
+        public void fill_dgv()
+        {
+            dataLecTable.Rows.Clear();
+            foreach (Lecturer lect in DataCollection.Instance.Lecturers)
+            {
+                dataLecTable.Rows.Add(1);
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[0].Value = lect.Name;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[1].Value = lect.Label;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[2].Value = lect.HoursPerWeek;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Value = " ";
+                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Style.BackColor = lect.Colour;
+            }
+
+            //dataLecTable.Rows.Clear();
+            //foreach (Lecturer lect in DataCollection.Instance.Lecturers)
+            //{
+            //    dataLecTable.Rows.Add(1);
+            //    dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[0].Value = lect.Name;
+            //    dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[1].Value = lect.Label;
+            //    dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[2].Value = lect.HoursPerWeek;
+            //    dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Value = " ";
+            //    dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Style.BackColor = lect.Colour;
+            //}
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="title">File name</param>
+        /// <param name="error">error</param>
+        /// <param name="errortitle">error location</param>
+        /// <param name="errorCode">error code</param>
+        public void Error_Open_PDF_Box(string title, string errortitle, string errorCode)
         {
             // message box dialog, File Not Found
-            MessageBox.Show(title + " Can Not Be Found \nHave you exported the PDF? \nError Code : 0058 PC LOAD LETTER" ,
+            MessageBox.Show(Constants.error + title + " Can Not Be Found \nHave you exported the PDF? \nError Code : " + errorCode,
     errortitle,
     MessageBoxButtons.OK,
     MessageBoxIcon.Error,
     MessageBoxDefaultButton.Button1);
         }
 
+        public void populateTab()
+        {
+
+            Export_Tab_Timetable.Controls.Clear();
+            //tabSubject.Controls.Clear();
+            Export_Timetable_Rooms.Controls.Clear();
+            Exprt_Timetable_Groups.Controls.Clear();
+
+            foreach (Lecturer lect in DataCollection.Instance.Lecturers)
+            {
+                DataButton button = new DataButton();
+                button.Dock = DockStyle.Left;
+                //button.MouseDown += Button_MouseDown;
+                button.Lecturer = lect;
+                button.Text = button.Lecturer.Name;
+                button.BackColor = button.Lecturer.Colour;
+                button.Size = new Size(98, 50);
+                button.CreateControl();
+                this.Export_Tab_Timetable.Controls.Add(button);
+            }
+            //foreach (Module mod in DataCollection.Instance.Modules)
+            //{
+            //    DataButton button = new DataButton();
+            //    button.Dock = DockStyle.Left;
+            //    //button.MouseDown += Button_MouseDown;
+            //    button.Module = mod;
+            //    button.Text = button.Module.Name;
+            //    button.BackColor = button.Module.Colour;
+            //    button.Size = new Size(98, 50);
+            //    button.CreateControl();
+            //    this.tabSubject.Controls.Add(button);
+            //}
+            foreach (Room room in DataCollection.Instance.Rooms)
+            {
+                DataButton button = new DataButton();
+                button.Dock = DockStyle.Left;
+                //button.MouseDown += Button_MouseDown;
+                button.Room = room;
+                button.Text = button.Room.Name;
+                button.BackColor = button.Room.Colour;
+                button.Size = new Size(98, 50);
+                button.CreateControl();
+                this.Export_Timetable_Rooms.Controls.Add(button);
+            }
+            foreach (Group grp in DataCollection.Instance.Groups)
+            {
+                DataButton button = new DataButton();
+                button.Dock = DockStyle.Left;
+                //button.MouseDown += Button_MouseDown;
+                button.Group = grp;
+                button.Text = button.Group.Name;
+                button.BackColor = button.Group.Colour;
+                button.Size = new Size(98, 50);
+                button.CreateControl();
+                this.Exprt_Timetable_Groups.Controls.Add(button);
+            }
+        }
 
 
 
