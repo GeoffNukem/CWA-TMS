@@ -160,10 +160,10 @@ namespace CWATMS
         private void dataLecTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
+
             //  Input for row will 
             if (validate(dgv, e))
             {
-
                 switch (tabControl1.SelectedIndex)
                 {
                     case 0:	//	Lecturer DGV
@@ -181,7 +181,6 @@ namespace CWATMS
                                 return;
                             }
                             Color colour = dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
-
                             Lecturer lect = new Lecturer(name, hours, label, colour);
                             if (!loading)
                                 DataCollection.Instance.Add(lect);
@@ -207,6 +206,8 @@ namespace CWATMS
                     case 2:	//	Room DGV
                         dgv = dataRoomTable;
                         if (dgv.Rows[e.RowIndex].Cells[0].Value != null &&
+                           dgv.Rows[e.RowIndex].Cells[1].Value != null &&
+                           dgv.Rows[e.RowIndex].Cells[2].Value != null &&
                            dgv.Rows[e.RowIndex].Cells[8].Value != null)
                         {
                             String name = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
@@ -223,11 +224,11 @@ namespace CWATMS
                                 return;
                             }
                             Room room = new Room(name, label, colour, capacity);
-                            room.SetEquipment(0, (bool)dgv.Rows[e.RowIndex].Cells[3].Value);
-                            room.SetEquipment(1, (bool)dgv.Rows[e.RowIndex].Cells[4].Value);
-                            room.SetEquipment(2, (bool)dgv.Rows[e.RowIndex].Cells[5].Value);
-                            room.SetEquipment(3, (bool)dgv.Rows[e.RowIndex].Cells[6].Value);
-                            room.SetEquipment(4, (bool)dgv.Rows[e.RowIndex].Cells[7].Value);
+                            room.SetEquipment(0, dgv.Rows[e.RowIndex].Cells[3].Value != null ? true : false);
+                            room.SetEquipment(1, dgv.Rows[e.RowIndex].Cells[4].Value != null ? true : false);
+                            room.SetEquipment(2, dgv.Rows[e.RowIndex].Cells[5].Value != null ? true : false);
+                            room.SetEquipment(3, dgv.Rows[e.RowIndex].Cells[6].Value != null ? true : false);
+                            room.SetEquipment(4, dgv.Rows[e.RowIndex].Cells[7].Value != null ? true : false);
                             DataCollection.Instance.Add(room);
                         }
                         break;
@@ -241,14 +242,21 @@ namespace CWATMS
                         {
                             string group = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
                             string label = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
+                            string sStudents = dgv.Rows[e.RowIndex].Cells[2].Value.ToString();
                             Color colour = dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
                             int numStudents;
-                            if (!int.TryParse(dgv.Rows[e.RowIndex].Cells[2].Value.ToString(), out numStudents)) //converts int to bool, if invalid then return false
+                            try
+                            {
+                                numStudents = int.Parse(sStudents);
+                            }
+                            catch
                             {
                                 return;
                             }
                             DataCollection.Instance.Add(new Group(group, label, colour, numStudents));
                         }
+                        break;
+                    default:
                         break;
                 }
                 FormMain main = (FormMain)(this.MdiParent);
@@ -268,105 +276,148 @@ namespace CWATMS
                 string text = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
                 //tab control to decide table validation
-                switch (tabControl1.SelectedIndex)
+                if (dgv == dataLecTable)
                 {
-                    case 0:
-                        switch (e.ColumnIndex)  //column value to decide cell validation
-                        {
-                            case 0:
-                                min = 1;
-                                max = 35;
-                                validChar = true;
-                                break;
-                            case 1:
-                                min = 1;
-                                max = 3;
-                                validChar = true;
-                                break;
-                            case 2:
-                                min = 1;
-                                max = 3;
-                                validChar = false;
-                                break;
-                            case 3:
-                                return true;
-                        }
-                        break;
-                    case 1:
-                        switch (e.ColumnIndex)
-                        {
-                            case 0:
-                                min = 1;
-                                max = 35;
-                                validChar = true;
-                                break;
-                            case 1:
-                                min = 1;
-                                max = 3;
-                                validChar = true;
-                                break;
-                            case 2:
-                                min = 1;
-                                max = 35;
-                                validChar = true;
-                                break;
-                            case 3:
-                                return true;
-                        }
-                        break;
-                    case 2:
-                        switch (e.ColumnIndex)
-                        {
-                            case 0:
-                                min = 1;
-                                max = 35;
-                                validChar = true;
-                                break;
-                            case 5:
-                                return true;
-                        }
-                        break;
-                    case 3:
-                        switch (e.ColumnIndex)
-                        {
-                            case 0:
-                                min = 1;
-                                max = 35;
-                                validChar = true;
-                                break;
-                            case 1:
-                                min = 1;
-                                max = 3;
-                                validChar = false;
-                                break;
-                            case 2:
-                                return true;
-                        }
-                        break;
-                }
-                if (!DataValidation.Instance.IsInRange(text.Length, min, max, true))
-                {
-                    MessageBox.Show("ERROR: Invalid input must be " + min + " - " + max + " characters long.");
-                    isValid = false;
-                }
-
-                if (validChar == true)
-                {
-                    if (DataValidation.Instance.ContainsNumbers(text))
+                    switch (e.ColumnIndex)  //column value to decide cell validation
                     {
-                        MessageBox.Show("ERROR: Invalid input must be A-Z format.");
-                        isValid = false;
+                        case 0:
+                            min = 1;
+                            max = 35;
+                            validChar = true;
+                            break;
+                        case 1:
+                            min = 1;
+                            max = 3;
+                            validChar = true;
+                            break;
+                        case 2:
+                            min = 1;
+                            max = 3;
+                            validChar = false;
+                            break;
+                        case 3:
+                            return true;
                     }
                 }
-                else
+                else if (dgv == dataSubTable)
                 {
-                    if (!DataValidation.Instance.ContainsNumbers(text))
+                    switch (e.ColumnIndex)
                     {
-                        MessageBox.Show("ERROR: Invalid input must be 0-9 format.");
-                        isValid = false;
+                        case 0:
+                            min = 1;
+                            max = 35;
+                            validChar = true;
+                            break;
+                        case 1:
+                            min = 1;
+                            max = 3;
+                            validChar = true;
+                            break;
+                        case 2:
+                            min = 1;
+                            max = 35;
+                            validChar = true;
+                            break;
+                        case 3:
+                            return true;
                     }
                 }
+                else if (dgv == dataRoomTable)
+                {
+                    switch (e.ColumnIndex)
+                    {
+                        case 0:
+                            min = 1;
+                            max = 35;
+                            validChar = true;
+                            break;
+                        case 1:
+                            min = 1;
+                            max = 3;
+                            validChar = true;
+                            break;
+                        case 2:
+                            min = 1;
+                            max = 3;
+                            validChar = false;
+                            break;
+                        case 3:
+                            min = 1;
+                            max = 5;
+                            validChar = true;
+                            break;
+                        case 4:
+                            min = 1;
+                            max = 5;
+                            validChar = true;
+                            break;
+                        case 5:
+                            min = 1;
+                            max = 5;
+                            validChar = true;
+                            break;
+                        case 6:
+                            min = 1;
+                            max = 5;
+                            validChar = true;
+                            break;
+                        case 7:
+                            min = 1;
+                            max = 5;
+                            validChar = true;
+                            break;
+                        case 8:
+                            return true;
+                    }
+                }
+                else if (dgv == dataClassTable)
+                {
+                    switch (e.ColumnIndex)
+                    {
+                        case 0:
+                            min = 1;
+                            max = 35;
+                            validChar = true;
+                            break;
+                        case 1:
+                            min = 1;
+                            max = 3;
+                            validChar = false;
+                            break;
+                        case 2:
+                            min = 1;
+                            max = 3;
+                            validChar = false;
+                            break;
+                        case 3:
+                            return true;
+                    }
+                }
+                if (!loading)
+                {
+                    if (!DataValidation.Instance.IsInRange(text.Length, min, max, true))
+                    {
+                        MessageBox.Show("ERROR: Invalid input must be " + min + " - " + max + " characters long.");
+                        return false;
+                    }
 
+                    if (validChar == true)
+                    {
+                        if (DataValidation.Instance.ContainsNumbers(text))
+                        {
+                            MessageBox.Show("ERROR: Invalid input must be A-Z format.");
+                            return false;
+                        }
+                    }
+                    else if (validChar == false)
+                    {
+                        if (!DataValidation.Instance.ContainsNumbers(text))
+                        {
+                            MessageBox.Show("ERROR: Invalid input must be 0-9 format.");
+                            return false;
+                        }
+                    }
+                }
                 if (isValid == false)
                 {
                     dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = null;
@@ -376,17 +427,23 @@ namespace CWATMS
                 {
                     dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Empty;
                 }
-                return isValid;
+                return true;
             }
             return false;
         }
 
         private void Form3_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
-            this.Hide();
+            if (sender is FormData)
+            {
+                e.Cancel = true;
+                this.Hide();
+            }
+            else
+                this.Close();
         }
+
+
+
     }
-
-
 }
