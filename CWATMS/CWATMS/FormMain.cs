@@ -59,6 +59,21 @@ namespace CWATMS
             m_dataForm.Show();// Show the child form.
         }
 
+        public void populateViewMenu()
+        {
+            btnViewLect.DropDownItems.Clear();
+            foreach (Lecturer lect in DataCollection.Instance.Lecturers)
+            {
+                ButtonView bv = new ButtonView(lect);
+                bv.Name = "btn" + lect.Name + btnViewLect.DropDownItems.Count.ToString();
+                bv.Text = lect.Name;
+                bv.Click += OnMenuItemClick;
+                bv.Available = true;
+                bv.Size = new System.Drawing.Size(152, 22);
+                btnViewLect.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { bv });
+            }
+        }
+
         public void populateTab()
         {
             tabLecturer.Controls.Clear();
@@ -136,30 +151,34 @@ namespace CWATMS
                 {
                     if (button.Lecturer != null)
                     {
-                        FormTimetable childForm = new FormTimetable(button.Lecturer);
-                        childForm.MdiParent = this;
-                        childForm.Show();
+                        OpenTimetable(button.Lecturer);
                     }
                     else if (button.Module != null)
                     {
-                        FormTimetable childForm = new FormTimetable(button.Module);
-                        childForm.MdiParent = this;
-                        childForm.Show();
+                        OpenTimetable(button.Module);
                     }
                     else if (button.Room != null)
                     {
-                        FormTimetable childForm = new FormTimetable(button.Room);
-                        childForm.MdiParent = this;
-                        childForm.Show();
+                        OpenTimetable(button.Room);
                     }
                     else if (button.Group != null)
                     {
-                        FormTimetable childForm = new FormTimetable(button.Group);
-                        childForm.MdiParent = this;
-                        childForm.Show();
+                        OpenTimetable(button.Group);
                     }
                 }
             }
+        }
+        private void OnMenuItemClick(object sender, EventArgs e)
+        {
+            ButtonView bv = (ButtonView)sender;
+            OpenTimetable(bv.Data);
+        }
+
+        private void OpenTimetable(Data data)
+        {
+            FormTimetable childForm = new FormTimetable(data);
+            childForm.MdiParent = this;
+            childForm.Show();
         }
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)

@@ -39,20 +39,20 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.byLecturerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.moduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.roomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.classToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnViewLect = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnViewMod = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnViewRoom = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnViewGrp = new System.Windows.Forms.ToolStripMenuItem();
             this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabLesson = new System.Windows.Forms.TabPage();
             this.tabLecturer = new System.Windows.Forms.TabPage();
             this.tabSubject = new System.Windows.Forms.TabPage();
             this.tabRoom = new System.Windows.Forms.TabPage();
             this.tabClass = new System.Windows.Forms.TabPage();
+            this.tabLesson = new System.Windows.Forms.TabPage();
             this.pnlLessons = new System.Windows.Forms.Panel();
             this.menuMain.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -144,37 +144,37 @@
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.byLecturerToolStripMenuItem,
-            this.moduleToolStripMenuItem,
-            this.roomToolStripMenuItem,
-            this.classToolStripMenuItem});
+            this.btnViewLect,
+            this.btnViewMod,
+            this.btnViewRoom,
+            this.btnViewGrp});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
             // 
-            // byLecturerToolStripMenuItem
+            // btnViewLect
             // 
-            this.byLecturerToolStripMenuItem.Name = "byLecturerToolStripMenuItem";
-            this.byLecturerToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.byLecturerToolStripMenuItem.Text = "Lecturer";
+            this.btnViewLect.Name = "btnViewLect";
+            this.btnViewLect.Size = new System.Drawing.Size(152, 22);
+            this.btnViewLect.Text = "Lecturer";
             // 
-            // moduleToolStripMenuItem
+            // btnViewMod
             // 
-            this.moduleToolStripMenuItem.Name = "moduleToolStripMenuItem";
-            this.moduleToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.moduleToolStripMenuItem.Text = "Subject";
+            this.btnViewMod.Name = "btnViewMod";
+            this.btnViewMod.Size = new System.Drawing.Size(152, 22);
+            this.btnViewMod.Text = "Subject";
             // 
-            // roomToolStripMenuItem
+            // btnViewRoom
             // 
-            this.roomToolStripMenuItem.Name = "roomToolStripMenuItem";
-            this.roomToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.roomToolStripMenuItem.Text = "Room";
+            this.btnViewRoom.Name = "btnViewRoom";
+            this.btnViewRoom.Size = new System.Drawing.Size(152, 22);
+            this.btnViewRoom.Text = "Room";
             // 
-            // classToolStripMenuItem
+            // btnViewGrp
             // 
-            this.classToolStripMenuItem.Name = "classToolStripMenuItem";
-            this.classToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.classToolStripMenuItem.Text = "Class";
+            this.btnViewGrp.Name = "btnViewGrp";
+            this.btnViewGrp.Size = new System.Drawing.Size(152, 22);
+            this.btnViewGrp.Text = "Class";
             // 
             // dataToolStripMenuItem
             // 
@@ -224,17 +224,6 @@
             this.tabControl.TabIndex = 6;
             this.tabControl.TabStop = false;
             // 
-            // tabLesson
-            // 
-            this.tabLesson.BackColor = System.Drawing.SystemColors.Control;
-            this.tabLesson.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.tabLesson.Location = new System.Drawing.Point(4, 36);
-            this.tabLesson.Margin = new System.Windows.Forms.Padding(2);
-            this.tabLesson.Name = "tabLesson";
-            this.tabLesson.Size = new System.Drawing.Size(1031, 64);
-            this.tabLesson.TabIndex = 4;
-            this.tabLesson.Text = "Lesson";
-            // 
             // tabLecturer
             // 
             this.tabLecturer.BackColor = System.Drawing.SystemColors.Control;
@@ -276,6 +265,17 @@
             this.tabClass.TabIndex = 3;
             this.tabClass.Text = "Class";
             this.tabClass.UseVisualStyleBackColor = true;
+            // 
+            // tabLesson
+            // 
+            this.tabLesson.BackColor = System.Drawing.SystemColors.Control;
+            this.tabLesson.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.tabLesson.Location = new System.Drawing.Point(4, 36);
+            this.tabLesson.Margin = new System.Windows.Forms.Padding(2);
+            this.tabLesson.Name = "tabLesson";
+            this.tabLesson.Size = new System.Drawing.Size(1031, 64);
+            this.tabLesson.TabIndex = 4;
+            this.tabLesson.Text = "Lesson";
             // 
             // pnlLessons
             // 
@@ -325,7 +325,7 @@
         private System.Windows.Forms.ToolStripMenuItem dataToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        
+
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabLesson;
         private System.Windows.Forms.TabPage tabLecturer;
@@ -336,12 +336,12 @@
         private System.Windows.Forms.Panel pnlLessons;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem byLecturerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem moduleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem roomToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem classToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnViewLect;
+        private System.Windows.Forms.ToolStripMenuItem btnViewMod;
+        private System.Windows.Forms.ToolStripMenuItem btnViewRoom;
+        private System.Windows.Forms.ToolStripMenuItem btnViewGrp;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
-        
+
     }
 }
 

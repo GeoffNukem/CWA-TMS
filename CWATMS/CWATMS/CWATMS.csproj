@@ -65,6 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ButtonView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\DataButton.cs">
       <SubType>Component</SubType>
     </Compile>

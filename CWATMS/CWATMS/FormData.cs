@@ -261,6 +261,7 @@ namespace CWATMS
                 }
                 FormMain main = (FormMain)(this.MdiParent);
                 main.populateTab();
+                main.populateViewMenu();
             }
         }
 
