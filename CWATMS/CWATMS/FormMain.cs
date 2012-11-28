@@ -72,6 +72,39 @@ namespace CWATMS
                 bv.Size = new System.Drawing.Size(152, 22);
                 btnViewLect.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { bv });
             }
+            btnViewMod.DropDownItems.Clear();
+            foreach (Module mod in DataCollection.Instance.Modules)
+            {
+                ButtonView bv = new ButtonView(mod);
+                bv.Name = "btn" + mod.Name + btnViewLect.DropDownItems.Count.ToString();
+                bv.Text = mod.Name;
+                bv.Click += OnMenuItemClick;
+                bv.Available = true;
+                bv.Size = new System.Drawing.Size(152, 22);
+                btnViewMod.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { bv });
+            }
+            btnViewRoom.DropDownItems.Clear();
+            foreach (Room room in DataCollection.Instance.Rooms)
+            {
+                ButtonView bv = new ButtonView(room);
+                bv.Name = "btn" + room.Name + btnViewLect.DropDownItems.Count.ToString();
+                bv.Text = room.Name;
+                bv.Click += OnMenuItemClick;
+                bv.Available = true;
+                bv.Size = new System.Drawing.Size(152, 22);
+                btnViewRoom.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { bv });
+            }
+            btnViewGrp.DropDownItems.Clear();
+            foreach (Group grp in DataCollection.Instance.Groups)
+            {
+                ButtonView bv = new ButtonView(grp);
+                bv.Name = "btn" + grp.Name + btnViewLect.DropDownItems.Count.ToString();
+                bv.Text = grp.Name;
+                bv.Click += OnMenuItemClick;
+                bv.Available = true;
+                bv.Size = new System.Drawing.Size(152, 22);
+                btnViewGrp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { bv });
+            }
         }
 
         public void populateTab()
