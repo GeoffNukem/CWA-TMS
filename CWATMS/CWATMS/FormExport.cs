@@ -45,6 +45,7 @@ namespace CWATMS
 
 
         public int expotchoice = 0;
+        public int expotchoiceopen = 0;
         public int ameoffpdfss = 1;
         /// <summary>
         /// THe class constructor.
@@ -788,7 +789,7 @@ namespace CWATMS
         public void populateTab()
         {
 
-            //tabSubject.Controls.Clear();
+            timetable_subject_export.Controls.Clear();
             Export_Timetable_Rooms.Controls.Clear();
             Exprt_Timetable_class.Controls.Clear();
             Export_Timetable_Lecturers.Controls.Clear();
@@ -805,7 +806,20 @@ namespace CWATMS
                 button.CreateControl();
                 this.Export_Timetable_Lecturers.Controls.Add(button);
             }
-           
+
+            foreach (Module mod in DataCollection.Instance.Modules)
+            {
+                DataButton button = new DataButton();
+                button.Dock = DockStyle.Left;
+                button.MouseDown += Button_MouseDown;
+                button.Module = mod;
+                button.Text = button.Module.Name;
+                button.BackColor = button.Module.Colour;
+                button.Size = new Size(98, 50);
+                button.CreateControl();
+                this.timetable_subject_export.Controls.Add(button);
+            }
+
             foreach (Room room in DataCollection.Instance.Rooms)
             {
                 DataButton button = new DataButton();
@@ -882,8 +896,12 @@ namespace CWATMS
             capture_Image();
             childForm.Close();
             exportingtimetables(ot);
-            
+            ask_to_open();
+            if (expotchoiceopen == 1)
+            {
+                opendirectorytimetables(ot);
 
+            }
             }
 
             childForm.Close();
@@ -910,6 +928,31 @@ namespace CWATMS
             }
         }
 
+
+        private void opendirectorytimetables(int ott)
+        {
+            if (ott == 1)
+            {
+              
+                Process.Start(@"PDF\Timetables\Lecturers\");
+            }
+            if (ott == 2)
+            {
+             
+                Process.Start(@"PDF\Timetables\Module\");
+            }
+            if (ott == 3)
+            {
+            
+                Process.Start(@"PDF\Timetables\Room\");
+            }
+            if (ott == 4)
+            {
+             
+                Process.Start(@"PDF\Timetables\Class\");
+            }
+        }
+
         private void ask_to_export()
         {
             DialogResult dialogResult = MessageBox.Show("Export This Timetable /nYes To Export    No to Cancel",
@@ -926,5 +969,20 @@ namespace CWATMS
             }
         }
 
+        private void ask_to_open()
+        {
+            DialogResult dialogResult = MessageBox.Show("Rename Timetable /nYes To Rename timetable   No to rename timetable",
+        "Rename Timetable",
+        MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                expotchoiceopen = 1;
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                expotchoiceopen = 2;
+            }
+        }
     }
 }
