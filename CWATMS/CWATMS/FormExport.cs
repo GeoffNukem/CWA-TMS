@@ -17,7 +17,7 @@ using CWATMS.Controls;
 
 namespace CWATMS
 {
-    public partial class Export : Form
+    public partial class FormExport : Form
     {
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace CWATMS
             public const string titleGro = "List_of_Groups";
             public const string pdfFoter = " The A Team , Timetable Mangement System. Date and time produced ";
             public const string lisLoc = @"PDF\Lists\";
-            public const string tempJpeg = @"PDF\temp\temp.jpg";
+            public const string tempJpeg = @"PDF\temp.jpg";
             public const string error = "Error - ";
             public const string opdf = "Open ";
             public const string ppdf = "Print Dialog ";
@@ -44,14 +44,16 @@ namespace CWATMS
         }
 
 
-
+        public int expotchoice = 0;
+        public int ameoffpdfss = 1;
         /// <summary>
         /// THe class constructor.
         /// </summary>
-        public Export()
+        public FormExport()
         {
             InitializeComponent();
             fill_dgv();
+            populateTab();
         }
 
         // LIST HOME TAB
@@ -329,17 +331,7 @@ namespace CWATMS
 
         // TIMETABLE LECTURER
 
-        private void Timetable_Lecturers_Export_Click(object sender, EventArgs e)
-        {
-            //FormTimetable r = new FormTimetable();
-            //r.FormBorderStyle = FormBorderStyle.None;
-            //r.WindowState = FormWindowState.Maximized;
-            //r.Show();
-            //capture_Image();
-            //r.Close();
-            //Create_PDF_Timetabless(@"PDF\Timetables\Lecturers\");
-
-        }
+        
 
 
         // ROOM TIMETABLES
@@ -634,11 +626,12 @@ namespace CWATMS
         public void Create_PDF_Timetabless(string location)
         {
             string title = "temp";
+            string nameOfPDf = "RenameMe";
             Document document = new Document(PageSize.A4.Rotate());  // creates new pdf file A4 landscape
-            PdfWriter.GetInstance(document, new FileStream(location + ".pdf", FileMode.Create));  // writes the pdf to file
+            PdfWriter.GetInstance(document, new FileStream(location + nameOfPDf + ".pdf", FileMode.Create));  // writes the pdf to file
             document.Open();
             Paragraph paragraph = new Paragraph(title + System.Environment.NewLine + "\n");
-            iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance("temp.jpg");
+            iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(Constants.tempJpeg);
             jpg.ScalePercent(45f);  // scales the image file to fit on to page.
             document.Add(jpg);
             document.Close();
@@ -649,7 +642,6 @@ namespace CWATMS
         /// </summary>
         public void capture_Image()
         {
-            // takes a screenshot and saves the file.
             System.Drawing.Rectangle bounds = Screen.GetBounds(Point.Empty);
             using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
             {
@@ -668,8 +660,6 @@ namespace CWATMS
 
         
         // ERROR HANDLING
-        
-
 
         /// <summary>
         /// checks to see if a file exists
@@ -723,6 +713,9 @@ namespace CWATMS
         }
 
 
+        /// <summary>
+        /// Fills the data view grids (lecturer, class, room) with data from the data store.
+        /// </summary>
         public void fill_dgv()
         {
             dataLecTable.Rows.Clear();
@@ -736,20 +729,47 @@ namespace CWATMS
                 dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Style.BackColor = lect.Colour;
             }
 
-            //dataLecTable.Rows.Clear();
-            //foreach (Lecturer lect in DataCollection.Instance.Lecturers)
-            //{
-            //    dataLecTable.Rows.Add(1);
-            //    dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[0].Value = lect.Name;
-            //    dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[1].Value = lect.Label;
-            //    dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[2].Value = lect.HoursPerWeek;
-            //    dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Value = " ";
-            //    dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Style.BackColor = lect.Colour;
-            //}
+            dataSubTable.Rows.Clear();
+            foreach (Module mod in DataCollection.Instance.Modules)
+            {
+                dataSubTable.Rows.Add(1);
+                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[0].Value = mod.Name;
+                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[1].Value = mod.Label;
+                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[2].Value = mod.CourseLevel;
+                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[3].Value = " ";
+                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[3].Style.BackColor = mod.Colour;
+            }
+            dataRoomTable.Rows.Clear();
+            foreach (Room room in DataCollection.Instance.Rooms)
+            {
+                dataRoomTable.Rows.Add(1);
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[0].Value = room.Name;
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[1].Value = room.Label;
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[2].Value = room.Capacity;
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[3].Value = room.HasLecturerPC();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[4].Value = room.HasSmartboard();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[5].Value = room.HasTelevision();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[6].Value = room.HasProjector();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[7].Value = room.IsNetworkLab();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[8].Value = " ";
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[8].Style.BackColor = room.Colour;
+            }
+            dataClassTable.Rows.Clear();
+            foreach (Group group in DataCollection.Instance.Groups)
+            {
+                dataClassTable.Rows.Add(1);
+                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[0].Value = group.Name;
+                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[1].Value = group.Label;
+                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[2].Value = group.TotalStudents;
+                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[3].Value = " ";
+                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[3].Style.BackColor = group.Colour;
+            }
+
+
         }
 
         /// <summary>
-        /// 
+        /// opens up an error box. 
         /// </summary>
         /// <param name="title">File name</param>
         /// <param name="error">error</param>
@@ -768,40 +788,29 @@ namespace CWATMS
         public void populateTab()
         {
 
-            Export_Tab_Timetable.Controls.Clear();
             //tabSubject.Controls.Clear();
             Export_Timetable_Rooms.Controls.Clear();
-            Exprt_Timetable_Groups.Controls.Clear();
+            Exprt_Timetable_class.Controls.Clear();
+            Export_Timetable_Lecturers.Controls.Clear();
 
             foreach (Lecturer lect in DataCollection.Instance.Lecturers)
             {
                 DataButton button = new DataButton();
                 button.Dock = DockStyle.Left;
-                //button.MouseDown += Button_MouseDown;
+                button.MouseDown += Button_MouseDown;
                 button.Lecturer = lect;
                 button.Text = button.Lecturer.Name;
                 button.BackColor = button.Lecturer.Colour;
                 button.Size = new Size(98, 50);
                 button.CreateControl();
-                this.Export_Tab_Timetable.Controls.Add(button);
+                this.Export_Timetable_Lecturers.Controls.Add(button);
             }
-            //foreach (Module mod in DataCollection.Instance.Modules)
-            //{
-            //    DataButton button = new DataButton();
-            //    button.Dock = DockStyle.Left;
-            //    //button.MouseDown += Button_MouseDown;
-            //    button.Module = mod;
-            //    button.Text = button.Module.Name;
-            //    button.BackColor = button.Module.Colour;
-            //    button.Size = new Size(98, 50);
-            //    button.CreateControl();
-            //    this.tabSubject.Controls.Add(button);
-            //}
+           
             foreach (Room room in DataCollection.Instance.Rooms)
             {
                 DataButton button = new DataButton();
                 button.Dock = DockStyle.Left;
-                //button.MouseDown += Button_MouseDown;
+                button.MouseDown += Button_MouseDown;
                 button.Room = room;
                 button.Text = button.Room.Name;
                 button.BackColor = button.Room.Colour;
@@ -813,22 +822,109 @@ namespace CWATMS
             {
                 DataButton button = new DataButton();
                 button.Dock = DockStyle.Left;
-                //button.MouseDown += Button_MouseDown;
+                button.MouseDown += Button_MouseDown;
                 button.Group = grp;
                 button.Text = button.Group.Name;
                 button.BackColor = button.Group.Colour;
                 button.Size = new Size(98, 50);
                 button.CreateControl();
-                this.Exprt_Timetable_Groups.Controls.Add(button);
+                this.Exprt_Timetable_class.Controls.Add(button);
             }
+        }
+
+        private void dataRoomTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
 
 
 
+        private void Button_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (sender is DataButton)
+            {
+                DataButton button = (DataButton)sender;
+                if (e.Button == MouseButtons.Left && e.Clicks == 2)
+                {
+                    if (button.Lecturer != null)
+                    {
+                        OpenTimetable(button.Lecturer, 1);
+                    }
+                    else if (button.Module != null)
+                    {
+                        OpenTimetable(button.Module, 2);
+                    }
+                    else if (button.Room != null)
+                    {
+                        OpenTimetable(button.Room, 3);
+                    }
+                    else if (button.Group != null)
+                    {
+                        OpenTimetable(button.Group, 4);
+                    }
+                }
+            }
+        }
 
+        private void OpenTimetable(Data data, int ot)
+        {
+            FormTimetable childForm = new FormTimetable(data);
+            //childForm.MdiParent = this;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Show();
+            ask_to_export();
+            System.Threading.Thread.Sleep(500);
 
+            if (expotchoice == 1)
+            {
+            capture_Image();
+            childForm.Close();
+            exportingtimetables(ot);
+            
 
+            }
+
+            childForm.Close();
+            
+        }
+
+        private void exportingtimetables(int ott)
+        {
+            if (ott == 1)
+            {
+                Create_PDF_Timetabless(@"PDF\Timetables\Lecturers\");
+            }
+            if (ott == 2)
+            {
+                Create_PDF_Timetabless(@"PDF\Timetables\Module\");
+            }
+            if (ott == 3)
+            {
+                Create_PDF_Timetabless(@"PDF\Timetables\Room\");
+            }
+            if (ott == 4)
+            {
+                Create_PDF_Timetabless(@"PDF\Timetables\Class\");
+            }
+        }
+
+        private void ask_to_export()
+        {
+            DialogResult dialogResult = MessageBox.Show("Export This Timetable /nYes To Export    No to Cancel",
+        "Export Timetable",
+        MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                expotchoice = 1;
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                expotchoice = 2;
+            }
+        }
 
     }
 }

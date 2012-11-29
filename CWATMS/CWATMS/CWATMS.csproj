@@ -78,11 +78,11 @@
     <Compile Include="Data\Group.cs" />
     <Compile Include="Data\Module.cs" />
     <Compile Include="Data\Room.cs" />
-    <Compile Include="Export.cs">
+    <Compile Include="FormExport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Export.Designer.cs">
-      <DependentUpon>Export.cs</DependentUpon>
+    <Compile Include="FormExport.Designer.cs">
+      <DependentUpon>FormExport.cs</DependentUpon>
     </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
@@ -109,14 +109,8 @@
     <Compile Include="Lesson.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewPDF.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ViewPDF.Designer.cs">
-      <DependentUpon>ViewPDF.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Export.resx">
-      <DependentUpon>Export.cs</DependentUpon>
+    <EmbeddedResource Include="FormExport.resx">
+      <DependentUpon>FormExport.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Schedule.cs" />
     <Compile Include="Timetable.cs" />
@@ -139,9 +133,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ViewPDF.resx">
-      <DependentUpon>ViewPDF.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -187,6 +178,7 @@
     <Folder Include="PDF\temp\" />
     <Folder Include="PDF\Timetables\Class\" />
     <Folder Include="PDF\Timetables\Lecturers\" />
+    <Folder Include="PDF\Timetables\Module\" />
     <Folder Include="PDF\Timetables\Rooms\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

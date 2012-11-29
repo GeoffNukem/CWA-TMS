@@ -216,7 +216,7 @@ namespace CWATMS
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Export childForm = new Export();
+            FormExport childForm = new FormExport();
             childForm.MdiParent = this;
             childForm.Show();
         }
