@@ -168,7 +168,7 @@
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
@@ -186,25 +186,25 @@
             // btnViewLect
             // 
             this.btnViewLect.Name = "btnViewLect";
-            this.btnViewLect.Size = new System.Drawing.Size(152, 22);
+            this.btnViewLect.Size = new System.Drawing.Size(117, 22);
             this.btnViewLect.Text = "Lecturer";
             // 
             // btnViewMod
             // 
             this.btnViewMod.Name = "btnViewMod";
-            this.btnViewMod.Size = new System.Drawing.Size(152, 22);
+            this.btnViewMod.Size = new System.Drawing.Size(117, 22);
             this.btnViewMod.Text = "Subject";
             // 
             // btnViewRoom
             // 
             this.btnViewRoom.Name = "btnViewRoom";
-            this.btnViewRoom.Size = new System.Drawing.Size(152, 22);
+            this.btnViewRoom.Size = new System.Drawing.Size(117, 22);
             this.btnViewRoom.Text = "Room";
             // 
             // btnViewGrp
             // 
             this.btnViewGrp.Name = "btnViewGrp";
-            this.btnViewGrp.Size = new System.Drawing.Size(152, 22);
+            this.btnViewGrp.Size = new System.Drawing.Size(117, 22);
             this.btnViewGrp.Text = "Class";
             // 
             // dataToolStripMenuItem
