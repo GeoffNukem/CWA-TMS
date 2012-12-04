@@ -32,6 +32,11 @@ namespace CWATMS
             populateViewMenu();
             populateTab();
             lblStatus.Text = "Load Complete";
+            Directory.CreateDirectory(@".\PDF\Lists\");
+            Directory.CreateDirectory(@".\PDF\Timetables\Class\");
+            Directory.CreateDirectory(@".\PDF\Timetables\Lecturers\");
+            Directory.CreateDirectory(@".\PDF\Timetables\Module\");
+            Directory.CreateDirectory(@".\PDF\Timetables\Room\");
         }
 
 
