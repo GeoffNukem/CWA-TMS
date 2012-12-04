@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
 namespace CWATMS
 {
     public partial class FormData : Form
@@ -21,43 +23,7 @@ namespace CWATMS
             InitializeComponent();
         }
 
-        private void dataToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog open = new OpenFileDialog(); //new open instance
-
-            //Open Dialogue configuration
-
-            open.DefaultExt = ".xml";
-            open.AddExtension = true;
-            open.RestoreDirectory = true;
-            open.InitialDirectory = @"C:\";
-            open.Filter = "Xml File (*.xml)|*.xml";
-            open.Title = "Save File";
-
-            // Dialogue accessed then loops thro each row and cell. Data added to file
-            try
-            {
-                if (open.ShowDialog() == DialogResult.OK)
-                {
-                    //MessageBox.Show("Opening File... " + open.FileName + "\n" + DataCollection.Instance.Lecturers.ToString());
-                    DataFile.Instance.FileName = open.FileName;
-                    DataFile.Instance.LoadAll();
-                    LoadTables();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                return;
-            }
-        }
-
-        private void LoadTables()
+        public void LoadTables()
         {
             loading = true;
             dataLecTable.Rows.Clear();
@@ -108,35 +74,6 @@ namespace CWATMS
             loading = false;
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog save = new SaveFileDialog(); //new save instance
-
-            //Save Dialogue configuration
-
-            save.DefaultExt = ".xml";
-            save.AddExtension = true;
-            save.RestoreDirectory = true;
-            save.InitialDirectory = @"C:\";
-            save.Filter = "Xml File (*.xml)|*.xml";
-            save.Title = "Save File";
-
-            // Dialogue accessed then loops thro each row and cell. Data added to file
-            try
-            {
-                if (save.ShowDialog() == DialogResult.OK)
-                {
-                    //MessageBox.Show("Saving File... " + save.FileName + "\n" + DataCollection.Instance.Lecturers.ToString());
-                    DataFile.Instance.FileName = save.FileName;
-                    DataFile.Instance.SaveLecturers();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -147,20 +84,22 @@ namespace CWATMS
         {
             // If the selected colomn header equals "colour"
             DataGridView dgv = sender as DataGridView;
-            if (dgv.Columns[e.ColumnIndex].HeaderText.Equals("Colour") && e.RowIndex > -1)
+            if (e.RowIndex > -1 && e.ColumnIndex > -1)
             {
-                colorDialog1.ShowDialog();                                                          //Shows colourDialogue window
-                dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = colorDialog1.Color;     //selected cell changes to Dialogue RGB colour
-                dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = colorDialog1.Color;     //selected text in cell hidden using Dialoge RGB colour
-                dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = " ";
+                if (dgv.Columns[e.ColumnIndex].HeaderText.Equals("Colour"))
+                {
+                    colorDialog1.ShowDialog();                                                          //Shows colourDialogue window
+                    dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = colorDialog1.Color;     //selected cell changes to Dialogue RGB colour
+                    dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = colorDialog1.Color;     //selected text in cell hidden using Dialoge RGB colour
+                    dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = " ";
+                }
             }
-
         }
 
         private void dataLecTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-
+            
             //  Input for row will 
             if (validate(dgv, e))
             {
@@ -271,6 +210,7 @@ namespace CWATMS
             int max = 0;
             bool validChar = false;
             bool isValid = true;
+            bool allowNum = false;
 
             if (e.RowIndex > -1 && dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
@@ -290,6 +230,7 @@ namespace CWATMS
                             min = 1;
                             max = 3;
                             validChar = true;
+                            allowNum = true;
                             break;
                         case 2:
                             min = 1;
@@ -313,11 +254,13 @@ namespace CWATMS
                             min = 1;
                             max = 3;
                             validChar = true;
+                            allowNum = true;
                             break;
                         case 2:
                             min = 1;
                             max = 35;
                             validChar = true;
+                            allowNum = true;
                             break;
                         case 3:
                             return true;
@@ -331,11 +274,13 @@ namespace CWATMS
                             min = 1;
                             max = 35;
                             validChar = true;
+                            allowNum = true;
                             break;
                         case 1:
                             min = 1;
                             max = 3;
                             validChar = true;
+                            allowNum = true;
                             break;
                         case 2:
                             min = 1;
@@ -384,6 +329,7 @@ namespace CWATMS
                             min = 1;
                             max = 3;
                             validChar = false;
+                            allowNum = true;
                             break;
                         case 2:
                             min = 1;
@@ -402,7 +348,7 @@ namespace CWATMS
                         return false;
                     }
 
-                    if (validChar == true)
+                    if (validChar && !allowNum)
                     {
                         if (DataValidation.Instance.ContainsNumbers(text))
                         {
@@ -410,7 +356,7 @@ namespace CWATMS
                             return false;
                         }
                     }
-                    else if (validChar == false)
+                    else if (!validChar)
                     {
                         if (!DataValidation.Instance.ContainsNumbers(text))
                         {
@@ -435,16 +381,14 @@ namespace CWATMS
 
         private void Form3_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (sender is FormData)
+            if (sender is FormData && e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
                 this.Hide();
             }
-            else
-                this.Close();
         }
-
-
-
+           
     }
+
+
 }

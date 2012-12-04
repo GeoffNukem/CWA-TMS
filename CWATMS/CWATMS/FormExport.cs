@@ -111,9 +111,9 @@ namespace CWATMS
         /// </summary>
         public void lecturer_List_Export()
         {
-            string sfname = "LecturerName";
+            string sfname = "Lecturer Name";
             string slabel = "Label";
-            string shpw = "HoursPerModule";
+            string shpw = "Hours Per Module";
             //string scolour = "Colour";
 
             create_PDF_5(Constants.titleLec, sfname, shpw, slabel);
@@ -190,7 +190,7 @@ namespace CWATMS
         /// </summary>
         public void modules_List_Export()
         {
-            string sname = "Name";
+            string sname = "Subject";
             string scourselevel = "Course Level";
             string slabel = "Label";
             string scolour = "Colour";
@@ -257,7 +257,7 @@ namespace CWATMS
         /// <param name="e"></param>
         public void rooms_List_Export()
         {
-            string sname = "Name";
+            string sname = "Room No";
             string scapacity = "Capacity";
             string slabel = "Label";
             string scolour = "Colour";
@@ -300,7 +300,7 @@ namespace CWATMS
 
         public void Groups_List_Export()
         {
-            string sname = "Name";
+            string sname = "Class";
             string slabel = "Label";
             string scolour = "Colour";
             string scapacity = "Capacity";
@@ -490,9 +490,9 @@ namespace CWATMS
             {
                 if (Convert.ToBoolean(dataLecTable.Rows[rows.Index].Cells[2].Value))
                 {
-                    string cell1 = dataLecTable.Rows[rows.Index].Cells[cN1].Value.ToString();
-                    string cell2 = dataLecTable.Rows[rows.Index].Cells[cN2].Value.ToString();
-                    string cell3 = dataLecTable.Rows[rows.Index].Cells[cN3].Value.ToString();
+                    string cell1 = dataLecTable.Rows[rows.Index].Cells[0].Value.ToString();
+                    string cell2 = dataLecTable.Rows[rows.Index].Cells[1].Value.ToString();
+                    string cell3 = dataLecTable.Rows[rows.Index].Cells[2].Value.ToString();
                     //string cell4 = dataLecTable.Rows[rows.Index].Cells[cN4].Value.ToString();
 
                     PdfPCell c1 = new PdfPCell(new Phrase(cell1));
@@ -528,38 +528,33 @@ namespace CWATMS
             PdfWriter.GetInstance(document, new FileStream(@"PDF\Lists\" + title + ".pdf", FileMode.Create));
             document.Open();
             Paragraph paragraph = new Paragraph(title + System.Environment.NewLine + "\n");
-            PdfPTable t1 = new PdfPTable(4);
+            PdfPTable t1 = new PdfPTable(3);
 
             PdfPCell ccell1 = new PdfPCell(new Phrase(cN1));
             PdfPCell ccell2 = new PdfPCell(new Phrase(cN2));
             PdfPCell ccell3 = new PdfPCell(new Phrase(cN3));
-            PdfPCell ccell4 = new PdfPCell(new Phrase(cN4));
 
             t1.AddCell(ccell1);
             t1.AddCell(ccell2);
             t1.AddCell(ccell3);
-            t1.AddCell(ccell4);
 
             if (dgvc == 0)
             {
                 foreach (DataGridViewRow rows in dataSubTable.Rows)
                 {
-                    if (Convert.ToBoolean(dataSubTable.Rows[rows.Index].Cells[2].Value))
+                    if (dataSubTable.Rows[rows.Index].Cells[2].Value != null)
                     {
-                        string cell1 = dataSubTable.Rows[rows.Index].Cells[cN1].Value.ToString();
-                        string cell2 = dataSubTable.Rows[rows.Index].Cells[cN2].Value.ToString();
-                        string cell3 = dataSubTable.Rows[rows.Index].Cells[cN3].Value.ToString();
-                        string cell4 = dataSubTable.Rows[rows.Index].Cells[cN4].Value.ToString();
+                        string cell1 = dataSubTable.Rows[rows.Index].Cells[0].Value.ToString();
+                        string cell2 = dataSubTable.Rows[rows.Index].Cells[1].Value.ToString();
+                        string cell3 = dataSubTable.Rows[rows.Index].Cells[2].Value.ToString();
 
                         PdfPCell c1 = new PdfPCell(new Phrase(cell1));
                         PdfPCell c2 = new PdfPCell(new Phrase(cell2));
                         PdfPCell c3 = new PdfPCell(new Phrase(cell3));
-                        PdfPCell c4 = new PdfPCell(new Phrase(cell4));
 
                         t1.AddCell(c1);
                         t1.AddCell(c2);
                         t1.AddCell(c3);
-                        t1.AddCell(c4);
                     }
                 }
             }
@@ -570,20 +565,17 @@ namespace CWATMS
                 {
                     if (Convert.ToBoolean(dataRoomTable.Rows[rows.Index].Cells[2].Value))
                     {
-                        string cell1 = dataRoomTable.Rows[rows.Index].Cells[cN1].Value.ToString();
-                        string cell2 = dataRoomTable.Rows[rows.Index].Cells[cN2].Value.ToString();
-                        string cell3 = dataRoomTable.Rows[rows.Index].Cells[cN3].Value.ToString();
-                        string cell4 = dataRoomTable.Rows[rows.Index].Cells[cN4].Value.ToString();
+                        string cell1 = dataRoomTable.Rows[rows.Index].Cells[0].Value.ToString();
+                        string cell2 = dataRoomTable.Rows[rows.Index].Cells[1].Value.ToString();
+                        string cell3 = dataRoomTable.Rows[rows.Index].Cells[2].Value.ToString();
 
                         PdfPCell c1 = new PdfPCell(new Phrase(cell1));
                         PdfPCell c2 = new PdfPCell(new Phrase(cell2));
                         PdfPCell c3 = new PdfPCell(new Phrase(cell3));
-                        PdfPCell c4 = new PdfPCell(new Phrase(cell4));
 
                         t1.AddCell(c1);
                         t1.AddCell(c2);
                         t1.AddCell(c3);
-                        t1.AddCell(c4);
                     }
                 }
             }
@@ -594,20 +586,17 @@ namespace CWATMS
                 {
                     if (Convert.ToBoolean(dataClassTable.Rows[rows.Index].Cells[2].Value))
                     {
-                        string cell1 = dataClassTable.Rows[rows.Index].Cells[cN1].Value.ToString();
-                        string cell2 = dataClassTable.Rows[rows.Index].Cells[cN2].Value.ToString();
-                        string cell3 = dataClassTable.Rows[rows.Index].Cells[cN3].Value.ToString();
-                        string cell4 = dataClassTable.Rows[rows.Index].Cells[cN4].Value.ToString();
+                        string cell1 = dataClassTable.Rows[rows.Index].Cells[0].Value.ToString();
+                        string cell2 = dataClassTable.Rows[rows.Index].Cells[1].Value.ToString();
+                        string cell3 = dataClassTable.Rows[rows.Index].Cells[2].Value.ToString();
 
                         PdfPCell c1 = new PdfPCell(new Phrase(cell1));
                         PdfPCell c2 = new PdfPCell(new Phrase(cell2));
                         PdfPCell c3 = new PdfPCell(new Phrase(cell3));
-                        PdfPCell c4 = new PdfPCell(new Phrase(cell4));
 
                         t1.AddCell(c1);
                         t1.AddCell(c2);
                         t1.AddCell(c3);
-                        t1.AddCell(c4);
                     }
                 }
 
@@ -624,10 +613,10 @@ namespace CWATMS
         /// create PDF of a timetable
         /// </summary>
         /// <param name="location">file location</param>
-        public void Create_PDF_Timetabless(string location)
+        public void Create_PDF_Timetabless(string location, String fileName)
         {
             string title = "temp";
-            string nameOfPDf = "RenameMe";
+            string nameOfPDf = fileName;
             Document document = new Document(PageSize.A4.Rotate());  // creates new pdf file A4 landscape
             PdfWriter.GetInstance(document, new FileStream(location + nameOfPDf + ".pdf", FileMode.Create));  // writes the pdf to file
             document.Open();
@@ -723,47 +712,47 @@ namespace CWATMS
             foreach (Lecturer lect in DataCollection.Instance.Lecturers)
             {
                 dataLecTable.Rows.Add(1);
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[0].Value = lect.Name;
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[1].Value = lect.Label;
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[2].Value = lect.HoursPerWeek;
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Value = " ";
-                dataLecTable.Rows[dataLecTable.Rows.Count - 2].Cells[3].Style.BackColor = lect.Colour;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 1].Cells[0].Value = lect.Name;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 1].Cells[1].Value = lect.Label;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 1].Cells[2].Value = lect.HoursPerWeek;
+                dataLecTable.Rows[dataLecTable.Rows.Count - 1].Cells[3].Value = " ";
+                dataLecTable.Rows[dataLecTable.Rows.Count - 1].Cells[3].Style.BackColor = lect.Colour;
             }
 
             dataSubTable.Rows.Clear();
             foreach (Module mod in DataCollection.Instance.Modules)
             {
                 dataSubTable.Rows.Add(1);
-                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[0].Value = mod.Name;
-                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[1].Value = mod.Label;
-                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[2].Value = mod.CourseLevel;
-                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[3].Value = " ";
-                dataSubTable.Rows[dataSubTable.Rows.Count - 2].Cells[3].Style.BackColor = mod.Colour;
+                dataSubTable.Rows[dataSubTable.Rows.Count - 1].Cells[0].Value = mod.Name;
+                dataSubTable.Rows[dataSubTable.Rows.Count - 1].Cells[1].Value = mod.Label;
+                dataSubTable.Rows[dataSubTable.Rows.Count - 1].Cells[2].Value = mod.CourseLevel;
+                dataSubTable.Rows[dataSubTable.Rows.Count - 1].Cells[3].Value = " ";
+                dataSubTable.Rows[dataSubTable.Rows.Count - 1].Cells[3].Style.BackColor = mod.Colour;
             }
             dataRoomTable.Rows.Clear();
             foreach (Room room in DataCollection.Instance.Rooms)
             {
                 dataRoomTable.Rows.Add(1);
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[0].Value = room.Name;
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[1].Value = room.Label;
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[2].Value = room.Capacity;
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[3].Value = room.HasLecturerPC();
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[4].Value = room.HasSmartboard();
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[5].Value = room.HasTelevision();
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[6].Value = room.HasProjector();
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[7].Value = room.IsNetworkLab();
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[8].Value = " ";
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 2].Cells[8].Style.BackColor = room.Colour;
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[0].Value = room.Name;
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[1].Value = room.Label;
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[2].Value = room.Capacity;
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[3].Value = room.HasLecturerPC();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[4].Value = room.HasSmartboard();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[5].Value = room.HasTelevision();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[6].Value = room.HasProjector();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[7].Value = room.IsNetworkLab();
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[8].Value = " ";
+                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[8].Style.BackColor = room.Colour;
             }
             dataClassTable.Rows.Clear();
             foreach (Group group in DataCollection.Instance.Groups)
             {
                 dataClassTable.Rows.Add(1);
-                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[0].Value = group.Name;
-                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[1].Value = group.Label;
-                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[2].Value = group.TotalStudents;
-                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[3].Value = " ";
-                dataClassTable.Rows[dataClassTable.Rows.Count - 2].Cells[3].Style.BackColor = group.Colour;
+                dataClassTable.Rows[dataRoomTable.Rows.Count - 1].Cells[0].Value = group.Name;
+                dataClassTable.Rows[dataRoomTable.Rows.Count - 1].Cells[1].Value = group.Label;
+                dataClassTable.Rows[dataRoomTable.Rows.Count - 1].Cells[2].Value = group.TotalStudents;
+                dataClassTable.Rows[dataRoomTable.Rows.Count - 1].Cells[3].Value = " ";
+                dataClassTable.Rows[dataRoomTable.Rows.Count - 1].Cells[3].Style.BackColor = group.Colour;
             }
 
 
@@ -893,38 +882,38 @@ namespace CWATMS
 
             if (expotchoice == 1)
             {
-            capture_Image();
-            childForm.Close();
-            exportingtimetables(ot);
-            ask_to_open();
-            if (expotchoiceopen == 1)
-            {
-                opendirectorytimetables(ot);
+                capture_Image();
+                childForm.Close();
+                exportingtimetables(ot, data.Name);
+                ask_to_open();
+                if (expotchoiceopen == 1)
+                {
+                    opendirectorytimetables(ot);
 
-            }
+                }
             }
 
             childForm.Close();
             
         }
 
-        private void exportingtimetables(int ott)
+        private void exportingtimetables(int ott, String fileName)
         {
             if (ott == 1)
             {
-                Create_PDF_Timetabless(@"PDF\Timetables\Lecturers\");
+                Create_PDF_Timetabless(@"PDF\Timetables\Lecturers\", fileName);
             }
             if (ott == 2)
             {
-                Create_PDF_Timetabless(@"PDF\Timetables\Module\");
+                Create_PDF_Timetabless(@"PDF\Timetables\Module\", fileName);
             }
             if (ott == 3)
             {
-                Create_PDF_Timetabless(@"PDF\Timetables\Room\");
+                Create_PDF_Timetabless(@"PDF\Timetables\Room\", fileName);
             }
             if (ott == 4)
             {
-                Create_PDF_Timetabless(@"PDF\Timetables\Class\");
+                Create_PDF_Timetabless(@"PDF\Timetables\Class\", fileName);
             }
         }
 
@@ -955,7 +944,7 @@ namespace CWATMS
 
         private void ask_to_export()
         {
-            DialogResult dialogResult = MessageBox.Show("Export This Timetable /nYes To Export    No to Cancel",
+            DialogResult dialogResult = MessageBox.Show("Export This Timetable \nYes To Export    |    No to Cancel",
         "Export Timetable",
         MessageBoxButtons.YesNo);
 
@@ -971,8 +960,8 @@ namespace CWATMS
 
         private void ask_to_open()
         {
-            DialogResult dialogResult = MessageBox.Show("Rename Timetable /nYes To Rename timetable   No to rename timetable",
-        "Rename Timetable",
+            DialogResult dialogResult = MessageBox.Show("Would you like to view the PDF folder?\nYes To View PDF folder    |    No to View PDF folder",
+        "View PDF folder",
         MessageBoxButtons.YesNo);
 
             if (dialogResult == DialogResult.Yes)

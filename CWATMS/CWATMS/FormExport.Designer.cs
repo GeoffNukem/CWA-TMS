@@ -164,6 +164,8 @@
             // 
             // dataLecTable
             // 
+            this.dataLecTable.AllowUserToAddRows = false;
+            this.dataLecTable.AllowUserToDeleteRows = false;
             this.dataLecTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -173,6 +175,7 @@
             this.Label,
             this.HoursPerModule,
             this.Colour});
+            this.dataLecTable.Enabled = false;
             this.dataLecTable.Location = new System.Drawing.Point(7, 46);
             this.dataLecTable.MultiSelect = false;
             this.dataLecTable.Name = "dataLecTable";
@@ -258,12 +261,15 @@
             // 
             // dataSubTable
             // 
+            this.dataSubTable.AllowUserToAddRows = false;
+            this.dataSubTable.AllowUserToDeleteRows = false;
             this.dataSubTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataSubTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.CourseLevel,
             this.dataGridViewTextBoxColumn4});
+            this.dataSubTable.Enabled = false;
             this.dataSubTable.Location = new System.Drawing.Point(16, 6);
             this.dataSubTable.Name = "dataSubTable";
             this.dataSubTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
@@ -348,6 +354,8 @@
             // 
             // dataRoomTable
             // 
+            this.dataRoomTable.AllowUserToAddRows = false;
+            this.dataRoomTable.AllowUserToDeleteRows = false;
             this.dataRoomTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataRoomTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn5,
@@ -359,6 +367,7 @@
             this.Column5,
             this.Column7,
             this.dataGridViewTextBoxColumn8});
+            this.dataRoomTable.Enabled = false;
             this.dataRoomTable.Location = new System.Drawing.Point(6, 6);
             this.dataRoomTable.Name = "dataRoomTable";
             this.dataRoomTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
@@ -488,12 +497,15 @@
             // 
             // dataClassTable
             // 
+            this.dataClassTable.AllowUserToAddRows = false;
+            this.dataClassTable.AllowUserToDeleteRows = false;
             this.dataClassTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataClassTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12,
             this.dataGridViewTextBoxColumn14});
+            this.dataClassTable.Enabled = false;
             this.dataClassTable.Location = new System.Drawing.Point(3, 18);
             this.dataClassTable.Name = "dataClassTable";
             this.dataClassTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;

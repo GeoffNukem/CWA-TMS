@@ -17,8 +17,8 @@ namespace CWATMS
 
         private String[] m_lecturerCols = { "Name", "Label", "HoursPerWeek", "Colour" };
         private String[] m_moduleCols = { "Name", "Label", "CourseLevel", "Colour" };
-        private String[] m_roomCols = { "Name", "Label", "LecturerPC", "Projector", "SmartBoard", "Television", "NetworkLab", "Capacity", "Colour" };
-        private String[] m_groupCols = { "Name", "Label", "NumberStudents", "Colour" };
+        private String[] m_roomCols = { "Name", "Label", "Capacity", "LecturerPC", "SmartBoard", "Television", "Projector", "NetworkLab", "Colour" };
+        private String[] m_groupCols = { "Name", "Label", "TotalStudents", "Colour" };
 
         private XmlTextWriter m_writer;
         private XmlTextReader m_reader;
@@ -49,10 +49,10 @@ namespace CWATMS
                 m_writer.WriteStartDocument();
                 m_writer.WriteStartElement("Data");
                 SaveLecturers();
-                SaveModules();
-                SaveRooms();
-                SaveGroups();
-                SaveLessons();
+                    SaveModules();
+                    SaveRooms();
+                    SaveGroups();
+                    SaveLessons();
                 m_writer.WriteEndElement();
                 m_writer.WriteEndDocument();
                 m_writer.Flush();
@@ -77,14 +77,11 @@ namespace CWATMS
         {
             if (m_fileName != null)
             {
-                m_writer.Formatting = Formatting.Indented;
-
-                m_writer.WriteStartDocument();
                 m_writer.WriteStartElement("Lecturers");
                 m_writer.WriteAttributeString("Count", DataCollection.Instance.Lecturers.Count.ToString());
                 int i = 0;
                 // For each person, write each property into the XML document.
-                foreach(Lecturer lect in DataCollection.Instance.Lecturers)
+                foreach (Lecturer lect in DataCollection.Instance.Lecturers)
                 {
                     m_writer.WriteStartElement("Lecturer");
                     m_writer.WriteAttributeString("ID", i.ToString());
@@ -281,115 +278,103 @@ namespace CWATMS
             }
         }
 
-        public void LoadLecturers() 
+        public void LoadLecturers()
         {
             m_reader = new XmlTextReader(m_fileName);
+            XmlDocument xml = new XmlDocument();
+            xml.Load(m_reader);
+            XmlNodeList nodes = xml.GetElementsByTagName("Lecturers");
+            if ((nodes.Item(0).Attributes["Count"].Value.Equals("0")))
+                return;
 
-            string currentNode = "";
-            Lecturer lect = new Lecturer("", 0, "", Color.Empty);
-
-            while (m_reader.Read())
+            foreach (XmlNode node in nodes.Item(0).ChildNodes)
             {
-                switch (m_reader.NodeType)
+                String name = null;
+                String label = null;
+                int hoursPerWeek = 0;
+                Color color = Color.Empty;
+
+                foreach (XmlNode data in node.ChildNodes)
                 {
-                    case XmlNodeType.Element:
-                        currentNode = m_reader.Name;
-                        break;
-                    case XmlNodeType.Text:
-                            switch (currentNode)
-                            {
-                                case "Name":
-                                    lect = new Lecturer("", 0, "", Color.Empty);
-                                    lect.Name = m_reader.Value;
-                                    break;
-                                case "Label":
-                                    lect.Label = m_reader.Value;
-                                    break;
-                                case "HoursPerWeek":
-                                    try
-                                    {
-                                        lect.HoursPerWeek = int.Parse(m_reader.Value);
-                                    }
-                                    catch
-                                    {
-                                        return;
-                                    }
-                                    break;
-                                case "Colour":
-                                    try
-                                    {
-                                        lect.Colour = Color.FromArgb(int.Parse(m_reader.Value));
-                                    }
-                                    catch
-                                    {
-                                        return;
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                        break;
-                    case XmlNodeType.EndElement:
-                        if (m_reader.Name == "Lecturer")
+                    try
+                    {
+                        if(data.Name.Equals(m_lecturerCols[0]))
                         {
-                            DataCollection.Instance.Add(lect);
+                            name = data.InnerText;
                         }
-                        break;
-                    default:
-                        break;
+                        else if (data.Name.Equals(m_lecturerCols[1]))
+                        {
+                            label = data.InnerText;
+                        }
+                        else if (data.Name.Equals(m_lecturerCols[2]))
+                        {
+                            hoursPerWeek = int.Parse(data.InnerText);
+                        }
+                        else if (data.Name.Equals(m_lecturerCols[3]))
+                        {
+                            color = Color.FromArgb(int.Parse(data.InnerText));
+                        }
+
+                        if (name != null && label != null && hoursPerWeek != 0 && color != Color.Empty)
+                        {
+                            DataCollection.Instance.Add(new Lecturer(name, hoursPerWeek, label, color));
+                        }
+                    }
+                    catch
+                    {
+                        return;
+                    }
                 }
             }
-            m_reader.Close();
+        
         }
 
         public void LoadModules()
         {
             m_reader = new XmlTextReader(m_fileName);
-            string currentNode = "";
-            Module mod = new Module("", "", "", Color.Empty);
+            XmlDocument xml = new XmlDocument();
+            xml.Load(m_reader);
+            XmlNodeList nodes = xml.GetElementsByTagName("Modules");
+            if ((nodes.Item(0).Attributes["Count"].Value.Equals("0")))
+                return;
 
-            while (m_reader.Read())
+            foreach (XmlNode node in nodes.Item(0).ChildNodes)
             {
-                switch (m_reader.NodeType)
+                String name = null;
+                String label = null;
+                String courseLevel = null;
+                Color color = Color.Empty;
+
+                foreach (XmlNode data in node.ChildNodes)
                 {
-                    case XmlNodeType.Element:
-                        currentNode = m_reader.Name;
-                        break;
-                    case XmlNodeType.Text:
-                        switch (currentNode)
+                    try
+                    {
+                        if (data.Name.Equals(m_moduleCols[0]))
                         {
-                            case "Name":
-                                mod = new Module("", "", "", Color.Empty);
-                                mod.Name = m_reader.Value;
-                                break;
-                            case "Label":
-                                mod.Label = m_reader.Value;
-                                break;
-                            case "CourseLevel":
-                                mod.CourseLevel = m_reader.Value;
-                                break;
-                            case "Colour":
-                                try
-                                {
-                                    mod.Colour = Color.FromArgb(int.Parse(m_reader.Value));
-                                }
-                                catch
-                                {
-                                    return;
-                                }
-                                break;
-                            default:
-                                break;
+                            name = data.InnerText;
                         }
-                        break;
-                    case XmlNodeType.EndElement:
-                        if (m_reader.Name == "Module")
-                            DataCollection.Instance.Add(mod);
-                        else if (m_reader.Name == "Modules")
-                            return;
-                        break;
-                    default:
-                        break;
+                        else if (data.Name.Equals(m_moduleCols[1]))
+                        {
+                            label = data.InnerText;
+                        }
+                        else if (data.Name.Equals(m_moduleCols[2]))
+                        {
+                            courseLevel = data.InnerText;
+                        }
+                        else if (data.Name.Equals(m_moduleCols[3]))
+                        {
+                            color = Color.FromArgb(int.Parse(data.InnerText));
+                        }
+
+                        if (name != null && label != null && courseLevel != null && color != Color.Empty)
+                        {
+                            DataCollection.Instance.Add(new Module(name, courseLevel, label, color));
+                        }
+                    }
+                    catch
+                    {
+                        return;
+                    }
                 }
             }
         }
@@ -397,175 +382,131 @@ namespace CWATMS
         public void LoadRooms()
         {
             m_reader = new XmlTextReader(m_fileName);
-            string currentNode = "";
-            Room room = new Room("", "", Color.Empty, 0);
+            XmlDocument xml = new XmlDocument();
+            xml.Load(m_reader);
+            XmlNodeList nodes = xml.GetElementsByTagName("Rooms");
+            if ((nodes.Item(0).Attributes["Count"].Value.Equals("0")))
+                return;
 
-            while (m_reader.Read())
+            foreach (XmlNode node in nodes.Item(0).ChildNodes)
             {
-                switch (m_reader.NodeType)
+                String name = null;
+                String label = null;
+                int capacity = 0;
+                Boolean lecturerPC = false;
+                Boolean smartboard = false;
+                Boolean tv = false;
+                Boolean projector = false;
+                Boolean networkLab = false;
+                Color color = Color.Empty;
+
+                foreach (XmlNode data in node.ChildNodes)
                 {
-                    case XmlNodeType.Element:
-                        currentNode = m_reader.Name;
-                        break;
-                    case XmlNodeType.Text:
-                        switch (currentNode)
+                    try
+                    {
+                        if (data.Name.Equals(m_roomCols[0]))
                         {
-                            case "Name":
-                                room = new Room("", "", Color.Empty, 0);
-                                room.Name = m_reader.Value;
-                                break;
-                            case "Label":
-                                room.Label = m_reader.Value;
-                                break;
-                            case "Capacity":
-                                try
-                                {
-                                    room.Capacity = int.Parse(m_reader.Value);
-                                }
-                                catch
-                                {
-                                    Debug.Print("Cannot load Room Capacity");
-                                    return;
-                                }
-                                break;
-                            case "LecturerPC":
-                                try
-                                {
-                                    room.SetEquipment(0, bool.Parse(m_reader.Value));
-                                }
-                                catch
-                                {
-                                    Debug.Print("Cannot load Room LecturerPC");
-                                    return;
-                                }
-                                break;
-                            case "SmartBoard":
-                                try
-                                {
-                                    room.SetEquipment(1, bool.Parse(m_reader.Value));
-                                }
-                                catch
-                                {
-                                    Debug.Print("Cannot load Room SmartBoard");
-                                    return;
-                                }
-                                break;
-                            case "Television":
-                                try
-                                {
-                                    room.SetEquipment(2, bool.Parse(m_reader.Value));
-                                }
-                                catch
-                                {
-                                    Debug.Print("Cannot load Room Television");
-                                    return;
-                                }
-                                break;
-                            case "Projector":
-                                try
-                                {
-                                    room.SetEquipment(3, bool.Parse(m_reader.Value));
-                                }
-                                catch
-                                {
-                                    Debug.Print("Cannot load Room Projector");
-                                    return;
-                                }
-                                break;
-                            case "NetworkLab":
-                                try
-                                {
-                                    room.SetEquipment(4, bool.Parse(m_reader.Value));
-                                }
-                                catch
-                                {
-                                    Debug.Print("Cannot load Room NetworkLab");
-                                    return;
-                                }
-                                break;
-                            case "Colour":
-                                try
-                                {
-                                    room.Colour = Color.FromArgb(int.Parse(m_reader.Value));
-                                }
-                                catch
-                                {
-                                    Debug.Print("Cannot load Room Colour");
-                                    return;
-                                }
-                                break;
-                            default:
-                                break;
+                            name = data.InnerText;
                         }
-                        break;
-                    case XmlNodeType.EndElement:
-                        if (m_reader.Name == "Room")
+                        else if (data.Name.Equals(m_roomCols[1]))
+                        {
+                            label = data.InnerText;
+                        }
+                        else if (data.Name.Equals(m_roomCols[2]))
+                        {
+                            capacity = int.Parse(data.InnerText);
+                        }
+                        else if (data.Name.Equals(m_roomCols[3]))
+                        {
+                            lecturerPC = Boolean.Parse(data.InnerText);
+                        }
+                        else if (data.Name.Equals(m_roomCols[4]))
+                        {
+                            smartboard = Boolean.Parse(data.InnerText);
+                        }
+                        else if (data.Name.Equals(m_roomCols[5]))
+                        {
+                            tv = Boolean.Parse(data.InnerText);
+                        }
+                        else if (data.Name.Equals(m_roomCols[6]))
+                        {
+                            projector = Boolean.Parse(data.InnerText);
+                        }
+                        else if (data.Name.Equals(m_roomCols[7]))
+                        {
+                            networkLab = Boolean.Parse(data.InnerText);
+                        }
+                        else if (data.Name.Equals(m_roomCols[8]))
+                        {
+                            color = Color.FromArgb(int.Parse(data.InnerText));
+                        }
+
+                        if (name != null && label != null && capacity != 0 && color != Color.Empty)
+                        {
+                            Room room = new Room(name, label, color, capacity);
+                            room.SetEquipment(0, lecturerPC);
+                            room.SetEquipment(1, smartboard);
+                            room.SetEquipment(2, tv);
+                            room.SetEquipment(3, projector);
+                            room.SetEquipment(4, networkLab);
                             DataCollection.Instance.Add(room);
-                        else if (m_reader.Name == "Rooms")
-                            return;
-                        break;
-                    default:
-                        break;
+                        }
+                    }
+                    catch
+                    {
+                        return;
+                    }
                 }
             }
+            
         }
 
         public void LoadGroups()
         {
             m_reader = new XmlTextReader(m_fileName);
-            string currentNode = "";
-            Group group = new Group("", "", Color.Empty, 0);
+            XmlDocument xml = new XmlDocument();
+            xml.Load(m_reader);
+            XmlNodeList nodes = xml.GetElementsByTagName("Groups");
+            if ((nodes.Item(0).Attributes["Count"].Value.Equals("0")))
+                return;
 
-            while (m_reader.Read())
+            foreach (XmlNode node in nodes.Item(0).ChildNodes)
             {
-                switch (m_reader.NodeType)
+                String name = null;
+                String label = null;
+                int numStudents = 0;
+                Color color = Color.Empty;
+
+                foreach (XmlNode data in node.ChildNodes)
                 {
-                    case XmlNodeType.Element:
-                        currentNode = m_reader.Name;
-                        break;
-                    case XmlNodeType.Text:
-                        switch (currentNode)
+                    try
+                    {
+                        if (data.Name.Equals(m_groupCols[0]))
                         {
-                            case "Name":
-                                group = new Group("", "", Color.Empty, 0);
-                                group.Name = m_reader.Value;
-                                break;
-                            case "Label":
-                                group.Label = m_reader.Value;
-                                break;
-                            case "TotalStudents":
-                                try
-                                {
-                                    group.TotalStudents = int.Parse(m_reader.Value);
-                                }
-                                catch
-                                {
-                                    Debug.Print("Cannot load Group TotalStudents");
-                                    return;
-                                }
-                                break;
-                            case "Colour":
-                                try
-                                {
-                                    group.Colour = Color.FromArgb(int.Parse(m_reader.Value));
-                                }
-                                catch
-                                {
-                                    return;
-                                }
-                                break;
-                            default:
-                                break;
+                            name = data.InnerText;
                         }
-                        break;
-                    case XmlNodeType.EndElement:
-                        if (m_reader.Name == "Group")
-                            DataCollection.Instance.Add(group);
-                        else if (m_reader.Name == "Groups")
-                            return;
-                        break;
-                    default:
-                        break;
+                        else if (data.Name.Equals(m_groupCols[1]))
+                        {
+                            label = data.InnerText;
+                        }
+                        else if (data.Name.Equals(m_groupCols[2]))
+                        {
+                            numStudents = int.Parse(data.InnerText);
+                        }
+                        else if (data.Name.Equals(m_groupCols[3]))
+                        {
+                            color = Color.FromArgb(int.Parse(data.InnerText));
+                        }
+
+                        if (name != null && label != null && numStudents != 0 && color != Color.Empty)
+                        {
+                            DataCollection.Instance.Add(new Group(name, label, color, numStudents));
+                        }
+                    }
+                    catch
+                    {
+                        return;
+                    }
                 }
             }
         }
@@ -573,94 +514,79 @@ namespace CWATMS
         public void LoadLessons()
         {
             m_reader = new XmlTextReader(m_fileName);
-            string currentNode = "";
-            Lesson lesson = new Lesson();
+            XmlDocument xml = new XmlDocument();
+            xml.Load(m_reader);
+            XmlNodeList nodes = xml.GetElementsByTagName("Lessons");
+            if ((nodes.Item(0).Attributes["Count"].Value.Equals("0")))
+                return;
 
-            while (m_reader.Read())
+            foreach (XmlNode node in nodes.Item(0).ChildNodes)
             {
-                switch (m_reader.NodeType)
+                Lecturer lect = null;
+                Module mod = null;
+                Room room = null;
+                Group group = null;
+                int day = 0;
+                int time = 0;
+
+                int num = 0;
+
+                foreach (XmlNode data in node.ChildNodes)
                 {
-                    case XmlNodeType.Element:
-                        currentNode = m_reader.Name;
-                        break;
-                    case XmlNodeType.Text:
-                        switch (currentNode)
+                    try
+                    {
+                        if (data.Name.Equals("Lecturer"))
                         {
-                            case "Lecturer":
-                                lesson = new Lesson();
-                                try
-                                {
-                                    lesson.Lecturer = (Lecturer)DataCollection.Instance.Lecturers[int.Parse(m_reader.Value)];
-                                }
-                                catch
-                                {
-                                    return;
-                                }
-                                break;
-                            case "Module":
-                                try
-                                {
-                                    lesson.Module = (Module)DataCollection.Instance.Modules[int.Parse(m_reader.Value)];
-                                }
-                                catch
-                                {
-                                    return;
-                                }
-                                break;
-                            case "Room":
-                                try
-                                {
-                                    lesson.Room = (Room)DataCollection.Instance.Rooms[int.Parse(m_reader.Value)];
-                                }
-                                catch
-                                {
-                                    return;
-                                }
-                                break;
-                            case "Group":
-                                try
-                                {
-                                    lesson.Group = (Group)DataCollection.Instance.Groups[int.Parse(m_reader.Value)];
-                                }
-                                catch
-                                {
-                                    return;
-                                }
-                                break;
-                            case "Day":
-                                try
-                                {
-                                    lesson.Day = int.Parse(m_reader.Value);
-                                }
-                                catch
-                                {
-                                    return;
-                                }
-                                break;
-                            case "Time":
-                                try
-                                {
-                                    lesson.Time = int.Parse(m_reader.Value);
-                                }
-                                catch
-                                {
-                                    return;
-                                }
-                                break;
-                            default:
-                                break;
+                            num = int.Parse(data.InnerText);
+                            if (num > -1)
+                                lect = DataCollection.Instance.Lecturers[num];
                         }
-                        break;
-                    case XmlNodeType.EndElement:
-                        if (m_reader.Name == "Lesson")
+                        else if (data.Name.Equals("Module"))
+                        {
+                            num = int.Parse(data.InnerText);
+                            if (num > -1)
+                                mod = DataCollection.Instance.Modules[num];
+                        }
+                        else if (data.Name.Equals("Room"))
+                        {
+                            num = int.Parse(data.InnerText);
+                            if (num > -1)
+                                room = DataCollection.Instance.Rooms[num];
+                        }
+                        else if (data.Name.Equals("Group"))
+                        {
+                            num = int.Parse(data.InnerText);
+                            if (num > -1)
+                                group = DataCollection.Instance.Groups[num];
+                        }
+                        else if (data.Name.Equals("Day"))
+                        {
+                            day = int.Parse(data.InnerText);
+                        }
+                        else if (data.Name.Equals("Time"))
+                        {
+                            time = int.Parse(data.InnerText);
+                        }
+
+                        if (lect != null || mod != null || room != null || group != null)
+                        {
+                            Lesson lesson = new Lesson();
+                            lesson.Lecturer = lect;
+                            lesson.Module = mod;
+                            lesson.Room = room;
+                            lesson.Group = group;
+                            lesson.Day = day;
+                            lesson.Time = time;
                             DataCollection.Instance.Add(lesson);
-                        else if (m_reader.Name == "Lessons")
-                            return;
-                        break;
-                    default:
-                        break;
+                        }
+                    }
+                    catch
+                    {
+                        return;
+                    }
                 }
             }
         }
+
     }
 }

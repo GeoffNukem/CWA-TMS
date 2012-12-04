@@ -21,7 +21,7 @@ namespace CWATMS
         {
             m_data = data;
             InitializeComponent();
-            AddGrids();
+            UpdateGrids();
         }
 
         private void FormTimetable_Load(object sender, EventArgs e)
@@ -45,9 +45,9 @@ namespace CWATMS
             this.Text += m_data.Name;
         }
 
-        private void AddGrids()
+        public void UpdateGrids()
         {
-            //  Create Grids
+            this.tlpTimetable.Controls.Clear();
             for (int i = 0; i < this.tlpTimetable.RowCount; i++)
             {
                 for (int j = 0; j < this.tlpTimetable.ColumnCount; j++)
@@ -55,6 +55,7 @@ namespace CWATMS
                     GridPanel g = new GridPanel(i, j, Color.Empty);
                     g.Name = "G" + i.ToString() + j.ToString();
                     g.Text = g.Name;
+                    g.MouseDown += Panel_MouseDown;
                     g.DragOver += Panel_DragOver;
                     g.DragDrop += Panel_DragDrop;
                     Lesson lesson = DataCollection.Instance.FindLesson(m_data, j, i);
@@ -78,43 +79,122 @@ namespace CWATMS
                 if (sender is GridPanel)
                 {
                     GridPanel curLesson = sender as GridPanel;
-                    curLesson.DoDragDrop(sender, DragDropEffects.Copy);
+                    if (curLesson.LessonData.Lecturer != null || curLesson.LessonData.Module != null ||
+                        curLesson.LessonData.Room != null || curLesson.LessonData.Group != null)
+                    {
+                        curLesson.DoDragDrop(curLesson.LessonData, DragDropEffects.All);
+                    }
                 }
             }
         }
 
         private void Panel_DragOver(object sender, DragEventArgs e)
         {
-            e.Effect = DragDropEffects.Copy;
+            if ((e.KeyState & 8) == 8 &&
+                (e.AllowedEffect & DragDropEffects.Copy) == DragDropEffects.Copy)
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+                e.Effect = DragDropEffects.Move;
+
         }
 
         private void Panel_DragDrop(object sender, DragEventArgs e)
         {
             GridPanel gPanel = (GridPanel)sender;
             Lesson lesson = new Lesson();
-            if (e.Data.GetData(typeof(Lecturer)) is Lecturer)
-            {
-                Lecturer lect = (Lecturer)e.Data.GetData(typeof(Lecturer));
-                gPanel.LessonData.Lecturer = lect;
 
-            }
-            else if (e.Data.GetData(typeof(Module)) is Module)
+            /*****************************************************************************************************************/
+            if (e.Data.GetData(typeof(Lesson)) is Lesson)
             {
-                Module mod = (Module)e.Data.GetData(typeof(Module));
-                gPanel.LessonData.Module = mod;
+                Lesson oldLesson = (Lesson)e.Data.GetData(typeof(Lesson));
+                gPanel.LessonData.Lecturer = oldLesson.Lecturer;
+                gPanel.LessonData.Module = oldLesson.Module;
+                gPanel.LessonData.Room = oldLesson.Room;
+                gPanel.LessonData.Group = oldLesson.Group;
+                //  Move
+                if (e.Effect == DragDropEffects.Move)
+                {
+                    if (tlpTimetable.GetControlFromPosition(oldLesson.Day, oldLesson.Time) is GridPanel)
+                    {
+                        GridPanel gp = (GridPanel)tlpTimetable.GetControlFromPosition(oldLesson.Time, oldLesson.Day);
+                        DataCollection.Instance.Remove(oldLesson);
+                        gp.LessonData.Lecturer = null;
+                        gp.LessonData.Module = null;
+                        gp.LessonData.Room = null;
+                        gp.LessonData.Group = null;
+                        gp.UpdateText();
+                    }
+                }
             }
-            else if (e.Data.GetData(typeof(Room)) is Room)
+            else
             {
-                Room room = (Room)e.Data.GetData(typeof(Room));
-                gPanel.LessonData.Room = room;
-            }
-            else if (e.Data.GetData(typeof(Group)) is Group)
-            {
-                Group group = (Group)e.Data.GetData(typeof(Group));
-                gPanel.LessonData.Group = group;
-            }
+                if (e.Data.GetData(typeof(Lecturer)) is Lecturer && m_data is Lecturer)
+                {
+                    MessageBox.Show("Cannot add Lecturer to a Lecturer's Timetable", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else if (e.Data.GetData(typeof(Module)) is Module && m_data is Module)
+                {
+                    MessageBox.Show("Cannot add Module to a Module's Timetable", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else if (e.Data.GetData(typeof(Room)) is Room && m_data is Room)
+                {
+                    MessageBox.Show("Cannot add Room to a Room's Timetable", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else if (e.Data.GetData(typeof(Group)) is Group && m_data is Group)
+                {
+                    MessageBox.Show("Cannot add Group to a Group's Timetable", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
+                if (e.Data.GetData(typeof(Lecturer)) is Lecturer)
+                {
+                    Lecturer lect = (Lecturer)e.Data.GetData(typeof(Lecturer));
+                    gPanel.LessonData.Lecturer = lect;
+                }
+                else if (e.Data.GetData(typeof(Module)) is Module)
+                {
+                    Module mod = (Module)e.Data.GetData(typeof(Module));
+                    gPanel.LessonData.Module = mod;
+                }
+                else if (e.Data.GetData(typeof(Room)) is Room)
+                {
+                    Room room = (Room)e.Data.GetData(typeof(Room));
+                    gPanel.LessonData.Room = room;
+                }
+                else if (e.Data.GetData(typeof(Group)) is Group)
+                {
+                    Group group = (Group)e.Data.GetData(typeof(Group));
+                    gPanel.LessonData.Group = group;
+                }
+
+                if (m_data is Lecturer)
+                {
+                    gPanel.LessonData.Lecturer = (Lecturer)m_data;
+                }
+                else if (m_data is Module)
+                {
+                    gPanel.LessonData.Module = (Module)m_data;
+                }
+                else if (m_data is Room)
+                {
+                    gPanel.LessonData.Room = (Room)m_data;
+                }
+                else if (m_data is Group)
+                {
+                    gPanel.LessonData.Group = (Group)m_data;
+                }
+            }
             lesson = gPanel.LessonData;
+            if(DataCollection.Instance.DoesLessonClash(lesson))
+            {
+                MessageBox.Show("Unable to add lesson. Make sure nothing is timetabled for the same lesson.\nE.g. Lecturers booked for the same room at the same time.", "ERROR: DOUBLE BOOKING DETECTED", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             if (DataCollection.Instance.FindLesson(lesson, lesson.Time, lesson.Day) == null)
             {

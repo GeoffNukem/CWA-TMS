@@ -95,6 +95,11 @@ namespace CWATMS
             Groups.Insert(index, group);
         }
 
+        public void Insert(Lesson lesson, int index)
+        {
+            Lessons.Insert(index, lesson);
+        }
+
         public void Remove(Lecturer lecturer)
         {
             if (Lecturers.Contains(lecturer))
@@ -177,6 +182,7 @@ namespace CWATMS
             return null;
 
         }
+
         public Lesson FindLesson(Lesson data, int time, int day)
         {
             foreach (Lesson lesson in Lessons)
@@ -187,6 +193,40 @@ namespace CWATMS
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        ///     Check if a lesson clashes with another.
+        ///     For example, 2 lecturers booked in the same room.
+        /// </summary>
+        /// <param name="lesson">Lesson to check</param>
+        /// <returns></returns>
+        public bool DoesLessonClash(Lesson lesson)
+        {
+            foreach (Lesson l in Lessons)
+            {
+                if ((lesson.Lecturer != null && lesson.Lecturer != l.Lecturer) && (lesson.Room != null && lesson.Room == l.Room) && (lesson.Day == l.Day && l.Time == l.Day))
+                {
+                    return true;
+                }
+                else if ((lesson.Module != null && lesson.Module != l.Module) && (lesson.Room != null && lesson.Room == l.Room) && (lesson.Day == l.Day && l.Time == l.Day))
+                {
+                    return true;
+                }
+                else if ((lesson.Room != null && lesson.Room != l.Room) && (lesson.Lecturer != null && lesson.Lecturer == l.Lecturer) && (lesson.Day == l.Day && l.Time == l.Day))
+                {
+                    return true;
+                }
+                else if ((lesson.Room != null && lesson.Room != l.Room) && (lesson.Group != null && lesson.Group == l.Group) && (lesson.Day == l.Day && l.Time == l.Day))
+                {
+                    return true;
+                }
+                else if ((lesson.Room != null && lesson.Group != l.Group) && (lesson.Group != null && lesson.Room == l.Room) && (lesson.Day == l.Day && l.Time == l.Day))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
