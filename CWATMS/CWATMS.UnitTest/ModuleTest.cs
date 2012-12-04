@@ -19,6 +19,16 @@ namespace CWATMS.UnitTest
         }
 
         [TestMethod]
+        public void Module_Remove()
+        {
+            Module m = new Module("Programming", "Level 3", "PL3", Color.Blue);
+            DataCollection.Instance.Add(m);
+            Assert.IsTrue(DataCollection.Instance.Modules.Contains(m), "Modules does not contain Module");
+            DataCollection.Instance.Remove(m);
+            Assert.IsFalse(DataCollection.Instance.Modules.Contains(m), "Modules still contains Module");
+        }
+
+        [TestMethod]
         public void Module_Add()
         {
             Module m1 = new Module("Programming", "Level 3", "PL3", Color.Blue);

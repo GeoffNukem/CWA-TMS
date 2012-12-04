@@ -19,6 +19,16 @@ namespace CWATMS.UnitTest
         }
 
         [TestMethod]
+        public void Room_Remove()
+        {
+            Room r = new Room("Network Lab", "Y106", Color.Blue, 20);
+            DataCollection.Instance.Add(r);
+            Assert.IsTrue(DataCollection.Instance.Rooms.Contains(r), "Rooms does not contain Room");
+            DataCollection.Instance.Remove(r);
+            Assert.IsFalse(DataCollection.Instance.Rooms.Contains(r), "Rooms still contains Room");
+        }
+
+        [TestMethod]
         public void Room_Add()
         {
             Room r1 = new Room("Room1", "L1", Color.Blue, 20);

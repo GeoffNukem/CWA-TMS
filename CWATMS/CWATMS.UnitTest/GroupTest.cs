@@ -18,6 +18,16 @@ namespace CWATMS.UnitTest
         }
 
         [TestMethod]
+        public void Group_Remove()
+        {
+            Group g = new Group("Class1", "C1", Color.Blue, 20);
+            DataCollection.Instance.Add(g);
+            Assert.IsTrue(DataCollection.Instance.Groups.Contains(g), "Groups does not contain Group");
+            DataCollection.Instance.Remove(g);
+            Assert.IsFalse(DataCollection.Instance.Groups.Contains(g), "Groups still contains Group");
+        }
+
+        [TestMethod]
         public void Group_Add()
         {
             Group g1 = new Group("Class1", "C1", Color.Blue, 20);

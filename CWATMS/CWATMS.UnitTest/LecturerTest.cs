@@ -13,10 +13,20 @@ namespace CWATMS.UnitTest
         public void Lecturer_Constructor()
         {
             Lecturer l = new Lecturer("Joe Bloggs", 14, "JB", Color.Blue);
-            Assert.AreEqual("Joe", l.Name);
-            Assert.AreEqual("JB", l.Label);
-            Assert.AreEqual<int>(14, l.HoursPerWeek);
-            Assert.AreEqual<Color>(Color.Blue, l.Colour);
+            Assert.AreEqual("Joe Bloggs", l.Name, "Failed @ Name");
+            Assert.AreEqual("JB", l.Label, "Failed @ Label");
+            Assert.AreEqual<int>(14, l.HoursPerWeek, "Failed @ HoursPerWeek");
+            Assert.AreEqual<Color>(Color.Blue, l.Colour, "Failed @ Colour");
+        }
+
+        [TestMethod]
+        public void Lecturer_Remove()
+        {
+            Lecturer l = new Lecturer("Joe Bloggs", 14, "JB", Color.Blue);
+            DataCollection.Instance.Add(l);
+            Assert.IsTrue(DataCollection.Instance.Lecturers.Contains(l), "Lecturers does not contain Lecturer");
+            DataCollection.Instance.Remove(l);
+            Assert.IsFalse(DataCollection.Instance.Lecturers.Contains(l), "Lecturers still contains Lecturer");
         }
 
         [TestMethod]
