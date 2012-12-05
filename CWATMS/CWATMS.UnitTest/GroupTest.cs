@@ -18,6 +18,20 @@ namespace CWATMS.UnitTest
         }
 
         [TestMethod]
+        public void Room_GetterAndSetter()
+        {
+            Room r = new Room("", "", Color.Empty, 0);
+            r.Name = "Y106";
+            r.Label = "106";
+            r.Colour = Color.Crimson;
+            r.Capacity = 69;
+            Assert.AreEqual("Y106", r.Name);
+            Assert.AreEqual("106", r.Label);
+            Assert.AreEqual<Color>(Color.Crimson, r.Colour);
+            Assert.AreEqual<int>(69, r.Capacity);
+        }
+
+        [TestMethod]
         public void Group_Remove()
         {
             Group g = new Group("Class1", "C1", Color.Blue, 20);

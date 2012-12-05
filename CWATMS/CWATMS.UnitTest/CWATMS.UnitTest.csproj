@@ -57,6 +57,7 @@
     <Compile Include="LecturerTest.cs" />
     <Compile Include="ModuleTest.cs" />
     <Compile Include="GroupTest.cs" />
+    <Compile Include="LessonTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CWATMS\CWATMS.csproj">

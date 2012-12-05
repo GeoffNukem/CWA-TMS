@@ -17,6 +17,28 @@ namespace CWATMS.UnitTest
             Assert.AreEqual("JB", l.Label, "Failed @ Label");
             Assert.AreEqual<int>(14, l.HoursPerWeek, "Failed @ HoursPerWeek");
             Assert.AreEqual<Color>(Color.Blue, l.Colour, "Failed @ Colour");
+            l.Name = "Mr. T";
+            l.Label = "T";
+            l.HoursPerWeek = 6;
+            l.Colour = Color.AliceBlue;
+            Assert.AreEqual("Mr. T", l.Name, "Failed @ Name");
+            Assert.AreEqual("T", l.Label, "Failed @ Label");
+            Assert.AreEqual<int>(6, l.HoursPerWeek, "Failed @ HoursPerWeek");
+            Assert.AreEqual<Color>(Color.AliceBlue, l.Colour, "Failed @ Colour");
+        }
+
+        [TestMethod]
+        public void Lecturer_GetterAndSetter()
+        {
+            Lecturer l = new Lecturer("", 0, "", Color.Empty);
+            l.Name = "Mr. T";
+            l.Label = "T";
+            l.HoursPerWeek = 6;
+            l.Colour = Color.AliceBlue;
+            Assert.AreEqual("Mr. T", l.Name, "Failed @ Name");
+            Assert.AreEqual("T", l.Label, "Failed @ Label");
+            Assert.AreEqual<int>(6, l.HoursPerWeek, "Failed @ HoursPerWeek");
+            Assert.AreEqual<Color>(Color.AliceBlue, l.Colour, "Failed @ Colour");
         }
 
         [TestMethod]

@@ -19,6 +19,20 @@ namespace CWATMS.UnitTest
         }
 
         [TestMethod]
+        public void Module_GetterAndSetter()
+        {
+            Module m = new Module("", "", "", Color.Empty);
+            m.Name = "Networking";
+            m.CourseLevel = "Degree";
+            m.Label = "net";
+            m.Colour = Color.Red;
+            Assert.AreEqual("Networking", m.Name);
+            Assert.AreEqual("Degree", m.CourseLevel);
+            Assert.AreEqual("net", m.Label);
+            Assert.AreEqual<Color>(Color.Red, m.Colour);
+        }
+
+        [TestMethod]
         public void Module_Remove()
         {
             Module m = new Module("Programming", "Level 3", "PL3", Color.Blue);
