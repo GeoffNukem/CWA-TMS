@@ -105,7 +105,6 @@ namespace CWATMS
             GridPanel gPanel = (GridPanel)sender;
             Lesson lesson = new Lesson();
 
-            /*****************************************************************************************************************/
             if (e.Data.GetData(typeof(Lesson)) is Lesson)
             {
                 Lesson oldLesson = (Lesson)e.Data.GetData(typeof(Lesson));
@@ -116,8 +115,6 @@ namespace CWATMS
                 //  Move
                 if (e.Effect == DragDropEffects.Move)
                 {
-                    if (tlpTimetable.GetControlFromPosition(oldLesson.Day, oldLesson.Time) is GridPanel)
-                    {
                         GridPanel gp = (GridPanel)tlpTimetable.GetControlFromPosition(oldLesson.Time, oldLesson.Day);
                         DataCollection.Instance.Remove(oldLesson);
                         gp.LessonData.Lecturer = null;
@@ -125,7 +122,6 @@ namespace CWATMS
                         gp.LessonData.Room = null;
                         gp.LessonData.Group = null;
                         gp.UpdateText();
-                    }
                 }
             }
             else

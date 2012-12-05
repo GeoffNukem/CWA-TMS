@@ -9,6 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CWATMS.Controls;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Diagnostics;
 
 namespace CWATMS
 {
@@ -86,6 +90,7 @@ namespace CWATMS
                 lblStatus.Text = "Opening File...";
                 if (open.ShowDialog() == DialogResult.OK)
                 {
+                    this.Cursor = Cursors.WaitCursor;
                     DataFile.Instance.FileName = open.FileName;
                     DataFile.Instance.LoadAll();
                     m_dataForm.LoadTables();
@@ -102,6 +107,7 @@ namespace CWATMS
                 lblStatus.Text = "Open Failed";
                 return;
             }
+            this.Cursor = Cursors.Default;
         }
 
 
@@ -125,6 +131,7 @@ namespace CWATMS
         {
             if (File.Exists(DataFile.Instance.FileName))
             {
+                this.Cursor = Cursors.WaitCursor;
                 lblStatus.Text = "Saving...";
                 DataFile.Instance.SaveAll();
                 lblStatus.Text = "Save Complete";
@@ -133,6 +140,7 @@ namespace CWATMS
             {
                 ShowSaveDialog();
             }
+            this.Cursor = Cursors.Default;
         }
 
         private void ShowSaveDialog()
@@ -154,6 +162,7 @@ namespace CWATMS
                 lblStatus.Text = "Saving...";
                 if (save.ShowDialog() == DialogResult.OK)
                 {
+                    this.Cursor = Cursors.WaitCursor;
                     DataFile.Instance.FileName = save.FileName;
                     DataFile.Instance.SaveAll();
                     lblStatus.Text = "Save Complete";
@@ -168,6 +177,7 @@ namespace CWATMS
                 lblStatus.Text = "Save Failed";
                 MessageBox.Show(ex.ToString());
             }
+            this.Cursor = Cursors.Default;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -182,6 +192,7 @@ namespace CWATMS
 
         public void UpdateTimetables()
         {
+            this.Cursor = Cursors.WaitCursor;
             lblStatus.Text = "Updating Timetables...";
             foreach (Form child in MdiChildren)
             {
@@ -192,6 +203,7 @@ namespace CWATMS
                 }
             }
             lblStatus.Text = "Updating Complete";
+            this.Cursor = Cursors.Default;
         }
 
         public void populateViewMenu()
@@ -376,16 +388,20 @@ namespace CWATMS
 
         private void OpenTimetable(Data data)
         {
+            this.Cursor = Cursors.WaitCursor;
             FormTimetable childForm = new FormTimetable(data);
             childForm.MdiParent = this;
             childForm.Show();
+            this.Cursor = Cursors.Default;
         }
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             FormExport childForm = new FormExport();
             childForm.MdiParent = this;
             childForm.Show();
+            this.Cursor = Cursors.Default;
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -405,22 +421,38 @@ namespace CWATMS
 
         private void tileVerticalToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             this.LayoutMdi(MdiLayout.TileVertical);
+            this.Cursor = Cursors.Default;
         }
 
         private void tileHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             this.LayoutMdi(MdiLayout.TileHorizontal);
+            this.Cursor = Cursors.Default;
         }
 
         private void cascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             this.LayoutMdi(MdiLayout.Cascade);
+            this.Cursor = Cursors.Default;
         }
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UpdateTimetables();
+        }
+
+        private void viewHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo p = new ProcessStartInfo();
+            p.FileName = "SumatraPDF.exe";
+
+            p.Arguments = @"./UserGuide.pdf";
+
+            Process x = Process.Start(p);
         }
         
     }
