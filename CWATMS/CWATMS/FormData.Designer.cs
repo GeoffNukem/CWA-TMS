@@ -30,20 +30,31 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataLecTable = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colColour = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabLecturer = new System.Windows.Forms.TabPage();
             this.tabSubject = new System.Windows.Forms.TabPage();
             this.dataSubTable = new System.Windows.Forms.DataGridView();
+            this.tabRoom = new System.Windows.Forms.TabPage();
+            this.dataRoomTable = new System.Windows.Forms.DataGridView();
+            this.tabClass = new System.Windows.Forms.TabPage();
+            this.dataClassTable = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colColour = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CourseLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabRoom = new System.Windows.Forms.TabPage();
-            this.dataRoomTable = new System.Windows.Forms.DataGridView();
+            this.btnDelete2 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Label = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,19 +64,12 @@
             this.Column5 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabClass = new System.Windows.Forms.TabPage();
-            this.dataClassTable = new System.Windows.Forms.DataGridView();
+            this.btnDelete3 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDelete4 = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataLecTable)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabLecturer.SuspendLayout();
@@ -86,7 +90,8 @@
             this.Column1,
             this.Column2,
             this.Column3,
-            this.colColour});
+            this.colColour,
+            this.btnDelete});
             this.dataLecTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataLecTable.Location = new System.Drawing.Point(3, 3);
             this.dataLecTable.Name = "dataLecTable";
@@ -95,28 +100,8 @@
             this.dataLecTable.Size = new System.Drawing.Size(815, 339);
             this.dataLecTable.TabIndex = 1;
             this.dataLecTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataLecTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataLecTable_CellContentClick);
             this.dataLecTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataLecTable_CellValueChanged);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Lecturer Name";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Label";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Hours Per Module";
-            this.Column3.Name = "Column3";
-            // 
-            // colColour
-            // 
-            this.colColour.HeaderText = "Colour";
-            this.colColour.Name = "colColour";
-            this.colColour.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // tabControl1
             // 
@@ -162,7 +147,8 @@
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.CourseLevel,
-            this.dataGridViewTextBoxColumn4});
+            this.dataGridViewTextBoxColumn4,
+            this.btnDelete2});
             this.dataSubTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataSubTable.Location = new System.Drawing.Point(3, 3);
             this.dataSubTable.Name = "dataSubTable";
@@ -171,28 +157,8 @@
             this.dataSubTable.Size = new System.Drawing.Size(815, 339);
             this.dataSubTable.TabIndex = 2;
             this.dataSubTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataSubTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataSubTable_CellContentClick);
             this.dataSubTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataLecTable_CellValueChanged);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Subject";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Label";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // CourseLevel
-            // 
-            this.CourseLevel.HeaderText = "Course Level";
-            this.CourseLevel.Name = "CourseLevel";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Colour";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // tabRoom
             // 
@@ -218,7 +184,8 @@
             this.Column6,
             this.Column5,
             this.Column7,
-            this.dataGridViewTextBoxColumn8});
+            this.dataGridViewTextBoxColumn8,
+            this.btnDelete3});
             this.dataRoomTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataRoomTable.Location = new System.Drawing.Point(3, 3);
             this.dataRoomTable.Name = "dataRoomTable";
@@ -227,7 +194,128 @@
             this.dataRoomTable.Size = new System.Drawing.Size(815, 339);
             this.dataRoomTable.TabIndex = 2;
             this.dataRoomTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataRoomTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataRoomTable_CellContentClick);
             this.dataRoomTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataLecTable_CellValueChanged);
+            // 
+            // tabClass
+            // 
+            this.tabClass.Controls.Add(this.dataClassTable);
+            this.tabClass.Location = new System.Drawing.Point(4, 36);
+            this.tabClass.Name = "tabClass";
+            this.tabClass.Padding = new System.Windows.Forms.Padding(3);
+            this.tabClass.Size = new System.Drawing.Size(821, 345);
+            this.tabClass.TabIndex = 3;
+            this.tabClass.Text = "Class";
+            this.tabClass.UseVisualStyleBackColor = true;
+            // 
+            // dataClassTable
+            // 
+            this.dataClassTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataClassTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn10,
+            this.dataGridViewTextBoxColumn11,
+            this.dataGridViewTextBoxColumn12,
+            this.dataGridViewTextBoxColumn14,
+            this.btnDelete4});
+            this.dataClassTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataClassTable.Location = new System.Drawing.Point(3, 3);
+            this.dataClassTable.Name = "dataClassTable";
+            this.dataClassTable.RowHeadersVisible = false;
+            this.dataClassTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataClassTable.Size = new System.Drawing.Size(815, 339);
+            this.dataClassTable.TabIndex = 2;
+            this.dataClassTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataClassTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataClassTable_CellContentClick);
+            this.dataClassTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataLecTable_CellValueChanged);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Hours Per Module";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.HeaderText = "Label";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.HeaderText = "Colour";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "Equipment";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.HeaderText = "Colour";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Lecturer Name";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Label";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Hours Per Module";
+            this.Column3.Name = "Column3";
+            // 
+            // colColour
+            // 
+            this.colColour.HeaderText = "Colour";
+            this.colColour.Name = "colColour";
+            this.colColour.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.HeaderText = "Delete";
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.ToolTipText = "Delete";
+            this.btnDelete.UseColumnTextForButtonValue = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Subject";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Label";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // CourseLevel
+            // 
+            this.CourseLevel.HeaderText = "Course Level";
+            this.CourseLevel.Name = "CourseLevel";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Colour";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // btnDelete2
+            // 
+            this.btnDelete2.HeaderText = "Delete";
+            this.btnDelete2.Name = "btnDelete2";
+            this.btnDelete2.Text = "Delete";
+            this.btnDelete2.ToolTipText = "Delete";
+            this.btnDelete2.UseColumnTextForButtonValue = true;
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -296,34 +384,13 @@
             this.dataGridViewTextBoxColumn8.HeaderText = "Colour";
             this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             // 
-            // tabClass
+            // btnDelete3
             // 
-            this.tabClass.Controls.Add(this.dataClassTable);
-            this.tabClass.Location = new System.Drawing.Point(4, 36);
-            this.tabClass.Name = "tabClass";
-            this.tabClass.Padding = new System.Windows.Forms.Padding(3);
-            this.tabClass.Size = new System.Drawing.Size(821, 345);
-            this.tabClass.TabIndex = 3;
-            this.tabClass.Text = "Class";
-            this.tabClass.UseVisualStyleBackColor = true;
-            // 
-            // dataClassTable
-            // 
-            this.dataClassTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataClassTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn10,
-            this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12,
-            this.dataGridViewTextBoxColumn14});
-            this.dataClassTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataClassTable.Location = new System.Drawing.Point(3, 3);
-            this.dataClassTable.Name = "dataClassTable";
-            this.dataClassTable.RowHeadersVisible = false;
-            this.dataClassTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataClassTable.Size = new System.Drawing.Size(815, 339);
-            this.dataClassTable.TabIndex = 2;
-            this.dataClassTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dataClassTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataLecTable_CellValueChanged);
+            this.btnDelete3.HeaderText = "Delete";
+            this.btnDelete3.Name = "btnDelete3";
+            this.btnDelete3.Text = "Delete";
+            this.btnDelete3.ToolTipText = "Delete";
+            this.btnDelete3.UseColumnTextForButtonValue = true;
             // 
             // dataGridViewTextBoxColumn10
             // 
@@ -345,36 +412,13 @@
             this.dataGridViewTextBoxColumn14.HeaderText = "Colour";
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             // 
-            // contextMenuStrip1
+            // btnDelete4
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Hours Per Module";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "Label";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.HeaderText = "Colour";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "Equipment";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.HeaderText = "Colour";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.btnDelete4.HeaderText = "Delete";
+            this.btnDelete4.Name = "btnDelete4";
+            this.btnDelete4.Text = "Delete";
+            this.btnDelete4.ToolTipText = "Delete";
+            this.btnDelete4.UseColumnTextForButtonValue = true;
             // 
             // FormData
             // 
@@ -420,10 +464,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn colColour;
+        private System.Windows.Forms.DataGridViewButtonColumn btnDelete;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn CourseLevel;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewButtonColumn btnDelete2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Label;
         private System.Windows.Forms.DataGridViewTextBoxColumn Capacity;
@@ -433,9 +479,11 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column5;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewButtonColumn btnDelete3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.DataGridViewButtonColumn btnDelete4;
     }
 }

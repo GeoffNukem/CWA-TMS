@@ -99,7 +99,7 @@ namespace CWATMS
         private void dataLecTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            
+
             //  Input for row will 
             if (validate(dgv, e))
             {
@@ -122,7 +122,18 @@ namespace CWATMS
                             Color colour = dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
                             Lecturer lect = new Lecturer(name, hours, label, colour);
                             if (!loading)
-                                DataCollection.Instance.Add(lect);
+                            {
+                                try
+                                {
+                                    DataCollection.Instance.Lecturers[e.RowIndex] = lect;
+                                }
+                                catch
+                                {
+
+                                    DataCollection.Instance.Insert(lect, e.RowIndex);
+                                }
+
+                            }
                         }
                         break;
 
@@ -137,8 +148,20 @@ namespace CWATMS
                             String label = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
                             String courseLevel = dgv.Rows[e.RowIndex].Cells[2].Value.ToString();
                             Color colour = dgv.Rows[e.RowIndex].Cells[3].Style.BackColor;
+                            Module mod = new Module(subject, label, courseLevel, colour);
+                            if (!loading)
+                            {
+                                try
+                                {
+                                    DataCollection.Instance.Modules[e.RowIndex] = mod;
+                                }
+                                catch
+                                {
 
-                            DataCollection.Instance.Add(new Module(subject, label, courseLevel, colour));
+                                    DataCollection.Instance.Insert(mod, e.RowIndex);
+                                }
+
+                            }
                         }
                         break;
 
@@ -168,7 +191,19 @@ namespace CWATMS
                             room.SetEquipment(2, dgv.Rows[e.RowIndex].Cells[5].Value != null ? true : false);
                             room.SetEquipment(3, dgv.Rows[e.RowIndex].Cells[6].Value != null ? true : false);
                             room.SetEquipment(4, dgv.Rows[e.RowIndex].Cells[7].Value != null ? true : false);
-                            DataCollection.Instance.Add(room);
+                            if (!loading)
+                            {
+                                try
+                                {
+                                    DataCollection.Instance.Rooms[e.RowIndex] = room;
+                                }
+                                catch
+                                {
+
+                                    DataCollection.Instance.Insert(room, e.RowIndex);
+                                }
+
+                            }
                         }
                         break;
 
@@ -192,7 +227,20 @@ namespace CWATMS
                             {
                                 return;
                             }
-                            DataCollection.Instance.Add(new Group(group, label, colour, numStudents));
+                            Group grp = new Group(group, label, colour, numStudents);
+                            if (!loading)
+                            {
+                                try
+                                {
+                                    DataCollection.Instance.Groups[e.RowIndex] = grp;
+                                }
+                                catch
+                                {
+
+                                    DataCollection.Instance.Insert(grp, e.RowIndex);
+                                }
+
+                            }
                         }
                         break;
                     default:
@@ -324,6 +372,7 @@ namespace CWATMS
                             min = 1;
                             max = 35;
                             validChar = true;
+                            allowNum = true;
                             break;
                         case 1:
                             min = 1;
@@ -387,7 +436,55 @@ namespace CWATMS
                 this.Hide();
             }
         }
-           
+
+        private void dataLecTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < DataCollection.Instance.Lecturers.Count && e.ColumnIndex == 4)
+            {
+                DataCollection.Instance.Lecturers.RemoveAt(e.RowIndex);
+                LoadTables();
+                FormMain main = (FormMain)(this.MdiParent);
+                main.populateTab();
+                main.populateViewMenu();
+            }
+        }
+
+        private void dataSubTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < DataCollection.Instance.Modules.Count && e.ColumnIndex == 4)
+            {
+                DataCollection.Instance.Modules.RemoveAt(e.RowIndex);
+                LoadTables();
+                FormMain main = (FormMain)(this.MdiParent);
+                main.populateTab();
+                main.populateViewMenu();
+            }
+        }
+
+        private void dataRoomTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < DataCollection.Instance.Rooms.Count && e.ColumnIndex == 9)
+            {
+                DataCollection.Instance.Rooms.RemoveAt(e.RowIndex);
+                LoadTables();
+                FormMain main = (FormMain)(this.MdiParent);
+                main.populateTab();
+                main.populateViewMenu();
+            }
+        }
+
+        private void dataClassTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < DataCollection.Instance.Groups.Count && e.ColumnIndex == 4)
+            {
+                DataCollection.Instance.Groups.RemoveAt(e.RowIndex);
+                LoadTables();
+                FormMain main = (FormMain)(this.MdiParent);
+                main.populateTab();
+                main.populateViewMenu();
+            }
+        }
+
     }
 
 

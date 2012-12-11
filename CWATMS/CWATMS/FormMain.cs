@@ -80,7 +80,7 @@ namespace CWATMS
             open.DefaultExt = ".tms";
             open.AddExtension = true;
             open.RestoreDirectory = true;
-            open.InitialDirectory = @"C:\";
+            open.InitialDirectory = Directory.GetCurrentDirectory();
             open.Filter = "TMS File (*.tms)|*.tms";
             open.Title = "Open File";
 
@@ -152,7 +152,7 @@ namespace CWATMS
             save.DefaultExt = ".tms";
             save.AddExtension = true;
             save.RestoreDirectory = true;
-            save.InitialDirectory = @"C:\";
+            save.InitialDirectory = Directory.GetCurrentDirectory();
             save.Filter = "TMS File (*.tms)|*.tms";
             save.Title = "Save File";
 

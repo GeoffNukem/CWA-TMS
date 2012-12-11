@@ -29,18 +29,22 @@ namespace CWATMS
             if (m_data is Lecturer)
             {
                 this.Text = "Lecturer: ";
+                ChangeColours(1);
             }
             else if (m_data is Module)
             {
                 this.Text = "Subject: ";
+                ChangeColours(0);
             }
             else if (m_data is Group)
             {
                 this.Text = "Class: ";
+                ChangeColours(1);
             }
             else if (m_data is Room)
             {
                 this.Text = "Room: ";
+                ChangeColours(1);
             }
             this.Text += m_data.Name;
         }
@@ -105,24 +109,25 @@ namespace CWATMS
             GridPanel gPanel = (GridPanel)sender;
             Lesson lesson = new Lesson();
 
+            /*****************************************************************************************************************/
             if (e.Data.GetData(typeof(Lesson)) is Lesson)
             {
                 Lesson oldLesson = (Lesson)e.Data.GetData(typeof(Lesson));
-                gPanel.LessonData.Lecturer = oldLesson.Lecturer;
-                gPanel.LessonData.Module = oldLesson.Module;
-                gPanel.LessonData.Room = oldLesson.Room;
-                gPanel.LessonData.Group = oldLesson.Group;
                 //  Move
                 if (e.Effect == DragDropEffects.Move)
                 {
-                        GridPanel gp = (GridPanel)tlpTimetable.GetControlFromPosition(oldLesson.Time, oldLesson.Day);
+                    GridPanel gp = (GridPanel)tlpTimetable.GetControlFromPosition(oldLesson.Time, oldLesson.Day);
+                    if (gp.LessonData != oldLesson)
+                    {
                         DataCollection.Instance.Remove(oldLesson);
                         gp.LessonData.Lecturer = null;
                         gp.LessonData.Module = null;
                         gp.LessonData.Room = null;
                         gp.LessonData.Group = null;
                         gp.UpdateText();
+                    }
                 }
+                gPanel.LessonData = oldLesson;
             }
             else
             {
@@ -185,6 +190,7 @@ namespace CWATMS
                     gPanel.LessonData.Group = (Group)m_data;
                 }
             }
+
             lesson = gPanel.LessonData;
             if(DataCollection.Instance.DoesLessonClash(lesson))
             {

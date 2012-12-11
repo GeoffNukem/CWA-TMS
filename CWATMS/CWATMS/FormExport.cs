@@ -712,50 +712,48 @@ namespace CWATMS
             foreach (Lecturer lect in DataCollection.Instance.Lecturers)
             {
                 dataLecTable.Rows.Add(1);
-                dataLecTable.Rows[dataLecTable.Rows.Count - 1].Cells[0].Value = lect.Name;
-                dataLecTable.Rows[dataLecTable.Rows.Count - 1].Cells[1].Value = lect.Label;
-                dataLecTable.Rows[dataLecTable.Rows.Count - 1].Cells[2].Value = lect.HoursPerWeek;
-                dataLecTable.Rows[dataLecTable.Rows.Count - 1].Cells[3].Value = " ";
-                dataLecTable.Rows[dataLecTable.Rows.Count - 1].Cells[3].Style.BackColor = lect.Colour;
+                dataLecTable.Rows[DataCollection.Instance.Lecturers.IndexOf(lect)].Cells[0].Value = lect.Name;
+                dataLecTable.Rows[DataCollection.Instance.Lecturers.IndexOf(lect)].Cells[1].Value = lect.Label;
+                dataLecTable.Rows[DataCollection.Instance.Lecturers.IndexOf(lect)].Cells[2].Value = lect.HoursPerWeek;
+                dataLecTable.Rows[DataCollection.Instance.Lecturers.IndexOf(lect)].Cells[3].Value = " ";
+                dataLecTable.Rows[DataCollection.Instance.Lecturers.IndexOf(lect)].Cells[3].Style.BackColor = lect.Colour;
             }
 
             dataSubTable.Rows.Clear();
             foreach (Module mod in DataCollection.Instance.Modules)
             {
                 dataSubTable.Rows.Add(1);
-                dataSubTable.Rows[dataSubTable.Rows.Count - 1].Cells[0].Value = mod.Name;
-                dataSubTable.Rows[dataSubTable.Rows.Count - 1].Cells[1].Value = mod.Label;
-                dataSubTable.Rows[dataSubTable.Rows.Count - 1].Cells[2].Value = mod.CourseLevel;
-                dataSubTable.Rows[dataSubTable.Rows.Count - 1].Cells[3].Value = " ";
-                dataSubTable.Rows[dataSubTable.Rows.Count - 1].Cells[3].Style.BackColor = mod.Colour;
+                dataSubTable.Rows[DataCollection.Instance.Modules.IndexOf(mod)].Cells[0].Value = mod.Name;
+                dataSubTable.Rows[DataCollection.Instance.Modules.IndexOf(mod)].Cells[1].Value = mod.Label;
+                dataSubTable.Rows[DataCollection.Instance.Modules.IndexOf(mod)].Cells[2].Value = mod.CourseLevel;
+                dataSubTable.Rows[DataCollection.Instance.Modules.IndexOf(mod)].Cells[3].Value = " ";
+                dataSubTable.Rows[DataCollection.Instance.Modules.IndexOf(mod)].Cells[3].Style.BackColor = mod.Colour;
             }
             dataRoomTable.Rows.Clear();
             foreach (Room room in DataCollection.Instance.Rooms)
             {
                 dataRoomTable.Rows.Add(1);
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[0].Value = room.Name;
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[1].Value = room.Label;
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[2].Value = room.Capacity;
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[3].Value = room.HasLecturerPC();
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[4].Value = room.HasSmartboard();
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[5].Value = room.HasTelevision();
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[6].Value = room.HasProjector();
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[7].Value = room.IsNetworkLab();
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[8].Value = " ";
-                dataRoomTable.Rows[dataRoomTable.Rows.Count - 1].Cells[8].Style.BackColor = room.Colour;
+                dataRoomTable.Rows[DataCollection.Instance.Rooms.IndexOf(room)].Cells[0].Value = room.Name;
+                dataRoomTable.Rows[DataCollection.Instance.Rooms.IndexOf(room)].Cells[1].Value = room.Label;
+                dataRoomTable.Rows[DataCollection.Instance.Rooms.IndexOf(room)].Cells[2].Value = room.Capacity;
+                dataRoomTable.Rows[DataCollection.Instance.Rooms.IndexOf(room)].Cells[3].Value = room.HasLecturerPC();
+                dataRoomTable.Rows[DataCollection.Instance.Rooms.IndexOf(room)].Cells[4].Value = room.HasSmartboard();
+                dataRoomTable.Rows[DataCollection.Instance.Rooms.IndexOf(room)].Cells[5].Value = room.HasTelevision();
+                dataRoomTable.Rows[DataCollection.Instance.Rooms.IndexOf(room)].Cells[6].Value = room.HasProjector();
+                dataRoomTable.Rows[DataCollection.Instance.Rooms.IndexOf(room)].Cells[7].Value = room.IsNetworkLab();
+                dataRoomTable.Rows[DataCollection.Instance.Rooms.IndexOf(room)].Cells[8].Value = " ";
+                dataRoomTable.Rows[DataCollection.Instance.Rooms.IndexOf(room)].Cells[8].Style.BackColor = room.Colour;
             }
             dataClassTable.Rows.Clear();
             foreach (Group group in DataCollection.Instance.Groups)
             {
                 dataClassTable.Rows.Add(1);
-                dataClassTable.Rows[dataRoomTable.Rows.Count - 1].Cells[0].Value = group.Name;
-                dataClassTable.Rows[dataRoomTable.Rows.Count - 1].Cells[1].Value = group.Label;
-                dataClassTable.Rows[dataRoomTable.Rows.Count - 1].Cells[2].Value = group.TotalStudents;
-                dataClassTable.Rows[dataRoomTable.Rows.Count - 1].Cells[3].Value = " ";
-                dataClassTable.Rows[dataRoomTable.Rows.Count - 1].Cells[3].Style.BackColor = group.Colour;
+                dataClassTable.Rows[DataCollection.Instance.Groups.IndexOf(group)].Cells[0].Value = group.Name;
+                dataClassTable.Rows[DataCollection.Instance.Groups.IndexOf(group)].Cells[1].Value = group.Label;
+                dataClassTable.Rows[DataCollection.Instance.Groups.IndexOf(group)].Cells[2].Value = group.TotalStudents;
+                dataClassTable.Rows[DataCollection.Instance.Groups.IndexOf(group)].Cells[3].Value = " ";
+                dataClassTable.Rows[DataCollection.Instance.Groups.IndexOf(group)].Cells[3].Style.BackColor = group.Colour;
             }
-
-
         }
 
         /// <summary>

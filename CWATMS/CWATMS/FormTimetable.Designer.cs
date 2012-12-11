@@ -52,6 +52,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.tlsView = new System.Windows.Forms.ToolStrip();
             this.btnGroup = new System.Windows.Forms.ToolStripButton();
             this.btnRoom = new System.Windows.Forms.ToolStripButton();
@@ -59,7 +60,6 @@
             this.btnLecturer = new System.Windows.Forms.ToolStripButton();
             this.lblViewBy = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.label13 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -360,6 +360,17 @@
             this.label12.Text = "19:00";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Location = new System.Drawing.Point(893, 2);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(76, 39);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "20:00";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // tlsView
             // 
             this.tlsView.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -425,24 +436,13 @@
             // lblViewBy
             // 
             this.lblViewBy.Name = "lblViewBy";
-            this.lblViewBy.Size = new System.Drawing.Size(51, 22);
-            this.lblViewBy.Text = ":View By";
+            this.lblViewBy.Size = new System.Drawing.Size(62, 22);
+            this.lblViewBy.Text = ":Colour By";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label13.Location = new System.Drawing.Point(893, 2);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(76, 39);
-            this.label13.TabIndex = 1;
-            this.label13.Text = "20:00";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormTimetable
             // 
